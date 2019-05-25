@@ -1,23 +1,22 @@
 {
-  "name": "dancoffeemen",
-  "version": "1.0.0",
-  "description": "",
-  "main": "../../finalproject/dancoffeemen/server.js",
-  "scripts": {
-    "start": "node ../../finalproject/dancoffeemen/server.js",
-    "server": "../../finalproject/dancoffeemen/node_modules/.bin/nodemon server.js",
-    "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "config": "^3.1.0",
-    "express": "^4.17.0",
-    "mongoose": "^5.5.9"
-  },
-  "devDependencies": {
-    "concurrently": "^4.1.0",
-    "nodemon": "^1.19.0"
-  }
+    "name": "dancoffeemen",
+    "version": "1.0.0",
+    "description": "",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server",
+        "server": "nodemon server",
+        "client": "npm start --prefix client",
+        "dev": "concurrently \"npm run server\" \"npm run client\""
+    },
+    "author": "T2MRZ",
+    "license": "ISC",
+    "dependencies": {
+        "config": "^3.1.0",
+        "express": "^4.17.0",
+        "mongoose": "^5.5.9"
+    },
+    "devDependencies": {
+        "nodemon": "^1.19.0"
+    }
 }
