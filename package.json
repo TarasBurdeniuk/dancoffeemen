@@ -2,14 +2,14 @@
     "name": "dancoffeemen",
     "version": "1.0.0",
     "description": "",
-    "main": "../../finalproject/dancoffeemen/server.js",
+    "main": "server.js",
     "scripts": {
-        "start": "node ../../finalproject/dancoffeemen/server.js",
-        "server": "../../finalproject/dancoffeemen/node_modules/.bin/nodemon server.js",
+        "start": "node server",
+        "server": "nodemon server",
         "client": "npm start --prefix client",
         "dev": "concurrently \"npm run server\" \"npm run client\""
     },
-    "author": "",
+    "author": "T2MRZ",
     "license": "ISC",
     "dependencies": {
         "config": "^3.1.0",
