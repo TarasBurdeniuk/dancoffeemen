@@ -1,0 +1,7 @@
+node_modules/*
+public/*
+build/*
+config/*
+client/node_modules*
+client/public*
+client/build/*
