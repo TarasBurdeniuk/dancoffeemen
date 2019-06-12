@@ -1,7 +1,6 @@
 node_modules/*
-public/*
-build/*
 config/*
+server.js
 client/node_modules*
 client/public*
 client/build/*

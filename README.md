@@ -14,3 +14,15 @@ Runs the app without `NODEMON`.
 ### `npm start --prefix client`
 
 Runs the app in client side
+
+### `npm run dev`
+
+Runs app client and server
+
+### `npm run lint`
+
+Runs ESLint, linting utility
+
+### `npm run check-staged`
+
+Check code before commit

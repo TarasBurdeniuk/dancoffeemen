@@ -1,9 +1,6 @@
 node_modules/*
-public/*
-build/*
 config/*
+server.js
 client/node_modules*
-client/package.json
-client/package-lock.json
 client/public*
 client/build/*
