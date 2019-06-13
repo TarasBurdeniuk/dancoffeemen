@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const config = require('config');
+
 const db = config.get('mongoURI');
 
 const connectDB = async () => {
@@ -10,8 +11,10 @@ const connectDB = async () => {
 			useFindAndModify: false,
 		});
 
+		// eslint-disable-next-line no-console
 		console.log('MongoDB Connected...');
 	} catch (err) {
+		// eslint-disable-next-line no-console
 		console.error(err.message);
 		// Exit process with failure
 		process.exit(1);
