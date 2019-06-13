@@ -3,17 +3,18 @@ import ProductDetails from './ProductDetails';
 
 class ProductDetailsContainer extends Component {
 	state = {
-		value: 1,
-		size: ''
+		quantity: 1,
+		size: '',
+		availability: true
 	};
 
 	increment = () => {
-		this.setState({value: this.state.value + 1})
+		this.setState({quantity: this.state.quantity + 1})
 	};
 
 	decrement = () => {
-		if (this.state.value > 1) {
-			this.setState({value: this.state.value - 1})
+		if (this.state.quantity > 1) {
+			this.setState({quantity: this.state.quantity - 1})
 		}
 	};
 
@@ -23,7 +24,7 @@ class ProductDetailsContainer extends Component {
 	};
 
 	render() {
-		const { value, size } = this.state;
+		const { quantity, size, availability } = this.state;
 
 		console.log(this.state);
 
@@ -32,8 +33,9 @@ class ProductDetailsContainer extends Component {
 				increment={this.increment}
 				decrement={this.decrement}
 				handleChangeSize={this.handleChangeSize}
-				value={value}
+				quantity={quantity}
 				size={size}
+				availability={availability}
 			/>
 		);
 	}

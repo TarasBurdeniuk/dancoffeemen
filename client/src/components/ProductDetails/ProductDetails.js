@@ -8,6 +8,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles({
 	container: {
@@ -18,7 +19,7 @@ const useStyles = makeStyles({
 	},
 	formControl: {
 		minWidth: 120,
-		marginBottom: '1rem'
+		margin: '1rem 0'
 	},
 	size: {
 		display: 'block'
@@ -52,11 +53,22 @@ const useStyles = makeStyles({
 			background: '#e3e3e3',
 			color: '#636363'
 		}
+	},
+	button: {
+		width: '11rem',
+		margin: '1.5rem .2rem'
 	}
 });
 
 const ProductDetails = (props) => {
-	const { increment, decrement, value, handleChangeSize, size } = props;
+	const {
+		quantity,
+		size,
+		availability,
+		increment,
+		decrement,
+		handleChangeSize
+	} = props;
 
 	const classes = useStyles();
 
@@ -110,7 +122,7 @@ const ProductDetails = (props) => {
 					<Typography variant="h6" gutterBottom>
 						Availability:&nbsp;
 						<Typography className={classes.availability}>
-							In Stock
+							{availability ? 'In Stock' : 'Not available'}
 						</Typography>
 					</Typography>
 					<div>
@@ -121,7 +133,7 @@ const ProductDetails = (props) => {
 							<input
 								className={classes.quantityInput}
 								type="text"
-								value={value}
+								value={quantity}
 								disabled
 							/>
 							<button className={classes.quantityChange} onClick={increment}>
@@ -129,9 +141,9 @@ const ProductDetails = (props) => {
 							</button>
 						</div>
 					</div>
-					<Typography variant="subtitle1" gutterBottom>
-						Add to cart
-					</Typography>
+					<Button variant="contained" className={classes.button}>
+						Buy
+					</Button>
 				</Grid>
 			</Grid>
 			<Grid item xs={12}>
