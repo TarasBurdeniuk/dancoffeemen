@@ -1,7 +1,7 @@
 const express = require('express');
 
 const router = express.Router();
-const bcrypt = require('bcryptjs');
+const bCrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const { check, validationResult } = require('express-validator/check');
@@ -18,6 +18,7 @@ router.post(
 			.isEmpty(),
 		check('email', 'Please include a valid email').isEmail(),
 		check('password', 'Please enter a password with 6 or more character').isLength({ min: 6 }),
+		check('phone', 'Please enter a phone with 10 character ').isLength({ min: 10 }),
 	],
 	// eslint-disable-next-line consistent-return
 	async (req, res) => {
@@ -26,7 +27,7 @@ router.post(
 			return res.status(400).json({ errors: errors.array() });
 		}
 
-		const { name, email, password } = req.body;
+		const { name, email, password, phone } = req.body;
 
 		try {
 			// See if user exists
@@ -39,12 +40,13 @@ router.post(
 				name,
 				email,
 				password,
+				phone,
 			});
 
 			// Encrypt password
-			const salt = await bcrypt.genSalt(10);
+			const salt = await bCrypt.genSalt(10);
 
-			user.password = await bcrypt.hash(password, salt);
+			user.password = await bCrypt.hash(password, salt);
 
 			await user.save();
 
