@@ -1,4 +1,5 @@
 import React from 'react';
+import StarsRate from './StarsRate';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
@@ -13,6 +14,9 @@ import Button from '@material-ui/core/Button';
 const useStyles = makeStyles({
 	container: {
 		marginTop: '2rem'
+	},
+	price: {
+		margin: '1rem 0'
 	},
 	availability: {
 		display: 'inline-block'
@@ -100,10 +104,8 @@ const ProductDetails = (props) => {
 					<Typography variant="h4" component="h2" gutterBottom>
 						Lavazza Pienaroma
 					</Typography>
-					<Typography variant="subtitle1" gutterBottom>
-						Rate
-					</Typography>
-					<Typography variant="h5" gutterBottom>
+					<StarsRate />
+					<Typography className={classes.price} variant="h5" gutterBottom>
 						$18
 					</Typography>
 					<Typography variant="subtitle2" gutterBottom>
