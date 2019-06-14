@@ -1,4 +1,5 @@
 import React from 'react';
+import ProductImages from './ProductImages';
 import StarsRate from './StarsRate';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -97,10 +98,7 @@ const ProductDetails = (props) => {
 		<Container className={classes.container} maxWidth="md">
 			<Grid container spacing={3}>
 				<Grid item xs={12} md={5}>
-					<img
-						src={require('./temporaryPictures/coffee-package-1.jpg')}
-						alt="coffee-package"
-					/>
+					<ProductImages />
 				</Grid>
 				<Grid item xs={12} md={7}>
 					<Typography variant="h4" component="h2" gutterBottom>
