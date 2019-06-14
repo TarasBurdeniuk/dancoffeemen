@@ -78,9 +78,11 @@ const ProductDetails = (props) => {
 		quantity,
 		size,
 		availability,
+		starsRate,
 		increment,
 		decrement,
-		handleChangeSize
+		handleChangeSize,
+		handleChangeRate
 	} = props;
 
 	const classes = useStyles();
@@ -104,7 +106,10 @@ const ProductDetails = (props) => {
 					<Typography variant="h4" component="h2" gutterBottom>
 						Lavazza Pienaroma
 					</Typography>
-					<StarsRate />
+					<StarsRate
+						starsRate={starsRate}
+						handleChangeRate={handleChangeRate}
+					/>
 					<Typography className={classes.price} variant="h5" gutterBottom>
 						$18
 					</Typography>
