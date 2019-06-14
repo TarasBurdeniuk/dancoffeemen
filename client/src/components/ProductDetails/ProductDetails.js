@@ -27,7 +27,7 @@ const useStyles = makeStyles({
 	quantity: {
 		display: 'inline-block',
 		marginTop: '1rem',
-		borderRadius: '3px',
+		borderRadius: '5px',
 		boxShadow: '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)'
 	},
 	quantityInput: {
@@ -54,9 +54,18 @@ const useStyles = makeStyles({
 			color: '#636363'
 		}
 	},
+	quantityDecrement: {
+		borderRadius: '5px 0 0 5px'
+	},
+	quantityIncrement: {
+		borderRadius: '0 5px 5px 0'
+	},
 	button: {
 		width: '11rem',
 		margin: '1.5rem .2rem'
+	},
+	description: {
+		marginTop: '3rem'
 	}
 });
 
@@ -94,10 +103,10 @@ const ProductDetails = (props) => {
 					<Typography variant="subtitle1" gutterBottom>
 						Rate
 					</Typography>
-					<Typography variant="h6" gutterBottom>
+					<Typography variant="h5" gutterBottom>
 						$18
 					</Typography>
-					<Typography variant="subtitle1" gutterBottom>
+					<Typography variant="subtitle2" gutterBottom>
 						Lorem ipsum dolor sit amet, consectetur adipisicing elit.
 						A adipisci atque consequatur consequuntur, corporis cupiditate
 						distinctio dolore enim fugit iusto labore laborum magni maiores
@@ -111,7 +120,13 @@ const ProductDetails = (props) => {
 							className={classes.size}
 							value={size}
 							onChange={handleChangeSize}
-							input={<OutlinedInput labelWidth={labelWidth} name="size" id="outlined-age-simple" />}
+							input={
+								<OutlinedInput
+									labelWidth={labelWidth}
+									name="size"
+									id="outlined-age-simple"
+								/>
+							}
 						>
 							<MenuItem value={100}>100g</MenuItem>
 							<MenuItem value={250}>250g</MenuItem>
@@ -127,7 +142,10 @@ const ProductDetails = (props) => {
 					</Typography>
 					<div>
 						<div className={classes.quantity}>
-							<button className={classes.quantityChange} onClick={decrement}>
+							<button
+								className={`${classes.quantityChange} ${classes.quantityDecrement}`}
+								onClick={decrement}
+							>
 								&mdash;
 							</button>
 							<input
@@ -136,7 +154,10 @@ const ProductDetails = (props) => {
 								value={quantity}
 								disabled
 							/>
-							<button className={classes.quantityChange} onClick={increment}>
+							<button
+								className={`${classes.quantityChange} ${classes.quantityIncrement}`}
+								onClick={increment}
+							>
 								&#xff0b;
 							</button>
 						</div>
@@ -147,7 +168,11 @@ const ProductDetails = (props) => {
 				</Grid>
 			</Grid>
 			<Grid item xs={12}>
-				<Typography variant="h5" component="h2" gutterBottom>
+				<Typography
+					className={classes.description}
+					variant="h5"
+					component="h2"
+				>
 					Description
 					<Typography>
 						Lorem ipsum dolor sit amet, consectetur adipisicing elit.
