@@ -26,12 +26,10 @@ const ProductSchema = new mongoose.Schema({
 		defaultCardImage: [
 			{
 				type: String,
-				required: false,
 			},
 		],
 		variablesImage: {
 			type: Object,
-			required: false,
 		},
 	},
 	specifications: {
@@ -54,19 +52,16 @@ const ProductSchema = new mongoose.Schema({
 		},
 	},
 	quantity: {
-		default: {
-			type: Number,
-			require: true,
-		},
+		type: Number,
+		require: true,
+		default: 1,
 		variablesQuantity: {
 			type: Object,
 		},
 	},
 	status: {
-		default: {
-			type: String,
-			require: true,
-		},
+		type: Boolean,
+		default: true,
 		variablesStatus: {
 			type: Object,
 		},

@@ -13,6 +13,7 @@ app.use(express.json({ extended: false }));
 // Define routes
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/auth', require('./routes/api/auth'));
+app.use('/api/admin', require('./routes/api/admin'));
 
 // Serve static assets in production
 if (process.env.NODE_ENV === 'production') {
@@ -26,5 +27,4 @@ if (process.env.NODE_ENV === 'production') {
 
 const PORT = process.env.PORT || 5000;
 
-// eslint-disable-next-line no-console
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
