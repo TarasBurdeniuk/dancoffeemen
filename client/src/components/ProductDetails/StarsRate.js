@@ -5,11 +5,17 @@ import Star from '@material-ui/icons/Star';
 const useStyles = makeStyles({
 	dark: {
 		fontSize: 24,
-		color: '#dfdfdf'
+		color: '#dfdfdf',
+		'&:hover': {
+			cursor: 'pointer'
+		}
 	},
 	lit: {
 		fontSize: 24,
-		color: '#ffe600'
+		color: '#ffe600',
+		'&:hover': {
+			cursor: 'pointer'
+		}
 	}
 });
 
