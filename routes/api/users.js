@@ -64,7 +64,6 @@ router.post(
 				res.json({ token });
 			});
 		} catch (e) {
-			// eslint-disable-next-line no-console
 			console.error(e);
 			res.status(500).send('Server error');
 		}
