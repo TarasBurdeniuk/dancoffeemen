@@ -16,4 +16,17 @@ router.get('/', async (req, res) => {
 	}
 });
 
+// Route   GET api/products/:id
+// Desc    get product by id
+
+router.get('/:id', async (req, res) => {
+	try {
+		const product = await Product.findOne({ _id: req.params.id });
+		res.json(product);
+	} catch (err) {
+		console.error(err.message);
+		res.status(500).send('Server Error');
+	}
+});
+
 module.exports = router;
