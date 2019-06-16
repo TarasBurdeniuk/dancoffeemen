@@ -52,16 +52,19 @@ const ProductSchema = new mongoose.Schema({
 		},
 	},
 	quantity: {
-		type: Number,
-		require: true,
-		default: 1,
+		default: {
+			type: Number,
+			require: true,
+		},
 		variablesQuantity: {
 			type: Object,
 		},
 	},
 	status: {
-		type: Boolean,
-		default: true,
+		default: {
+			type: Boolean,
+			require: true,
+		},
 		variablesStatus: {
 			type: Object,
 		},

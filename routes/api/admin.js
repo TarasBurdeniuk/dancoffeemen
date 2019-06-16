@@ -5,7 +5,7 @@ const { check, validationResult } = require('express-validator/check');
 const Product = require('../../models/Product');
 
 // Route   POST api/products
-// Desc    add products from admin panel
+// Desc    add or update products from admin panel
 
 router.post(
 	'/',
@@ -16,13 +16,19 @@ router.post(
 		check('productType', 'Product type is required')
 			.not()
 			.isEmpty(),
-		check('previewImage', 'Preview image is required')
+		check('image.previewImage', 'Preview image is required')
 			.not()
 			.isEmpty(),
-		check('previewSpecifications', 'Preview Specifications is required')
+		check('specifications.previewSpecifications', 'Preview Specifications is required')
 			.not()
 			.isEmpty(),
-		check('basePrice', 'Base Price is required')
+		check('price.basePrice', 'Base Price is required')
+			.not()
+			.isEmpty(),
+		check('quantity.default', 'Quantity is required')
+			.not()
+			.isEmpty(),
+		check('status.default', 'Status is required')
 			.not()
 			.isEmpty(),
 	],
@@ -33,23 +39,70 @@ router.post(
 		if (!errors.isEmpty()) {
 			return res.status(400).json({ errors: errors.array() });
 		}
+		const {
+			name,
+			productType,
+			productVariables,
+			image,
+			specifications,
+			price,
+			quantity,
+			status,
+			review,
+			id,
+		} = req.body;
+
+		const newProduct = {};
+		if (name) {
+			newProduct.name = name;
+		}
+		if (productType) {
+			newProduct.productType = productType;
+		}
+		if (productVariables) {
+			newProduct.productVariables = productVariables.split(',').map(item => item.trim());
+		}
+		if (image) {
+			newProduct.image = { ...image };
+		}
+		if (image.defaultCardImage) {
+			newProduct.image.defaultCardImage = image.defaultCardImage
+				.split(',')
+				.map(item => item.trim());
+		}
+		if (specifications) {
+			newProduct.specifications = { ...specifications };
+		}
+		if (price) {
+			newProduct.price = { ...price };
+		}
+		if (quantity) {
+			newProduct.quantity = { ...quantity };
+		}
+		if (status) {
+			newProduct.status = { ...status };
+		}
+		if (review) {
+			newProduct.review = [...review];
+		}
 		try {
-			const newProduct = new Product({
-				name: req.body.name,
-				productType: req.body.productType,
-				image: {
-					previewImage: req.body.previewImage,
-				},
-				specifications: {
-					previewSpecifications: req.body.previewSpecifications,
-				},
-				price: {
-					basePrice: req.body.basePrice,
-				},
-			});
+			let product = await Product.findOne({ _id: id });
 
-			const product = await newProduct.save();
+			// Checking if product exist
+			if (product) {
+				// Update product by id
+				product = await Product.findOneAndUpdate(
+					{ _id: id },
+					{ $set: newProduct },
+					{ new: true },
+				);
+				return res.json(product);
+			}
 
+			// Create new product
+			product = new Product(newProduct);
+
+			await product.save();
 			res.json(product);
 		} catch (err) {
 			console.error(err.message);
