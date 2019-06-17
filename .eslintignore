@@ -4,3 +4,4 @@ server.js
 client/node_modules*
 client/public*
 client/build/*
+*.jpg

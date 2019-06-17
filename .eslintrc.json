@@ -18,10 +18,12 @@
 				]
 			}
 		],
-		"prettier/prettier": "error",
+		"prettier/prettier": ["error", {
+			"endOfLine": "auto"
+		}],
 		"max-len": [
 			"error",
-			100
+			500
 		]
 	},
 	"env": {

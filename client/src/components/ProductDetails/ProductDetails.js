@@ -1,6 +1,4 @@
 import React from 'react';
-import ProductImages from './ProductImages';
-import StarsRate from './StarsRate';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
@@ -11,29 +9,32 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import PropTypes from 'prop-types';
+import ProductImages from './ProductImages';
+import StarsRate from './StarsRate';
 
 const useStyles = makeStyles({
 	container: {
-		marginTop: '2rem'
+		marginTop: '2rem',
 	},
 	price: {
-		margin: '1rem 0'
+		margin: '1rem 0',
 	},
 	availability: {
-		display: 'inline-block'
+		display: 'inline-block',
 	},
 	formControl: {
 		minWidth: 120,
-		margin: '1rem 0'
+		margin: '1rem 0',
 	},
 	size: {
-		display: 'block'
+		display: 'block',
 	},
 	quantity: {
 		display: 'inline-block',
 		marginTop: '1rem',
 		borderRadius: '5px',
-		boxShadow: '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)'
+		boxShadow: '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)',
 	},
 	quantityInput: {
 		width: '4rem',
@@ -41,7 +42,7 @@ const useStyles = makeStyles({
 		fontSize: '1.5rem',
 		textAlign: 'center',
 		border: 0,
-		background: '#fff'
+		background: '#fff',
 	},
 	quantityChange: {
 		width: '3rem',
@@ -56,34 +57,34 @@ const useStyles = makeStyles({
 		cursor: 'pointer',
 		'&:hover': {
 			background: '#e3e3e3',
-			color: '#636363'
-		}
+			color: '#636363',
+		},
 	},
 	quantityDecrement: {
-		borderRadius: '5px 0 0 5px'
+		borderRadius: '5px 0 0 5px',
 	},
 	quantityIncrement: {
-		borderRadius: '0 5px 5px 0'
+		borderRadius: '0 5px 5px 0',
 	},
 	button: {
 		width: '11rem',
-		margin: '1.5rem .2rem'
+		margin: '1.5rem .2rem',
 	},
 	description: {
-		marginTop: '3rem'
-	}
+		marginTop: '3rem',
+	},
 });
 
-const ProductDetails = (props) => {
+const ProductDetails = props => {
 	const {
 		quantity,
 		size,
 		availability,
 		starsRate,
-		increment,
-		decrement,
+		handleIncrement,
+		handleDecrement,
 		handleChangeSize,
-		handleChangeRate
+		handleChangeRate,
 	} = props;
 
 	const classes = useStyles();
@@ -104,18 +105,15 @@ const ProductDetails = (props) => {
 					<Typography variant="h4" component="h2" gutterBottom>
 						Lavazza Pienaroma
 					</Typography>
-					<StarsRate
-						starsRate={starsRate}
-						handleChangeRate={handleChangeRate}
-					/>
+					<StarsRate starsRate={starsRate} handleChangeRate={handleChangeRate} />
 					<Typography className={classes.price} variant="h5" gutterBottom>
 						$18
 					</Typography>
 					<Typography variant="subtitle2" gutterBottom>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-						A adipisci atque consequatur consequuntur, corporis cupiditate
-						distinctio dolore enim fugit iusto labore laborum magni maiores
-						molestiae, odit quisquam sapiente tempora. Impedit!
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. A adipisci atque
+						consequatur consequuntur, corporis cupiditate distinctio dolore enim fugit
+						iusto labore laborum magni maiores molestiae, odit quisquam sapiente
+						tempora. Impedit!
 					</Typography>
 					<FormControl variant="outlined" className={classes.formControl}>
 						<InputLabel ref={inputLabel} htmlFor="outlined-age-simple">
@@ -148,8 +146,9 @@ const ProductDetails = (props) => {
 					<div>
 						<div className={classes.quantity}>
 							<button
+								type="button"
 								className={`${classes.quantityChange} ${classes.quantityDecrement}`}
-								onClick={decrement}
+								onClick={handleDecrement}
 							>
 								&mdash;
 							</button>
@@ -160,8 +159,9 @@ const ProductDetails = (props) => {
 								disabled
 							/>
 							<button
+								type="button"
 								className={`${classes.quantityChange} ${classes.quantityIncrement}`}
-								onClick={increment}
+								onClick={handleIncrement}
 							>
 								&#xff0b;
 							</button>
@@ -173,26 +173,36 @@ const ProductDetails = (props) => {
 				</Grid>
 			</Grid>
 			<Grid item xs={12}>
-				<Typography
-					className={classes.description}
-					variant="h5"
-					component="h2"
-				>
+				<Typography className={classes.description} variant="h5" component="h2">
 					Description
 					<Typography>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-						Aperiam asperiores aspernatur autem consequuntur cupiditate,
-						delectus esse illum iste itaque maxime odio pariatur praesentium,
-						quae, quas quisquam soluta totam unde vitae!
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-						Accusantium assumenda distinctio ducimus excepturi ipsa iste
-						laborum magni maxime minima nisi odit officiis perspiciatis quis,
-						recusandae repudiandae, totam ullam, voluptas voluptatum!
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam asperiores
+						aspernatur autem consequuntur cupiditate, delectus esse illum iste itaque
+						maxime odio pariatur praesentium, quae, quas quisquam soluta totam unde
+						vitae! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
+						assumenda distinctio ducimus excepturi ipsa iste laborum magni maxime minima
+						nisi odit officiis perspiciatis quis, recusandae repudiandae, totam ullam,
+						voluptas voluptatum!
 					</Typography>
 				</Typography>
 			</Grid>
 		</Container>
 	);
+};
+
+ProductDetails.defaultProps = {
+	size: '',
+};
+
+ProductDetails.propTypes = {
+	quantity: PropTypes.number.isRequired,
+	size: PropTypes.string,
+	availability: PropTypes.bool.isRequired,
+	starsRate: PropTypes.number.isRequired,
+	handleIncrement: PropTypes.func.isRequired,
+	handleDecrement: PropTypes.func.isRequired,
+	handleChangeSize: PropTypes.func.isRequired,
+	handleChangeRate: PropTypes.func.isRequired,
 };
 
 export default ProductDetails;

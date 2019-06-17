@@ -1,67 +1,68 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Star from '@material-ui/icons/Star';
+import PropTypes from 'prop-types';
 
 const useStyles = makeStyles({
 	dark: {
 		fontSize: 24,
 		color: '#dfdfdf',
 		'&:hover': {
-			cursor: 'pointer'
-		}
+			cursor: 'pointer',
+		},
 	},
 	lit: {
 		fontSize: 24,
 		color: '#ffe600',
 		'&:hover': {
-			cursor: 'pointer'
-		}
-	}
+			cursor: 'pointer',
+		},
+	},
 });
 
-const StarsRate = (props) => {
+const StarsRate = props => {
 	const { starsRate, handleChangeRate } = props;
 
 	const classes = useStyles();
 
-	let starLightOne = "dark",
-		starLightTwo = "dark",
-		starLightThree = "dark",
-		starLightFour = "dark",
-		starLightFive = "dark";
+	let starLightOne = 'dark';
+	let starLightTwo = 'dark';
+	let starLightThree = 'dark';
+	let starLightFour = 'dark';
+	let starLightFive = 'dark';
 
 	switch (starsRate) {
 		case 1:
-			starLightOne = "lit";
+			starLightOne = 'lit';
 			break;
 		case 2:
-			starLightOne = "lit";
-			starLightTwo = "lit";
+			starLightOne = 'lit';
+			starLightTwo = 'lit';
 			break;
 		case 3:
-			starLightOne = "lit";
-			starLightTwo = "lit";
-			starLightThree = "lit";
+			starLightOne = 'lit';
+			starLightTwo = 'lit';
+			starLightThree = 'lit';
 			break;
 		case 4:
-			starLightOne = "lit";
-			starLightTwo = "lit";
-			starLightThree = "lit";
-			starLightFour = "lit";
+			starLightOne = 'lit';
+			starLightTwo = 'lit';
+			starLightThree = 'lit';
+			starLightFour = 'lit';
 			break;
 		case 5:
-			starLightOne = "lit";
-			starLightTwo = "lit";
-			starLightThree = "lit";
-			starLightFour = "lit";
-			starLightFive = "lit";
+			starLightOne = 'lit';
+			starLightTwo = 'lit';
+			starLightThree = 'lit';
+			starLightFour = 'lit';
+			starLightFive = 'lit';
 			break;
 		default:
-			starLightOne = "dark";
-			starLightTwo = "dark";
-			starLightThree = "dark";
-			starLightFour = "dark";
-			starLightFive = "dark";
+			starLightOne = 'dark';
+			starLightTwo = 'dark';
+			starLightThree = 'dark';
+			starLightFour = 'dark';
+			starLightFive = 'dark';
 	}
 
 	return (
@@ -73,6 +74,11 @@ const StarsRate = (props) => {
 			<Star className={classes[starLightFive]} onClick={() => handleChangeRate(5)} />
 		</div>
 	);
+};
+
+StarsRate.propTypes = {
+	starsRate: PropTypes.number.isRequired,
+	handleChangeRate: PropTypes.func.isRequired,
 };
 
 export default StarsRate;
