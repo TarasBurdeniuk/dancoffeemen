@@ -1,6 +1,6 @@
 const express = require('express');
-const connectDB = require('./config/db');
 const path = require('path');
+const connectDB = require('./config/db');
 
 const app = express();
 
@@ -9,6 +9,10 @@ connectDB();
 
 // Init Middleware
 app.use(express.json({ extended: false }));
+
+// Define routes
+app.use('/api/users', require('./routes/api/users'));
+app.use('/api/auth', require('./routes/api/auth'));
 
 // Serve static assets in production
 if (process.env.NODE_ENV === 'production') {
@@ -22,4 +26,5 @@ if (process.env.NODE_ENV === 'production') {
 
 const PORT = process.env.PORT || 5000;
 
+// eslint-disable-next-line no-console
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
