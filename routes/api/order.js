@@ -117,6 +117,9 @@ router.delete('/:id', async (req, res) => {
 		res.json(order);
 	} catch (err) {
 		console.error(err.message);
+		if (err.kind === 'ObjectId') {
+			return res.status(404).json({ msg: 'Order not found' });
+		}
 		res.status(500).send('Server error');
 	}
 });
@@ -124,9 +127,15 @@ router.delete('/:id', async (req, res) => {
 // Route   GET api/order
 // Desc    get all orders
 
+// eslint-disable-next-line consistent-return
 router.get('/', async (req, res) => {
 	try {
 		const orders = await Order.find();
+
+		if (!orders.length) {
+			return res.status(404).json({ msg: 'Orders not found' });
+		}
+
 		res.json(orders);
 	} catch (err) {
 		console.error(err.message);
