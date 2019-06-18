@@ -5,6 +5,7 @@ const { check, validationResult } = require('express-validator/check');
 const Order = require('../../models/Order');
 const Product = require('../../models/Product');
 const checkAuth = require('../../middleware/checkAuth');
+const auth = require('../../middleware/auth');
 
 // Route    POST api/order
 // Desc     create order
@@ -136,12 +137,12 @@ router.delete('/:id', async (req, res) => {
 });
 
 // Route   GET api/order
-// Desc    get all orders
+// Desc    get all orders by users
 
 // eslint-disable-next-line consistent-return
-router.get('/', async (req, res) => {
+router.get('/', auth, async (req, res) => {
 	try {
-		const orders = await Order.find();
+		const orders = await Order.find({ client: req.user.id });
 
 		if (!orders.length) {
 			return res.status(404).json({ msg: 'Orders not found' });
