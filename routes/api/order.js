@@ -4,6 +4,7 @@ const router = express.Router();
 const { check, validationResult } = require('express-validator/check');
 const Order = require('../../models/Order');
 const Product = require('../../models/Product');
+const checkAuth = require('../../middleware/checkAuth');
 
 // Route    POST api/order
 // Desc     create order
@@ -11,28 +12,33 @@ const Product = require('../../models/Product');
 router.post(
 	'/',
 	[
-		check('products', 'Product is required')
-			.not()
-			.isEmpty(),
-		check('totalPrice', 'Total price is required')
-			.not()
-			.isEmpty(),
-		check('shipping', 'Shipping is required')
-			.not()
-			.isEmpty(),
-		check('deliveryAddress.city', 'City is required')
-			.not()
-			.isEmpty(),
-		check('deliveryAddress.street', 'Street is required')
-			.not()
-			.isEmpty(),
-		check('deliveryAddress.homeNumber', 'Home Number is required')
-			.not()
-			.isEmpty(),
-		check('deliveryAddress.contactPhone', 'Contact Phone is required').isLength({ min: 10 }),
-		check('orderStatus', 'Order status is required')
-			.not()
-			.isEmpty(),
+		checkAuth,
+		[
+			check('products', 'Product is required')
+				.not()
+				.isEmpty(),
+			check('totalPrice', 'Total price is required')
+				.not()
+				.isEmpty(),
+			check('shipping', 'Shipping is required')
+				.not()
+				.isEmpty(),
+			check('deliveryAddress.city', 'City is required')
+				.not()
+				.isEmpty(),
+			check('deliveryAddress.street', 'Street is required')
+				.not()
+				.isEmpty(),
+			check('deliveryAddress.homeNumber', 'Home Number is required')
+				.not()
+				.isEmpty(),
+			check('deliveryAddress.contactPhone', 'Contact Phone is required').isLength({
+				min: 10,
+			}),
+			check('orderStatus', 'Order status is required')
+				.not()
+				.isEmpty(),
+		],
 	],
 	// eslint-disable-next-line consistent-return
 	async (req, res) => {
@@ -40,7 +46,8 @@ router.post(
 		if (!errors.isEmpty()) {
 			return res.status(400).json({ errors: errors.array() });
 		}
-		const { products, totalPrice, client, shipping, deliveryAddress, orderStatus } = req.body;
+		// eslint-disable-next-line prefer-const
+		let { products, totalPrice, shipping, client, deliveryAddress, orderStatus } = req.body;
 
 		const allIdProducts = products.map(item => item._id);
 
@@ -64,11 +71,15 @@ router.post(
 				return res.status(400).json({ msg: 'Price is invalid' });
 			}
 
+			if (req.user) {
+				client = req.user.id;
+			}
+
 			const newOrder = new Order({
 				products,
 				totalPrice,
-				client,
 				shipping,
+				client,
 				deliveryAddress,
 				orderStatus,
 			});
