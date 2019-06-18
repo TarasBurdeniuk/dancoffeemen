@@ -1,11 +1,8 @@
 import React from 'react';
+import ProductDetails from './components/ProductDetails';
 
-function App() {
-	return (
-		<div className="App">
-			<h1>DanCoffee</h1>
-		</div>
-	);
-}
+const App = () => {
+	return <ProductDetails />;
+};
 
 export default App;
