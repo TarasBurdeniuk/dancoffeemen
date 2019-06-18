@@ -39,24 +39,6 @@ const UserSchema = new mongoose.Schema({
 			},
 		},
 	],
-	orders: [
-		{
-			type: Schema.Types.ObjectId,
-			ref: 'Order',
-		},
-	],
-	review: [
-		{
-			type: Schema.Types.ObjectId,
-			ref: 'Review',
-		},
-	],
-	wishList: [
-		{
-			type: Schema.Types.ObjectId,
-			ref: 'Product',
-		},
-	],
 	registrationDate: {
 		type: Date,
 		default: Date.now,
