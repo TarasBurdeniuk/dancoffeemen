@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
@@ -89,19 +89,19 @@ const ProductDetails = props => {
 
 	const classes = useStyles();
 
-	const inputLabel = React.useRef(null);
-	const [labelWidth, setLabelWidth] = React.useState(0);
-	React.useEffect(() => {
+	const inputLabel = useRef(null);
+	const [labelWidth, setLabelWidth] = useState(0);
+	useEffect(() => {
 		setLabelWidth(inputLabel.current.offsetWidth);
 	}, []);
 
 	return (
 		<Container className={classes.container} maxWidth="md">
 			<Grid container spacing={3}>
-				<Grid item xs={12} md={5}>
+				<Grid item md={5} xs={12}>
 					<ProductImages />
 				</Grid>
-				<Grid item xs={12} md={7}>
+				<Grid item md={7} xs={12}>
 					<Typography variant="h4" component="h2" gutterBottom>
 						Lavazza Pienaroma
 					</Typography>
