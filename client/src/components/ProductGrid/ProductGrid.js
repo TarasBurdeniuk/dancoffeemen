@@ -4,6 +4,7 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import ProductPrice from './ProductPrice';
+import ProductBrands from './ProductBrands';
 
 const useStyles = makeStyles({
 	container: {
@@ -16,6 +17,9 @@ const useStyles = makeStyles({
 		backgroundColor: '#fcbec8',
 	},
 	title: {
+		margin: '2rem 0 1rem',
+		paddingBottom: '.5rem',
+		borderBottom: '1px solid #9F9F9F',
 		fontWeight: 'bold',
 	},
 	grid: {
@@ -36,6 +40,12 @@ const ProductGrid = () => {
 							PRICE
 						</Typography>
 						<ProductPrice />
+					</Grid>
+					<Grid item xs={12}>
+						<Typography variant="subtitle2" className={classes.title}>
+							BRAND
+						</Typography>
+						<ProductBrands />
 					</Grid>
 				</Grid>
 				<Grid item md={9} xs={12} className={classes.grid}>
