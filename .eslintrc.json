@@ -1,4 +1,9 @@
 {
+	"env": {
+		"es6": true,
+		"browser": true,
+		"node": true
+	},
 	"extends": [
 		"airbnb",
 		"prettier",
@@ -18,15 +23,18 @@
 				]
 			}
 		],
-		"prettier/prettier": ["error", {
-			"endOfLine": "auto"
-		}],
+		"prettier/prettier": [
+			"error",
+			{
+				"endOfLine": "auto"
+			}
+		],
 		"max-len": [
 			"error",
-			500
+			100,
+			{
+				"ignoreUrls": true
+			}
 		]
-	},
-	"env": {
-		"browser": true
 	}
 }
