@@ -70,8 +70,26 @@ const ProductSchema = new mongoose.Schema({
 	},
 	review: [
 		{
-			type: Schema.Types.ObjectId,
-			ref: 'Review',
+			description: {
+				type: String,
+			},
+			regard: {
+				type: Number,
+				required: true,
+				min: 1,
+				max: 10,
+			},
+			author: {
+				type: Schema.Types.ObjectId,
+				ref: 'User',
+			},
+			name: {
+				type: String,
+			},
+			date: {
+				type: Date,
+				default: Date.now,
+			},
 		},
 	],
 });

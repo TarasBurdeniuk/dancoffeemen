@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator/check');
 const Product = require('../../models/Product');
-const Reviews = require('../../models/Reviews');
+const User = require('../../models/User');
 const auth = require('../../middleware/auth');
 
 // Route   GET api/products
@@ -55,12 +55,12 @@ router.delete('/:id', async (req, res) => {
 	}
 });
 
-// Route    POST api/products/:id
+// Route    POST api/products/review/:id
 // Desc     create review for product by user
 // Access   private
 
 router.post(
-	'/:id',
+	'/review/:id',
 	[
 		auth,
 		[
@@ -77,16 +77,20 @@ router.post(
 			return res.status(400).json({ errors: errors.array() });
 		}
 
-		const newReview = {
-			regard: req.body.regard,
-			author: req.user.id,
-			product: req.params.id,
-		};
-
 		try {
-			const review = await Reviews(newReview);
-			await review.save();
-			res.json(review);
+			const user = await User.findById(req.user.id);
+			const product = await Product.findById(req.params.id);
+			const newReview = {
+				description: req.body.description,
+				regard: req.body.regard,
+				author: req.user.id,
+				name: user.name,
+			};
+
+			product.review.unshift(newReview);
+
+			await product.save();
+			res.json(product.review);
 		} catch (err) {
 			console.error(err.message);
 			res.status(500).send('Server error');
