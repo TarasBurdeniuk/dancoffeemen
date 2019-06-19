@@ -17,14 +17,15 @@ const ReviewsSchema = new mongoose.Schema({
 	author: {
 		type: Schema.Types.ObjectId,
 		ref: 'User',
-		required: true,
 	},
 	product: {
 		type: Schema.Types.ObjectId,
 		ref: 'Product',
-		required: true,
 	},
-	date: Date.now(),
+	date: {
+		type: Date,
+		default: Date.now,
+	},
 });
 
 module.exports = mongoose.model('reviews', ReviewsSchema);
