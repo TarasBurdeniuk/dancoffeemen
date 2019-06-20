@@ -5,16 +5,16 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import ProductPrice from './ProductPrice';
 import ProductBrands from './ProductBrands';
+import ProductSize from './ProductSize';
 
 const useStyles = makeStyles({
 	container: {
 		height: '100vh',
 		marginTop: '2rem',
-		backgroundColor: '#cfe8fc',
+		// backgroundColor: '#cfe8fc',
 	},
 	sidebar: {
-		height: '100vh',
-		backgroundColor: '#fcbec8',
+		// backgroundColor: '#fcbec8',
 	},
 	title: {
 		margin: '2rem 0 1rem',
@@ -46,6 +46,12 @@ const ProductGrid = () => {
 							BRAND
 						</Typography>
 						<ProductBrands />
+					</Grid>
+					<Grid item xs={12}>
+						<Typography variant="subtitle2" className={classes.title}>
+							SIZE
+						</Typography>
+						<ProductSize />
 					</Grid>
 				</Grid>
 				<Grid item md={9} xs={12} className={classes.grid}>

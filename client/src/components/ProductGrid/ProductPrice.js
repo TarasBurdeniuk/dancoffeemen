@@ -11,17 +11,22 @@ const useStyles = makeStyles({
 
 const ProductPrice = () => {
 	const classes = useStyles();
-	const [value, setValue] = useState([15, 55]);
+	const [price, setPrice] = useState([15, 55]);
 
-	const handleChange = (event, newValue) => {
-		setValue(newValue);
+	const handleChangePrice = (event, newPrice) => {
+		setPrice(newPrice);
 	};
 
 	return (
 		<Fragment>
-			<Slider value={value} min={10} onChange={handleChange} aria-labelledby="range-slider" />
+			<Slider
+				value={price}
+				min={10}
+				onChange={handleChangePrice}
+				aria-labelledby="range-slider"
+			/>
 			<Typography variant="subtitle2" className={classes.price}>
-				Price: ${value[0]} - ${value[1]}
+				Price: ${price[0]} - ${price[1]}
 			</Typography>
 		</Fragment>
 	);
