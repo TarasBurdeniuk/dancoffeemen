@@ -7,6 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { validateEmail } from '../../utills/validateFields';
 
 const useStyles = makeStyles(theme => ({
 	'@global': {
@@ -34,6 +35,9 @@ const useStyles = makeStyles(theme => ({
 	container: {
 		minHeight: 'calc(100vh - 213px)',
 	},
+	error: {
+		color: 'red',
+	},
 }));
 
 const SignIn = () => {
@@ -44,6 +48,12 @@ const SignIn = () => {
 		password: '',
 	});
 
+	const [errorData, setErrorData] = useState({
+		errorPassword: '',
+		errorEmail: '',
+		checkFields: '',
+	});
+
 	const { email, password } = formData;
 
 	const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -51,8 +61,9 @@ const SignIn = () => {
 	const onSubmit = async e => {
 		e.preventDefault();
 		if (!email || !password) {
-			// instead console must be error modal window todo
-			return console.error('Enter email or password');
+			if (!password || !email) {
+				setErrorData({ checkFields: 'All fields must be filled in' });
+			}
 		}
 		// instead console must be function to fetch todo
 		console.log({ email, password });
@@ -76,8 +87,11 @@ const SignIn = () => {
 						name="email"
 						value={email}
 						onChange={e => onChange(e)}
-						autoFocus
+						onBlur={e => setErrorData({ errorEmail: validateEmail(e.target.value) })}
 					/>
+					{errorData.errorEmail && (
+						<div className={classes.error}>{errorData.errorEmail}</div>
+					)}
 					<TextField
 						variant="outlined"
 						margin="normal"
@@ -99,6 +113,9 @@ const SignIn = () => {
 					>
 						Sign In
 					</Button>
+					{errorData.checkFields && (
+						<div className={classes.error}>{errorData.checkFields}</div>
+					)}
 					<Grid container justify="flex-end">
 						<Grid item>
 							<Link to="/register" variant="body2">

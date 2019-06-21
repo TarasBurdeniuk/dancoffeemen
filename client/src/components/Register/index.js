@@ -7,6 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { validateName, validateEmail, validatePhone } from '../../utills/validateFields';
 
 const useStyles = makeStyles(theme => ({
 	'@global': {
@@ -30,10 +31,21 @@ const useStyles = makeStyles(theme => ({
 	container: {
 		minHeight: 'calc(100vh - 213px)',
 	},
+	error: {
+		color: 'red',
+	},
 }));
 
 const SignUp = () => {
 	const classes = useStyles();
+
+	const [errorData, setErrorData] = useState({
+		errorName: '',
+		errorEmail: '',
+		errorPhone: '',
+		errorPassword: '',
+		checkFields: '',
+	});
 
 	const [formData, setFormData] = useState({
 		name: '',
@@ -47,11 +59,14 @@ const SignUp = () => {
 
 	const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-	const onSubmit = async e => {
+	const checkPassword = (pas1, pas2) => {
+		return pas1 !== pas2 ? 'Check password' : '';
+	};
+
+	const onSubmit = e => {
 		e.preventDefault();
-		if (password !== password2 || !name || !email || !phone) {
-			// instead console must be error modal window todo
-			console.error('All fields must be filled in');
+		if (!password || !password2 || !name || !email || !phone) {
+			setErrorData({ checkFields: 'All fields must be filled in' });
 		} else {
 			// instead console must be function to fetch todo
 			console.log({ name, phone, email, password });
@@ -76,20 +91,32 @@ const SignUp = () => {
 								name="name"
 								value={name}
 								onChange={e => onChange(e)}
-								autoFocus
+								onBlur={e =>
+									setErrorData({ errorName: validateName(e.target.value) })
+								}
 							/>
+							{errorData.errorName && (
+								<div className={classes.error}>{errorData.errorName}</div>
+							)}
 						</Grid>
 						<Grid item xs={12}>
 							<TextField
 								variant="outlined"
 								required
+								type="email"
 								fullWidth
 								id="email"
 								label="Email Address"
 								name="email"
 								value={email}
 								onChange={e => onChange(e)}
+								onBlur={e =>
+									setErrorData({ errorEmail: validateEmail(e.target.value) })
+								}
 							/>
+							{errorData.errorEmail && (
+								<div className={classes.error}>{errorData.errorEmail}</div>
+							)}
 						</Grid>
 						<Grid item xs={12}>
 							<TextField
@@ -99,10 +126,16 @@ const SignUp = () => {
 								id="phone"
 								label="Phone"
 								name="phone"
+								placeholder="096 123 45 67"
 								value={phone}
-								minLength="10"
 								onChange={e => onChange(e)}
+								onBlur={e =>
+									setErrorData({ errorPhone: validatePhone(e.target.value) })
+								}
 							/>
+							{errorData.errorPhone && (
+								<div className={classes.error}>{errorData.errorPhone}</div>
+							)}
 						</Grid>
 						<Grid item xs={12}>
 							<TextField
@@ -126,7 +159,15 @@ const SignUp = () => {
 								type="password"
 								value={password2}
 								onChange={e => onChange(e)}
+								onBlur={e =>
+									setErrorData({
+										errorPassword: checkPassword(password, e.target.value),
+									})
+								}
 							/>
+							{errorData.errorPassword && (
+								<div className={classes.error}>{errorData.errorPassword}</div>
+							)}
 						</Grid>
 					</Grid>
 					<Button
@@ -138,6 +179,9 @@ const SignUp = () => {
 					>
 						Sign Up
 					</Button>
+					{errorData.checkFields && (
+						<div className={classes.error}>{errorData.checkFields}</div>
+					)}
 					<Grid container justify="flex-end">
 						<Grid item>
 							<Link to="/login" variant="body2">
