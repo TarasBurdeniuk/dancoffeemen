@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { PropTypes } from 'prop-types';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -7,6 +9,8 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { validateEmail } from '../../utills/validateFields';
+import { login } from '../../actions/auth';
 
 const useStyles = makeStyles(theme => ({
 	'@global': {
@@ -34,9 +38,12 @@ const useStyles = makeStyles(theme => ({
 	container: {
 		minHeight: 'calc(100vh - 213px)',
 	},
+	error: {
+		color: 'red',
+	},
 }));
 
-const SignIn = () => {
+const SignIn = ({ login, isAuthenticated }) => {
 	const classes = useStyles();
 
 	const [formData, setFormData] = useState({
@@ -44,19 +51,27 @@ const SignIn = () => {
 		password: '',
 	});
 
+	const [errorData, setErrorData] = useState({
+		errorPassword: '',
+		errorEmail: '',
+		checkFields: '',
+	});
+
 	const { email, password } = formData;
 
 	const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-	const onSubmit = async e => {
+	const onSubmit = e => {
 		e.preventDefault();
-		if (!email || !password) {
-			// instead console must be error modal window todo
-			return console.error('Enter email or password');
+		if (!password || !email) {
+			setErrorData({ checkFields: 'All fields must be filled in' });
 		}
-		// instead console must be function to fetch todo
-		console.log({ email, password });
+		login(email, password);
 	};
+
+	if (isAuthenticated) {
+		return <Redirect to="/" />;
+	}
 
 	return (
 		<Container className={classes.container} component="main" maxWidth="xs">
@@ -65,7 +80,7 @@ const SignIn = () => {
 				<Typography component="h1" variant="h5">
 					Sign in
 				</Typography>
-				<form className={classes.form} noValidate onSubmit={e => onSubmit(e)}>
+				<form className={classes.form} onSubmit={e => onSubmit(e)}>
 					<TextField
 						variant="outlined"
 						margin="normal"
@@ -76,8 +91,11 @@ const SignIn = () => {
 						name="email"
 						value={email}
 						onChange={e => onChange(e)}
-						autoFocus
+						onBlur={e => setErrorData({ errorEmail: validateEmail(e.target.value) })}
 					/>
+					{errorData.errorEmail && (
+						<div className={classes.error}>{errorData.errorEmail}</div>
+					)}
 					<TextField
 						variant="outlined"
 						margin="normal"
@@ -99,6 +117,9 @@ const SignIn = () => {
 					>
 						Sign In
 					</Button>
+					{errorData.checkFields && (
+						<div className={classes.error}>{errorData.checkFields}</div>
+					)}
 					<Grid container justify="flex-end">
 						<Grid item>
 							<Link to="/register" variant="body2">
@@ -112,4 +133,20 @@ const SignIn = () => {
 	);
 };
 
-export default SignIn;
+SignIn.propTypes = {
+	login: PropTypes.func.isRequired,
+	isAuthenticated: PropTypes.bool,
+};
+
+const mapStateToProps = state => ({
+	isAuthenticated: state.auth.isAuthenticated,
+});
+
+const mapDispatchToProps = {
+	login,
+};
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps,
+)(SignIn);
