@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { NavLink, Link } from 'react-router-dom';
-
+import { PropTypes } from 'prop-types';
+import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import { logout } from '../../actions/auth';
 
 const useStyles = makeStyles({
 	root: {
@@ -20,8 +22,29 @@ const useStyles = makeStyles({
 	},
 });
 
-const SimpleAppBar = () => {
+const SimpleAppBar = ({ auth: { isAuthenticated, loading }, logout }) => {
 	const classes = useStyles();
+
+	const authLinks = (
+		<Fragment>
+			<Button>
+				<Link to="/login" onClick={logout}>
+					Log Out
+				</Link>
+			</Button>
+		</Fragment>
+	);
+
+	const guestLinks = (
+		<Fragment>
+			<Button>
+				<Link to="/login">Log In</Link>
+			</Button>
+			<Button>
+				<Link to="/register">Register</Link>
+			</Button>
+		</Fragment>
+	);
 
 	return (
 		<div className={classes.root}>
@@ -44,12 +67,9 @@ const SimpleAppBar = () => {
 						</NavLink>
 					</nav>
 					<div>
-						<Button color="inherit">
-							<Link to="/login">Log In</Link>
-						</Button>
-						<Button color="inherit">
-							<Link to="/register">Register</Link>
-						</Button>
+						{!loading && (
+							<Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
+						)}
 					</div>
 				</Toolbar>
 			</AppBar>
@@ -57,4 +77,21 @@ const SimpleAppBar = () => {
 	);
 };
 
-export default SimpleAppBar;
+SimpleAppBar.propTypes = {
+	isAuthenticated: PropTypes.bool,
+	loading: PropTypes.bool,
+	logout: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({
+	auth: state.auth,
+});
+
+const mapDispatchToProps = {
+	logout,
+};
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps,
+)(SimpleAppBar);

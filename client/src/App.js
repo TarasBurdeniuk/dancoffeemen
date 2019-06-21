@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ProductDetails from './components/ProductDetails';
 import SimpleAppBar from './components/SimpleAppBar';
@@ -8,8 +8,19 @@ import About from './components/About';
 import Login from './components/Login';
 import Register from './components/Register';
 import './styles/index.css';
+import setAuthToken from './utills/setAuthToken';
+import store from './store';
+import { loadUser } from './actions/auth';
+
+if (localStorage.token) {
+	setAuthToken(localStorage.token);
+}
 
 const App = () => {
+	useEffect(() => {
+		store.dispatch(loadUser());
+	}, []);
+
 	return (
 		<Router>
 			<Fragment>

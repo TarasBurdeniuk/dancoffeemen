@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import { PropTypes } from 'prop-types';
+import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -7,7 +9,13 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { validateName, validateEmail, validatePhone } from '../../utills/validateFields';
+import {
+	validateName,
+	validateEmail,
+	validatePhone,
+	validatePassword,
+} from '../../utills/validateFields';
+import { register } from '../../actions/auth';
 
 const useStyles = makeStyles(theme => ({
 	'@global': {
@@ -36,7 +44,7 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-const SignUp = () => {
+const SignUp = ({ register, isAuthenticated }) => {
 	const classes = useStyles();
 
 	const [errorData, setErrorData] = useState({
@@ -68,10 +76,13 @@ const SignUp = () => {
 		if (!password || !password2 || !name || !email || !phone) {
 			setErrorData({ checkFields: 'All fields must be filled in' });
 		} else {
-			// instead console must be function to fetch todo
-			console.log({ name, phone, email, password });
+			register({ name, phone, email, password });
 		}
 	};
+
+	if (isAuthenticated) {
+		return <Redirect to="/" />;
+	}
 
 	return (
 		<Container className={classes.container} component="main" maxWidth="xs">
@@ -147,7 +158,15 @@ const SignUp = () => {
 								type="password"
 								value={password}
 								onChange={e => onChange(e)}
+								onBlur={e =>
+									setErrorData({
+										errorPassword: validatePassword(e.target.value),
+									})
+								}
 							/>
+							{errorData.errorPassword && (
+								<div className={classes.error}>{errorData.errorPassword}</div>
+							)}
 						</Grid>
 						<Grid item xs={12}>
 							<TextField
@@ -195,4 +214,20 @@ const SignUp = () => {
 	);
 };
 
-export default SignUp;
+SignUp.propTypes = {
+	register: PropTypes.func.isRequired,
+	isAuthenticated: PropTypes.bool,
+};
+
+const mapStateToProps = state => ({
+	isAuthenticated: state.auth.isAuthenticated,
+});
+
+const mapDispatchToProps = {
+	register,
+};
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps,
+)(SignUp);
