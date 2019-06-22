@@ -190,13 +190,9 @@ const ProductDetails = props => {
 	);
 };
 
-ProductDetails.defaultProps = {
-	size: '',
-};
-
 ProductDetails.propTypes = {
 	quantity: PropTypes.number.isRequired,
-	size: PropTypes.string,
+	size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 	availability: PropTypes.bool.isRequired,
 	starsRate: PropTypes.number.isRequired,
 	handleIncrement: PropTypes.func.isRequired,

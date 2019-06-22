@@ -6,15 +6,12 @@ import Typography from '@material-ui/core/Typography';
 import ProductPrice from './ProductPrice';
 import ProductBrands from './ProductBrands';
 import ProductSize from './ProductSize';
+import ProductList from './ProductList';
 
 const useStyles = makeStyles({
 	container: {
 		height: '100vh',
 		marginTop: '2rem',
-		// backgroundColor: '#cfe8fc',
-	},
-	sidebar: {
-		// backgroundColor: '#fcbec8',
 	},
 	title: {
 		margin: '2rem 0 1rem',
@@ -34,7 +31,7 @@ const ProductGrid = () => {
 	return (
 		<Container className={classes.container} maxWidth="lg">
 			<Grid container spacing={5}>
-				<Grid item md={3} xs={12} className={classes.sidebar}>
+				<Grid item md={3} xs={12}>
 					<Grid item xs={12}>
 						<Typography variant="subtitle2" className={classes.title}>
 							PRICE
@@ -56,6 +53,7 @@ const ProductGrid = () => {
 				</Grid>
 				<Grid item md={9} xs={12} className={classes.grid}>
 					Product Grid
+					<ProductList />
 				</Grid>
 			</Grid>
 		</Container>
