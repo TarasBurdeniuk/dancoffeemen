@@ -6,7 +6,6 @@ const ProductSchema = new mongoose.Schema({
 	name: {
 		type: String,
 		required: true,
-		unique: true,
 		minlength: 6,
 	},
 	productType: {
@@ -26,12 +25,10 @@ const ProductSchema = new mongoose.Schema({
 		defaultCardImage: [
 			{
 				type: String,
-				required: false,
 			},
 		],
 		variablesImage: {
 			type: Object,
-			required: false,
 		},
 	},
 	specifications: {
@@ -64,7 +61,7 @@ const ProductSchema = new mongoose.Schema({
 	},
 	status: {
 		default: {
-			type: String,
+			type: Boolean,
 			require: true,
 		},
 		variablesStatus: {
@@ -73,10 +70,28 @@ const ProductSchema = new mongoose.Schema({
 	},
 	review: [
 		{
-			type: Schema.Types.ObjectId,
-			ref: 'Review',
+			description: {
+				type: String,
+			},
+			regard: {
+				type: Number,
+				required: true,
+				min: 1,
+				max: 10,
+			},
+			author: {
+				type: Schema.Types.ObjectId,
+				ref: 'User',
+			},
+			name: {
+				type: String,
+			},
+			date: {
+				type: Date,
+				default: Date.now,
+			},
 		},
 	],
 });
 
-module.exports = mongoose.model('product', ProductSchema);
+module.exports = mongoose.model('products', ProductSchema);

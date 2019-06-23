@@ -1,20 +1,42 @@
-import React, { Fragment } from 'react';
-import { NavLink, Route } from 'react-router-dom';
+import React, { useEffect, Fragment } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ProductDetails from './components/ProductDetails';
 import ProductGrid from './components/ProductGrid';
+import SimpleAppBar from './components/SimpleAppBar';
+import Footer from './components/Footer';
+import MainPage from './components/MainPage';
+import About from './components/About';
+import Login from './components/Login';
+import Register from './components/Register';
+import './styles/index.css';
+import setAuthToken from './utills/setAuthToken';
+import store from './store';
+import { loadUser } from './actions/auth';
+
+if (localStorage.token) {
+	setAuthToken(localStorage.token);
+}
 
 const App = () => {
+	useEffect(() => {
+		store.dispatch(loadUser());
+	}, []);
+
 	return (
-		<Fragment>
-			<NavLink to="/product-details">1. ProductDetails Component</NavLink>
-			<br />
-			<NavLink to="/product-grid">2. ProductGrid Component</NavLink>
-			<hr />
-			<div>
-				<Route path="/product-details" component={ProductDetails} />
-				<Route path="/product-grid" component={ProductGrid} />
-			</div>
-		</Fragment>
+		<Router>
+			<Fragment>
+				<SimpleAppBar />
+				<Switch>
+					<Route exact path="/" component={MainPage} />
+					<Route exact path="/product-details" component={ProductDetails} />
+					<Route exact path="/product-grid" component={ProductGrid} />
+					<Route exact path="/about" component={About} />
+					<Route exact path="/login" component={Login} />
+					<Route exact path="/register" component={Register} />
+				</Switch>
+				<Footer />
+			</Fragment>
+		</Router>
 	);
 };
 

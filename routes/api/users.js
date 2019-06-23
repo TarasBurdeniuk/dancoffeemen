@@ -8,7 +8,7 @@ const { check, validationResult } = require('express-validator/check');
 const Users = require('../../models/User');
 
 // Route     post api/users
-// Register  user
+// Desc      Register  user
 
 router.post(
 	'/',
@@ -64,7 +64,6 @@ router.post(
 				res.json({ token });
 			});
 		} catch (e) {
-			// eslint-disable-next-line no-console
 			console.error(e);
 			res.status(500).send('Server error');
 		}

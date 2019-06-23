@@ -52,7 +52,6 @@ const ProductGrid = () => {
 					</Grid>
 				</Grid>
 				<Grid item md={9} xs={12} className={classes.grid}>
-					Product Grid
 					<ProductList />
 				</Grid>
 			</Grid>

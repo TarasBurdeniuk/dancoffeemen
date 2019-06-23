@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 const OrderSchema = new mongoose.Schema({
 	products: [
 		{
-			product: {
+			_id: {
 				type: Schema.Types.ObjectId,
 				ref: 'Product',
 				required: true,
@@ -24,11 +24,9 @@ const OrderSchema = new mongoose.Schema({
 	totalPrice: {
 		type: Number,
 		required: true,
-		min: 1,
 	},
 	client: {
 		type: Schema.Types.ObjectId,
-		required: true,
 		ref: 'User',
 	},
 	shipping: {
@@ -51,7 +49,6 @@ const OrderSchema = new mongoose.Schema({
 		},
 		apartments: {
 			type: String,
-			required: false,
 		},
 		contactPhone: {
 			type: String,
@@ -63,10 +60,8 @@ const OrderSchema = new mongoose.Schema({
 		default: Date.now,
 	},
 	orderStatus: {
-		default: {
-			type: String,
-			require: true,
-		},
+		type: String,
+		require: true,
 	},
 });
 
