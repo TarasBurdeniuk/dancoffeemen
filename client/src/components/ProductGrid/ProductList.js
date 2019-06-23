@@ -6,15 +6,12 @@ import Fab from '@material-ui/core/Fab';
 import { products } from './temporaryProducts/products';
 
 const useStyles = makeStyles({
-	root: {
-		flexGrow: 1,
-	},
 	paper: {
-		height: 140,
-		width: 100,
+		width: '100%',
+		height: 350,
 	},
 	number: {
-		marginRight: '.3rem',
+		margin: '1rem .3rem',
 	},
 });
 
@@ -24,22 +21,6 @@ const ProductList = () => {
 	const [productsFrom, setProductsFrom] = useState(1);
 	const [productsTo, setProductsTo] = useState(12);
 
-	const pagination = [];
-	for (let i = 1; i <= Math.ceil(products.length / 12); i++) {
-		pagination.push(i);
-	}
-
-	const list = products.map(product => {
-		if (product.id <= productsTo && product.id >= productsFrom) {
-			return (
-				<Grid key={product.id} item>
-					<Paper className={classes.paper}>{product.id}</Paper>
-				</Grid>
-			);
-		}
-		return null;
-	});
-
 	const handleChangePage = event => {
 		let numFrom = event.target.innerText * 12 - 11;
 		let numTo = event.target.innerText * 12;
@@ -48,12 +29,28 @@ const ProductList = () => {
 		setProductsTo(numTo);
 	};
 
+	const pagination = [];
+	for (let i = 1; i <= Math.ceil(products.length / 12); i++) {
+		pagination.push(i);
+	}
+
+	const list = products.map(product => {
+		if (product.id <= productsTo && product.id >= productsFrom) {
+			return (
+				<Grid key={product.id} item xs={12} sm={6} md={4}>
+					<Paper className={classes.paper}>{product.id}</Paper>
+				</Grid>
+			);
+		}
+		return null;
+	});
+
 	const pages = pagination.map(page => {
 		return (
 			<Fab
 				key={page}
 				size="small"
-				color="primary"
+				color={page === Math.ceil(productsTo / 12) ? 'primary' : 'default'}
 				aria-label="Add"
 				className={classes.number}
 				onClick={handleChangePage}
@@ -64,9 +61,11 @@ const ProductList = () => {
 	});
 
 	return (
-		<Grid container justify="center">
+		<Grid container justify="center" spacing={4}>
 			{list}
-			{pages}
+			<Grid container justify="center">
+				{pages}
+			</Grid>
 		</Grid>
 	);
 };

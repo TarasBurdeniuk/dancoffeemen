@@ -10,7 +10,6 @@ import ProductList from './ProductList';
 
 const useStyles = makeStyles({
 	container: {
-		height: '100vh',
 		marginTop: '2rem',
 	},
 	title: {
@@ -18,10 +17,6 @@ const useStyles = makeStyles({
 		paddingBottom: '.5rem',
 		borderBottom: '1px solid #9F9F9F',
 		fontWeight: 'bold',
-	},
-	grid: {
-		height: '100vh',
-		backgroundColor: '#d0fcbf',
 	},
 });
 
