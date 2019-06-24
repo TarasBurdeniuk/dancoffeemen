@@ -45,7 +45,7 @@ const ProductSize = () => {
 						<ListItemIcon>
 							<Checkbox
 								edge="start"
-								color="primary"
+								color="secondary"
 								checked={checked.indexOf(size.id) !== -1}
 								inputProps={{ 'aria-labelledby': labelId }}
 							/>

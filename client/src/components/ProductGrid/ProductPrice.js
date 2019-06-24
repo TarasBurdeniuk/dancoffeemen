@@ -7,6 +7,9 @@ const useStyles = makeStyles({
 	price: {
 		color: '#787878',
 	},
+	slider: {
+		color: '#f50057',
+	},
 });
 
 const ProductPrice = () => {
@@ -24,6 +27,7 @@ const ProductPrice = () => {
 				min={10}
 				onChange={handleChangePrice}
 				aria-labelledby="range-slider"
+				className={classes.slider}
 			/>
 			<Typography variant="subtitle2" className={classes.price}>
 				Price: ${price[0]} - ${price[1]}

@@ -53,7 +53,7 @@ const ProductBrands = () => {
 						<ListItemIcon>
 							<Checkbox
 								edge="start"
-								color="primary"
+								color="secondary"
 								checked={checked.indexOf(brand.id) !== -1}
 								inputProps={{ 'aria-labelledby': labelId }}
 							/>
