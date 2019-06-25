@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import image1 from './temporaryPictures/image1.jpg';
-import image2 from './temporaryPictures/image2.jpg';
-import image3 from './temporaryPictures/image3.jpg';
+import image1 from './temporaryImages/image1.jpg';
+import image2 from './temporaryImages/image2.jpg';
+import image3 from './temporaryImages/image3.jpg';
 
 const useStyles = makeStyles({
 	imageContainer: {
@@ -29,7 +29,7 @@ const useStyles = makeStyles({
 	},
 });
 
-const ProductImages = () => {
+const Images = () => {
 	const classes = useStyles();
 
 	const [image, setImage] = useState(image1);
@@ -58,4 +58,4 @@ const ProductImages = () => {
 	);
 };
 
-export default ProductImages;
+export default Images;
