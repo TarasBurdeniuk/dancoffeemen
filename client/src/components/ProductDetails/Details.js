@@ -3,14 +3,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import FormControl from '@material-ui/core/FormControl';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputLabel from '@material-ui/core/InputLabel';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
-import ProductImages from './ProductImages';
+import Images from './Images';
 import StarsRate from './StarsRate';
 
 const useStyles = makeStyles({
@@ -75,16 +75,14 @@ const useStyles = makeStyles({
 	},
 });
 
-const ProductDetails = props => {
+const Details = props => {
 	const {
 		quantity,
 		size,
 		availability,
-		starsRate,
 		handleIncrement,
 		handleDecrement,
 		handleChangeSize,
-		handleChangeRate,
 	} = props;
 
 	const classes = useStyles();
@@ -99,13 +97,13 @@ const ProductDetails = props => {
 		<Container className={classes.container} maxWidth="md">
 			<Grid container spacing={3}>
 				<Grid item md={5} xs={12}>
-					<ProductImages />
+					<Images />
 				</Grid>
 				<Grid item md={7} xs={12}>
 					<Typography variant="h4" component="h2" gutterBottom>
 						Lavazza Pienaroma
 					</Typography>
-					<StarsRate starsRate={starsRate} handleChangeRate={handleChangeRate} />
+					<StarsRate />
 					<Typography className={classes.price} variant="h5" gutterBottom>
 						$18
 					</Typography>
@@ -190,15 +188,13 @@ const ProductDetails = props => {
 	);
 };
 
-ProductDetails.propTypes = {
+Details.propTypes = {
 	quantity: PropTypes.number.isRequired,
 	size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 	availability: PropTypes.bool.isRequired,
-	starsRate: PropTypes.number.isRequired,
 	handleIncrement: PropTypes.func.isRequired,
 	handleDecrement: PropTypes.func.isRequired,
 	handleChangeSize: PropTypes.func.isRequired,
-	handleChangeRate: PropTypes.func.isRequired,
 };
 
-export default ProductDetails;
+export default Details;

@@ -12,7 +12,7 @@ const useStyles = makeStyles({
 	},
 });
 
-const ProductPrice = () => {
+const Price = () => {
 	const classes = useStyles();
 	const [price, setPrice] = useState([15, 55]);
 
@@ -36,4 +36,4 @@ const ProductPrice = () => {
 	);
 };
 
-export default ProductPrice;
+export default Price;

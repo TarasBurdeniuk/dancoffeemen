@@ -29,7 +29,7 @@ const useStyles = makeStyles({
 	},
 });
 
-const ProductImages = () => {
+const Images = () => {
 	const classes = useStyles();
 
 	const [image, setImage] = useState(image1);
@@ -58,4 +58,4 @@ const ProductImages = () => {
 	);
 };
 
-export default ProductImages;
+export default Images;

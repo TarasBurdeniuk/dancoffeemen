@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Star from '@material-ui/icons/Star';
-import PropTypes from 'prop-types';
 
 const useStyles = makeStyles({
 	dark: {
@@ -20,10 +19,14 @@ const useStyles = makeStyles({
 	},
 });
 
-const StarsRate = props => {
-	const { starsRate, handleChangeRate } = props;
-
+const StarsRate = () => {
 	const classes = useStyles();
+
+	const [starsRate, setStarsRate] = useState(3);
+
+	const handleChangeRate = num => {
+		setStarsRate(num);
+	};
 
 	let starLightOne = 'dark';
 	let starLightTwo = 'dark';
@@ -74,11 +77,6 @@ const StarsRate = props => {
 			<Star className={classes[starLightFive]} onClick={() => handleChangeRate(5)} />
 		</div>
 	);
-};
-
-StarsRate.propTypes = {
-	starsRate: PropTypes.number.isRequired,
-	handleChangeRate: PropTypes.func.isRequired,
 };
 
 export default StarsRate;

@@ -1,4 +1,4 @@
-export const products = [
+const products = [
 	{ src: 'temporaryImages/image1.jpg', id: 1 },
 	{ src: 'temporaryImages/image2.jpg', id: 2 },
 	{ src: 'temporaryImages/image3.jpg', id: 3 },
@@ -50,3 +50,5 @@ export const products = [
 	{ src: 'temporaryImages/image49.jpg', id: 49 },
 	{ src: 'temporaryImages/image50.jpg', id: 50 },
 ];
+
+export default products;
