@@ -55,6 +55,38 @@ const ProductsContainer = () => {
 		setProductsTo(numTo);
 	};
 
+	const handleChangeFirstPage = () => {
+		const numFrom = 1;
+		const numTo = numFrom + quantity - 1;
+		setProductsFrom(numFrom);
+		setProductsTo(numTo);
+	};
+
+	const handleChangePrevPage = () => {
+		if (productsFrom !== 1) {
+			const numFrom = productsFrom - quantity;
+			const numTo = numFrom + quantity - 1;
+			setProductsFrom(numFrom);
+			setProductsTo(numTo);
+		}
+	};
+
+	const handleChangeNextPage = () => {
+		if (productsTo < products.length) {
+			const numFrom = productsFrom + quantity;
+			const numTo = numFrom + quantity - 1;
+			setProductsFrom(numFrom);
+			setProductsTo(numTo);
+		}
+	};
+
+	const handleChangeLastPage = () => {
+		const numFrom = Math.floor(products.length / quantity) * quantity + 1;
+		const numTo = products.length;
+		setProductsFrom(numFrom);
+		setProductsTo(numTo);
+	};
+
 	return (
 		<Container className={classes.container} maxWidth="lg">
 			<Grid container spacing={5}>
@@ -89,6 +121,10 @@ const ProductsContainer = () => {
 						handleSelectGrid={handleSelectGrid}
 						handleSelectList={handleSelectList}
 						handleChangePage={handleChangePage}
+						handleChangeFirstPage={handleChangeFirstPage}
+						handleChangePrevPage={handleChangePrevPage}
+						handleChangeNextPage={handleChangeNextPage}
+						handleChangeLastPage={handleChangeLastPage}
 					/>
 				</Grid>
 			</Grid>
