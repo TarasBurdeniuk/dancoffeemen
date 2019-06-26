@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Fab from '@material-ui/core/Fab';
 import Typography from '@material-ui/core/Typography';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -14,6 +13,7 @@ import { GridOn, List } from '@material-ui/icons';
 
 import PropTypes from 'prop-types';
 import StarsRate from '../ProductDetails/StarsRate';
+import Pagination from './Pagination';
 
 const useStyles = makeStyles({
 	grid: {
@@ -67,9 +67,6 @@ const useStyles = makeStyles({
 		maxHeight: '80%',
 		marginTop: '1rem',
 	},
-	number: {
-		margin: '1rem .3rem',
-	},
 	pagination: {
 		marginTop: '3rem',
 	},
@@ -95,26 +92,6 @@ const Products = props => {
 	useEffect(() => {
 		setLabelWidth(inputLabel.current.offsetWidth);
 	}, []);
-
-	const pagination = [];
-	for (let i = 1; i <= Math.ceil(products.length / quantity); i++) {
-		pagination.push(i);
-	}
-
-	const pages = pagination.map(page => {
-		return (
-			<Fab
-				key={page}
-				size="small"
-				color={page === Math.ceil(productsTo / quantity) ? 'secondary' : 'default'}
-				aria-label="Add"
-				className={classes.number}
-				onClick={handleChangePage}
-			>
-				{page}
-			</Fab>
-		);
-	});
 
 	const list = products.map(product => {
 		if (product.id <= productsTo && product.id >= productsFrom) {
@@ -217,7 +194,12 @@ const Products = props => {
 				{list}
 			</Grid>
 			<Grid container className={classes.pagination} justify="center">
-				{pages}
+				<Pagination
+					products={products}
+					productsTo={productsTo}
+					quantity={quantity}
+					handleChangePage={handleChangePage}
+				/>
 			</Grid>
 		</Grid>
 	);
