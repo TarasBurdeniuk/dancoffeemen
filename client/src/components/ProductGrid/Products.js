@@ -83,6 +83,10 @@ const Products = props => {
 		handleSelectGrid,
 		handleSelectList,
 		handleChangePage,
+		handleChangeFirstPage,
+		handleChangePrevPage,
+		handleChangeNextPage,
+		handleChangeLastPage,
 	} = props;
 
 	const classes = useStyles();
@@ -199,6 +203,10 @@ const Products = props => {
 					productsTo={productsTo}
 					quantity={quantity}
 					handleChangePage={handleChangePage}
+					handleChangeFirstPage={handleChangeFirstPage}
+					handleChangePrevPage={handleChangePrevPage}
+					handleChangeNextPage={handleChangeNextPage}
+					handleChangeLastPage={handleChangeLastPage}
 				/>
 			</Grid>
 		</Grid>
@@ -215,6 +223,10 @@ Products.propTypes = {
 	handleSelectGrid: PropTypes.func.isRequired,
 	handleSelectList: PropTypes.func.isRequired,
 	handleChangePage: PropTypes.func.isRequired,
+	handleChangeFirstPage: PropTypes.func.isRequired,
+	handleChangePrevPage: PropTypes.func.isRequired,
+	handleChangeNextPage: PropTypes.func.isRequired,
+	handleChangeLastPage: PropTypes.func.isRequired,
 };
 
 export default Products;
