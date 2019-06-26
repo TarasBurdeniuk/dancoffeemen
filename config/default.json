@@ -1,3 +1,4 @@
 {
-	"mongoURI": "mongodb+srv://Master:Qe4Ui8uTuWuWVEJ@coffee-gzvcg.mongodb.net/test?retryWrites=true"
+	"mongoURI": "mongodb+srv://Master:Qe4Ui8uTuWuWVEJ@coffee-gzvcg.mongodb.net/danCoffee?retryWrites=true",
+	"jwtSecret": "myToken"
 }
