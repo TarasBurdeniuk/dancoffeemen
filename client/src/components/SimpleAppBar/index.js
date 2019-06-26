@@ -62,8 +62,11 @@ const SimpleAppBar = ({ auth: { isAuthenticated, loading }, logout }) => {
 						<NavLink exact to="/about" activeClassName={classes.active}>
 							About
 						</NavLink>
-						<NavLink exact to="/product" activeClassName={classes.active}>
-							Product
+						<NavLink exact to="/product-details" activeClassName={classes.active}>
+							ProductDetails
+						</NavLink>
+						<NavLink exact to="/product-grid" activeClassName={classes.active}>
+							ProductGrid
 						</NavLink>
 					</nav>
 					<div>
