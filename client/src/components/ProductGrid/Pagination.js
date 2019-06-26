@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 import { makeStyles } from '@material-ui/core';
 import Fab from '@material-ui/core/Fab';
-
 import PropTypes from 'prop-types';
 
 const useStyles = makeStyles({
