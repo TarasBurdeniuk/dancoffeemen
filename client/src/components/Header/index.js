@@ -22,7 +22,7 @@ const useStyles = makeStyles({
 	},
 });
 
-const SimpleAppBar = ({ auth: { isAuthenticated, loading }, logout }) => {
+const Header = ({ auth: { isAuthenticated, loading }, logout }) => {
 	const classes = useStyles();
 
 	const authLinks = (
@@ -46,12 +46,20 @@ const SimpleAppBar = ({ auth: { isAuthenticated, loading }, logout }) => {
 		</Fragment>
 	);
 
+	const navLinks = [
+		{ route: '/', name: 'DancoffeeMen', id: 1 },
+		{ route: '/about', name: 'About', id: 2 },
+		{ route: '/product-details', name: 'ProductDetails', id: 3 },
+		{ route: '/product-grid', name: 'ProductGrid', id: 4 },
+		{ route: '/loading', name: 'Loading', id: 5 },
+	];
+
 	return (
 		<div className={classes.root}>
 			<AppBar position="static" color="default">
 				<Toolbar className={classes.log}>
 					<Typography variant="h6" color="inherit">
-						<Link exact="true" to="/">
+						<Link exact to="/">
 							DancoffeeMen
 						</Link>
 					</Typography>
@@ -83,7 +91,7 @@ const SimpleAppBar = ({ auth: { isAuthenticated, loading }, logout }) => {
 	);
 };
 
-SimpleAppBar.propTypes = {
+Header.propTypes = {
 	isAuthenticated: PropTypes.bool,
 	loading: PropTypes.bool,
 	logout: PropTypes.func.isRequired,
@@ -100,4 +108,4 @@ const mapDispatchToProps = {
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps,
-)(SimpleAppBar);
+)(Header);
