@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ProductDetails from './components/ProductDetails';
 import ProductGrid from './components/ProductGrid';
 import Loading from './components/Loading';
-import SimpleAppBar from './components/SimpleAppBar';
+import Header from './components/Header';
 import Footer from './components/Footer';
 import MainPage from './components/MainPage';
 import About from './components/About';
@@ -26,7 +26,7 @@ const App = () => {
 	return (
 		<Router>
 			<Fragment>
-				<SimpleAppBar />
+				<Header />
 				<Switch>
 					<Route exact path="/" component={MainPage} />
 					<Route exact path="/product-details" component={ProductDetails} />
