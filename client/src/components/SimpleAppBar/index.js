@@ -68,6 +68,9 @@ const SimpleAppBar = ({ auth: { isAuthenticated, loading }, logout }) => {
 						<NavLink exact to="/product-grid" activeClassName={classes.active}>
 							ProductGrid
 						</NavLink>
+						<NavLink exact to="/loading" activeClassName={classes.active}>
+							Loading
+						</NavLink>
 					</nav>
 					<div>
 						{!loading && (
