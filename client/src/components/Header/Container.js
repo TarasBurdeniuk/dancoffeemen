@@ -9,22 +9,28 @@ import Typography from '@material-ui/core/Typography';
 
 import Authorization from './Authorization';
 import Pages from './Pages';
+import logo from './logo.svg';
 
-const useStyles = makeStyles(theme => ({
-	root: {
+const useStyles = makeStyles({
+	container: {
 		flexGrow: 1,
+		marginBottom: '1rem',
 	},
 	appBar: {
 		boxShadow: 'none',
 	},
-	menuButton: {
-		marginRight: theme.spacing(2),
+	toolBar: {
+		display: 'flex',
+		justifyContent: 'space-between',
 	},
 	title: {
 		display: 'inline-block',
 		cursor: 'pointer',
 	},
-}));
+	logo: {
+		cursor: 'pointer',
+	},
+});
 
 const Container = props => {
 	const { isAuthenticated, loading, logout, registration, links } = props;
@@ -32,9 +38,12 @@ const Container = props => {
 	const classes = useStyles();
 
 	return (
-		<div className={classes.root}>
+		<div className={classes.container}>
 			<AppBar className={classes.appBar} position="static" color="default">
-				<Toolbar>
+				<Toolbar className={classes.toolBar}>
+					<div className={classes.logo}>
+						<img src={logo} alt="logo" />
+					</div>
 					<div>
 						<Typography variant="h6" className={classes.title}>
 							Home
