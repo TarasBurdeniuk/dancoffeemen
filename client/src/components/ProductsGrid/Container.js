@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+
+import PropTypes from 'prop-types';
 import Price from './Price';
 import Brands from './Brands';
 import Size from './Size';
 import Products from './Products';
-import products from './temporaryProducts/products';
 
 const useStyles = makeStyles({
 	container: {
@@ -21,71 +22,24 @@ const useStyles = makeStyles({
 	},
 });
 
-const ProductsContainer = () => {
+const ProductsContainer = props => {
+	const {
+		products,
+		sorting,
+		productsFrom,
+		productsTo,
+		quantity,
+		handleChangeSorting,
+		handleSelectGrid,
+		handleSelectList,
+		handleChangePage,
+		handleChangeFirstPage,
+		handleChangePrevPage,
+		handleChangeNextPage,
+		handleChangeLastPage,
+	} = props;
+
 	const classes = useStyles();
-
-	const [sorting, setSorting] = useState('');
-	const [productsFrom, setProductsFrom] = useState(1);
-	const [productsTo, setProductsTo] = useState(12);
-	const [quantity, setQuantity] = useState(12);
-
-	const handleChangeSorting = event => {
-		const { value } = event.target;
-		setSorting(value);
-	};
-
-	const handleSelectGrid = () => {
-		setQuantity(12);
-		setProductsFrom(1);
-		setProductsTo(12);
-	};
-
-	const handleSelectList = () => {
-		setQuantity(4);
-		setProductsFrom(1);
-		setProductsTo(4);
-	};
-
-	const handleChangePage = event => {
-		const { innerText } = event.target;
-		const numFrom = innerText * quantity - (quantity - 1);
-		let numTo = innerText * quantity;
-		if (numTo > products.length) numTo = products.length;
-		setProductsFrom(numFrom);
-		setProductsTo(numTo);
-	};
-
-	const handleChangeFirstPage = () => {
-		const numFrom = 1;
-		const numTo = numFrom + quantity - 1;
-		setProductsFrom(numFrom);
-		setProductsTo(numTo);
-	};
-
-	const handleChangePrevPage = () => {
-		if (productsFrom !== 1) {
-			const numFrom = productsFrom - quantity;
-			const numTo = numFrom + quantity - 1;
-			setProductsFrom(numFrom);
-			setProductsTo(numTo);
-		}
-	};
-
-	const handleChangeNextPage = () => {
-		if (productsTo < products.length) {
-			const numFrom = productsFrom + quantity;
-			const numTo = numFrom + quantity - 1;
-			setProductsFrom(numFrom);
-			setProductsTo(numTo);
-		}
-	};
-
-	const handleChangeLastPage = () => {
-		const numFrom = Math.floor(products.length / quantity) * quantity + 1;
-		const numTo = products.length;
-		setProductsFrom(numFrom);
-		setProductsTo(numTo);
-	};
 
 	return (
 		<Container className={classes.container} maxWidth="lg">
@@ -130,6 +84,22 @@ const ProductsContainer = () => {
 			</Grid>
 		</Container>
 	);
+};
+
+ProductsContainer.propTypes = {
+	products: PropTypes.oneOfType([PropTypes.func, PropTypes.array]).isRequired,
+	sorting: PropTypes.string.isRequired,
+	productsFrom: PropTypes.number.isRequired,
+	productsTo: PropTypes.number.isRequired,
+	quantity: PropTypes.number.isRequired,
+	handleChangeSorting: PropTypes.func.isRequired,
+	handleSelectGrid: PropTypes.func.isRequired,
+	handleSelectList: PropTypes.func.isRequired,
+	handleChangePage: PropTypes.func.isRequired,
+	handleChangeFirstPage: PropTypes.func.isRequired,
+	handleChangePrevPage: PropTypes.func.isRequired,
+	handleChangeNextPage: PropTypes.func.isRequired,
+	handleChangeLastPage: PropTypes.func.isRequired,
 };
 
 export default ProductsContainer;

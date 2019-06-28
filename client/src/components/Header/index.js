@@ -20,7 +20,7 @@ const Header = ({ auth: { isAuthenticated, loading }, logout }) => {
 		{ route: '/', text: 'DancoffeeMen', id: 1 },
 		{ route: '/about', text: 'About', id: 2 },
 		{ route: '/product-details', text: 'ProductDetails', id: 3 },
-		{ route: '/product-grid', text: 'ProductGrid', id: 4 },
+		{ route: '/products-grid', text: 'ProductsGrid', id: 4 },
 		{ route: '/loading', text: 'Loading', id: 5 },
 	];
 
