@@ -13,8 +13,8 @@ const useStyles = makeStyles({
 	root: {
 		display: 'flex',
 		justifyContent: 'center',
-		fontFamily: '"Montserrat", sans-serif',
-		marginTop: '20px',
+		fontFamily: "'Lato', 'Roboto', sans-serif",
+		fontSize: 13,
 		backgroundColor: darkGrey,
 		color: lightGrey,
 		'& a': {
@@ -49,12 +49,17 @@ const useStyles = makeStyles({
 	block: {
 		width: '250px',
 		margin: '20px 0',
+		padding: 10,
 		'& ul': {
 			listStyleType: 'none',
+			'& li': {
+				margin: '5px 0',
+			},
 		},
 	},
 	link: {
 		transition: '0.5s',
+		margin: '5px 0',
 		'&:hover': {
 			color: mediumPink,
 			transition: '0.5s',

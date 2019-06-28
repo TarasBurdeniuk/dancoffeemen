@@ -13,6 +13,7 @@ const useStyles = makeStyles({
 		display: 'flex',
 		justifyContent: 'center',
 		backgroundColor: lightGrey,
+		fontFamily: "'Lato', 'Roboto', sans-serif",
 	},
 	card: {
 		width: 200,
@@ -22,13 +23,14 @@ const useStyles = makeStyles({
 		fontSize: 20,
 		fontWeight: 400,
 		textTransform: 'uppercase',
-		margin: 15,
+		marginBottom: 15,
 	},
 	container: {
 		display: 'flex',
 		flexDirection: 'column',
 		alignItems: 'center',
 		width: 1160,
+		padding: '10px 0',
 	},
 	block: {
 		display: 'flex',
@@ -36,18 +38,21 @@ const useStyles = makeStyles({
 		alignItems: 'center',
 		flexWrap: 'wrap',
 	},
-	'@media (min-width:900px)': {
+	'@media screen and (min-width:768px)': {
 		title: {
 			fontSize: 25,
 			fontWeight: 500,
-			margin: 15,
+			marginBottom: 15,
 		},
 	},
-	'@media (min-width:1160px)': {
+	'@media screen and (min-width:1160px)': {
 		title: {
 			fontSize: 34,
 			fontWeight: 600,
-			margin: 40,
+			marginBottom: 40,
+		},
+		container: {
+			padding: '30px 0',
 		},
 	},
 });
