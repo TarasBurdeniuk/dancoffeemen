@@ -1,8 +1,8 @@
 import React, { Fragment, useState } from 'react';
 import IconButton from '@material-ui/core/IconButton';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 import { Link } from 'react-router-dom';
 
 const Authorization = props => {
@@ -40,7 +40,7 @@ const Authorization = props => {
 				aria-controls="menu-appbar"
 				aria-haspopup="true"
 				onClick={handleMenu}
-				color="secondary"
+				color="default"
 			>
 				<AccountCircle />
 			</IconButton>
