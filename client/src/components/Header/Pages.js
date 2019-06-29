@@ -6,6 +6,7 @@ import Select from '@material-ui/core/Select';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import MenuItem from '@material-ui/core/MenuItem';
 import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const useStyles = makeStyles({
 	formControl: {
@@ -45,6 +46,10 @@ const Pages = ({ links }) => {
 			</Select>
 		</FormControl>
 	);
+};
+
+Pages.propTypes = {
+	links: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default Pages;

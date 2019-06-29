@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { logout } from '../../actions/auth';
 import PropTypes from 'prop-types';
+import { logout } from '../../actions/auth';
 
 import Container from './Container';
 
@@ -36,8 +36,7 @@ const Header = ({ auth: { isAuthenticated, loading }, logout }) => {
 };
 
 Header.propTypes = {
-	isAuthenticated: PropTypes.bool,
-	loading: PropTypes.bool,
+	auth: PropTypes.func.isRequired,
 	logout: PropTypes.func.isRequired,
 };
 

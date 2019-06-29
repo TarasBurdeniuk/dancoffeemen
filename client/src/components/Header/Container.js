@@ -7,13 +7,14 @@ import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
 import { ShoppingCart, Remove } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
-// import { PropTypes } from 'prop-types';
+import PropTypes from 'prop-types';
 
 import Authorization from './Authorization';
 import Pages from './Pages';
+import MobileMenu from './MobileMenu';
 import logo from './logo.svg';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
 	container: {
 		flexGrow: 1,
 		marginBottom: '1rem',
@@ -45,7 +46,19 @@ const useStyles = makeStyles({
 	icons: {
 		whiteSpace: 'nowrap',
 	},
-});
+	sectionDesktop: {
+		display: 'none',
+		[theme.breakpoints.up('md')]: {
+			display: 'flex',
+		},
+	},
+	sectionMobile: {
+		display: 'inline-block',
+		[theme.breakpoints.up('md')]: {
+			display: 'none',
+		},
+	},
+}));
 
 const StyledBadge = withStyles(theme => ({
 	badge: {
@@ -71,7 +84,7 @@ const Container = props => {
 							<img src={logo} alt="logo" />
 						</Link>
 					</div>
-					<div>
+					<div className={classes.sectionDesktop}>
 						<Link to="/">
 							<Typography variant="h6" className={classes.title}>
 								Home
@@ -102,11 +115,23 @@ const Container = props => {
 								<ShoppingCart />
 							</StyledBadge>
 						</IconButton>
+						<div className={classes.sectionMobile}>
+							<Remove className={classes.line} />
+							<MobileMenu />
+						</div>
 					</div>
 				</Toolbar>
 			</AppBar>
 		</div>
 	);
+};
+
+Container.propTypes = {
+	isAuthenticated: PropTypes.bool.isRequired,
+	loading: PropTypes.bool.isRequired,
+	logout: PropTypes.func.isRequired,
+	registration: PropTypes.arrayOf(PropTypes.object).isRequired,
+	links: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default Container;
