@@ -126,8 +126,12 @@ const Container = props => {
 	);
 };
 
+Container.defaultProps = {
+	isAuthenticated: null,
+};
+
 Container.propTypes = {
-	isAuthenticated: PropTypes.bool.isRequired,
+	isAuthenticated: PropTypes.bool,
 	loading: PropTypes.bool.isRequired,
 	logout: PropTypes.func.isRequired,
 	registration: PropTypes.arrayOf(PropTypes.object).isRequired,

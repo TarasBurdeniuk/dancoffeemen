@@ -36,7 +36,7 @@ const Header = ({ auth: { isAuthenticated, loading }, logout }) => {
 };
 
 Header.propTypes = {
-	auth: PropTypes.func.isRequired,
+	auth: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
 	logout: PropTypes.func.isRequired,
 };
 

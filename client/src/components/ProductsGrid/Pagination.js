@@ -52,14 +52,22 @@ const Pagination = props => {
 	return (
 		<Fragment>
 			<Fab
-				className={pagination.length > 2 ? classes.button : classes.hiddenButton}
+				className={
+					pagination.length > 2 && productsTo > quantity
+						? classes.button
+						: classes.hiddenButton
+				}
 				onClick={handleChangeFirstPage}
 				size="medium"
 			>
 				˂˂
 			</Fab>
 			<Fab
-				className={pagination.length > 2 ? classes.button : classes.hiddenButton}
+				className={
+					pagination.length > 2 && productsTo > quantity
+						? classes.button
+						: classes.hiddenButton
+				}
 				onClick={handleChangePrevPage}
 				size="medium"
 			>
@@ -67,14 +75,22 @@ const Pagination = props => {
 			</Fab>
 			{pages}
 			<Fab
-				className={pagination.length > 2 ? classes.button : classes.hiddenButton}
+				className={
+					pagination.length > 2 && productsTo < products.length
+						? classes.button
+						: classes.hiddenButton
+				}
 				onClick={handleChangeNextPage}
 				size="medium"
 			>
 				˃
 			</Fab>
 			<Fab
-				className={pagination.length > 2 ? classes.button : classes.hiddenButton}
+				className={
+					pagination.length > 2 && productsTo < products.length
+						? classes.button
+						: classes.hiddenButton
+				}
 				onClick={handleChangeLastPage}
 				size="medium"
 			>
