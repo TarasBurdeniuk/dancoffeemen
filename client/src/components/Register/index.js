@@ -16,6 +16,9 @@ import {
 	validatePassword,
 } from '../../utills/validateFields';
 import { register } from '../../actions/auth';
+import pink from '@material-ui/core/colors/pink';
+
+const pinkStrong = pink[500];
 
 const useStyles = makeStyles(theme => ({
 	'@global': {
@@ -40,7 +43,7 @@ const useStyles = makeStyles(theme => ({
 		minHeight: 'calc(100vh - 213px)',
 	},
 	error: {
-		color: 'red',
+		color: pinkStrong,
 	},
 }));
 
@@ -91,7 +94,7 @@ const SignUp = ({ register, isAuthenticated }) => {
 				<Typography component="h1" variant="h5">
 					Sign up
 				</Typography>
-				<form className={classes.form} noValidate onSubmit={e => onSubmit(e)}>
+				<form className={classes.form} onSubmit={e => onSubmit(e)}>
 					<Grid container spacing={2}>
 						<Grid item xs={12}>
 							<TextField
