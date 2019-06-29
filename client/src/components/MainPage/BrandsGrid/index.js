@@ -20,7 +20,7 @@ const useStyles = makeStyles({
 		margin: 10,
 	},
 	title: {
-		fontSize: 20,
+		fontSize: 16,
 		fontWeight: 400,
 		textTransform: 'uppercase',
 		marginBottom: 15,
@@ -40,14 +40,14 @@ const useStyles = makeStyles({
 	},
 	'@media screen and (min-width:768px)': {
 		title: {
-			fontSize: 25,
+			fontSize: 20,
 			fontWeight: 500,
 			marginBottom: 15,
 		},
 	},
 	'@media screen and (min-width:1160px)': {
 		title: {
-			fontSize: 34,
+			fontSize: 26,
 			fontWeight: 600,
 			marginBottom: 40,
 		},
@@ -63,7 +63,7 @@ const ImgMediaCard = () => {
 	return (
 		<div className={classes.rootBlock}>
 			<div className={classes.container}>
-				<h1 className={classes.title}>we propose only the best coffee</h1>
+				<h1 className={classes.title}>only the best coffee</h1>
 				<div className={classes.block}>
 					{brands.map(item => {
 						return (

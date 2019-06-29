@@ -17,10 +17,8 @@ export const theme = createMuiTheme({
 	},
 	overrides: {
 		MuiInputLabel: {
-			// Name of the component ⚛️ / style sheet
 			root: {
 				'&$focused': {
-					// increase the specificity for the pseudo class
 					color: pinkStrong,
 				},
 			},
@@ -36,6 +34,12 @@ export const theme = createMuiTheme({
 				'&:hover': {
 					backgroundColor: pinkMoreStrong,
 				},
+			},
+		},
+		MuiCardContent: {
+			root: {
+				margin: 0,
+				padding: 0,
 			},
 		},
 	},
