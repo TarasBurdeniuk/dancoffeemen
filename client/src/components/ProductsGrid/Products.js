@@ -10,8 +10,8 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import { GridOn, List } from '@material-ui/icons';
-
 import PropTypes from 'prop-types';
+
 import StarsRate from '../ProductDetails/StarsRate';
 import Pagination from './Pagination';
 
