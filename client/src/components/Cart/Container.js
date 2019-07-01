@@ -4,29 +4,43 @@ import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import image1 from './temporaryImages/image1.jpg';
+import Clear from '@material-ui/icons/Clear';
 
 const useStyles = makeStyles({
 	container: {
-		// background: '#fffb98',
+		margin: '1rem 0',
+	},
+	item: {
+		borderBottom: '1px solid #eeeeee',
 	},
 	product: {
-		padding: '2rem 3rem',
+		padding: '2rem 1rem',
 	},
 	image: {
-		width: '5.4rem',
+		width: '8rem',
 		height: '8rem',
 		'&:hover': {
 			cursor: 'pointer',
 		},
 	},
-	price: {
-		marginTop: '1rem',
+	brand: {
+		display: 'inline-block',
+		cursor: 'pointer',
+		'&:hover': {
+			color: '#f50057',
+		},
 	},
-
+	price: {
+		margin: '1rem 0',
+	},
+	quantityContainer: {
+		display: 'flex',
+		alignItems: 'center',
+		whiteSpace: 'nowrap',
+		marginBottom: '.5rem',
+	},
 	quantity: {
 		display: 'inline-block',
-		marginTop: '1rem',
 		borderRadius: '5px',
 		boxShadow: '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)',
 	},
@@ -60,60 +74,79 @@ const useStyles = makeStyles({
 	quantityIncrement: {
 		borderRadius: '0 5px 5px 0',
 	},
+	total: {
+		display: 'flex',
+		alignItems: 'center',
+	},
 });
 
 const CartContainer = props => {
-	const { quantity, handleIncrement, handleDecrement } = props;
+	const { quantity, products, handleIncrement, handleDecrement } = props;
 
 	const classes = useStyles();
 
-	return (
-		<Container maxWidth="lg" className={classes.container}>
-			<Paper>
+	const productsCart = products.map(product => (
+		<Grid container key={product.id} className={classes.item}>
+			<Grid item xs={11}>
 				<Grid container className={classes.product}>
 					<Grid item xs={12} md={3}>
-						<img src={image1} className={classes.image} alt="image1" />
+						<img src={product.src} alt={product.id} className={classes.image} />
 					</Grid>
-					<Grid item xs={12} md={4}>
-						<Typography variant="h6" component="h2" gutterBottom>
-							Lavazza Pienaroma
+					<Grid item xs={12} md={5}>
+						<Typography
+							variant="h6"
+							component="h2"
+							gutterBottom
+							className={classes.brand}
+						>
+							{product.brand}
 						</Typography>
 						<Typography variant="subtitle1">500g</Typography>
 						<Typography variant="h6" className={classes.price}>
-							$18
+							${product.price}
 						</Typography>
 					</Grid>
-					<Grid item xs={12} md={3}>
-						<div>
-							<div className={classes.quantity}>
-								<button
-									type="button"
-									className={`${classes.quantityChange} ${classes.quantityDecrement}`}
-									onClick={handleDecrement}
-								>
-									&mdash;
-								</button>
-								<input
-									className={classes.quantityInput}
-									type="text"
-									value={quantity}
-									disabled
-								/>
-								<button
-									type="button"
-									className={`${classes.quantityChange} ${classes.quantityIncrement}`}
-									onClick={handleIncrement}
-								>
-									&#xff0b;
-								</button>
-							</div>
+					<Grid item xs={12} md={3} className={classes.quantityContainer}>
+						<div className={classes.quantity}>
+							<button
+								type="button"
+								className={`${classes.quantityChange} ${classes.quantityDecrement}`}
+								onClick={handleDecrement}
+							>
+								&mdash;
+							</button>
+							<input
+								className={classes.quantityInput}
+								type="text"
+								value={quantity}
+								disabled
+							/>
+							<button
+								type="button"
+								className={`${classes.quantityChange} ${classes.quantityIncrement}`}
+								onClick={handleIncrement}
+							>
+								&#xff0b;
+							</button>
 						</div>
 					</Grid>
+					<Grid item xs={12} md={1} className={classes.total}>
+						<Typography variant="h5">${product.price * quantity}</Typography>
+					</Grid>
 				</Grid>
-				<hr />
-				<div className={classes.product}>Cart</div>
-			</Paper>
-		</Container>
+			</Grid>
+			<Grid item xs={1}>
+				<Clear />
+			</Grid>
+		</Grid>
+	));
+
+	return (
+		<Grid container justify="center" className={classes.container}>
+			<Container maxWidth="lg">
+				<Paper>{productsCart}</Paper>
+			</Container>
+		</Grid>
 	);
 };
 

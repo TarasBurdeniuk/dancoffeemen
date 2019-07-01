@@ -14,9 +14,41 @@ const Cart = () => {
 		}
 	};
 
+	const products = [
+		{
+			brand: 'Lavazza Pienaroma',
+			size: 500,
+			price: 18,
+			src: 'temporaryImages/temporaryCart/image1.jpg',
+			id: 1,
+		},
+		{
+			brand: 'Kimbo Napoletano',
+			size: 250,
+			price: 8,
+			src: 'temporaryImages/temporaryCart/image2.jpg',
+			id: 2,
+		},
+		{
+			brand: 'Illy Moka',
+			size: 250,
+			price: 15,
+			src: 'temporaryImages/temporaryCart/image3.jpg',
+			id: 3,
+		},
+		{
+			brand: 'Fineberry Nicaragua',
+			size: 1000,
+			price: 24,
+			src: 'temporaryImages/temporaryCart/image4.jpg',
+			id: 4,
+		},
+	];
+
 	return (
 		<Container
 			quantity={quantity}
+			products={products}
 			handleIncrement={handleIncrement}
 			handleDecrement={handleDecrement}
 		/>
