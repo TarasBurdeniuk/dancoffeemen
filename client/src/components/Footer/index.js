@@ -58,6 +58,7 @@ const useStyles = makeStyles({
 		},
 	},
 	link: {
+		textDecoration: 'none',
 		transition: '0.5s',
 		margin: '5px 0',
 		'&:hover': {
