@@ -36,17 +36,15 @@ const ImgMediaCard = ({ src, price, name }) => {
 					<Typography gutterBottom variant="h6" component="h6">
 						{name}
 					</Typography>
-					<Typography variant="body2" color="textSecondary" component="p">
-						<h3>
-							<strong>Price: {price}</strong>
-						</h3>
+					<Typography variant="h6" color="textSecondary" component="h3">
+						Price: {price}
 					</Typography>
 					<StarsRate />
-					<Button variant="contained" className={classes.button}>
-						Buy
-					</Button>
 				</CardContent>
 			</CardActionArea>
+			<Button variant="contained" className={classes.button}>
+				Buy
+			</Button>
 		</Card>
 	);
 };
