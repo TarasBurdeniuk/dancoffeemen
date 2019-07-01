@@ -7,12 +7,18 @@ const pinkMoreStrong = pink[600];
 const greyStrong = grey[600];
 
 export const theme = createMuiTheme({
+	typography: {
+		// Use the system font.
+		fontFamily: '-apple-system,system-ui,BlinkMacSystemFont, "Lato", "Roboto", sans-serif',
+		fontSize: 14,
+		fontWeightLight: 300,
+		fontWeightRegular: 400,
+		fontWeightMedium: 700,
+	},
 	overrides: {
 		MuiInputLabel: {
-			// Name of the component ⚛️ / style sheet
 			root: {
 				'&$focused': {
-					// increase the specificity for the pseudo class
 					color: pinkStrong,
 				},
 			},
@@ -28,6 +34,12 @@ export const theme = createMuiTheme({
 				'&:hover': {
 					backgroundColor: pinkMoreStrong,
 				},
+			},
+		},
+		MuiCardContent: {
+			root: {
+				margin: 0,
+				padding: 0,
 			},
 		},
 	},
