@@ -16,7 +16,7 @@ const useStyles = makeStyles({
 		fontFamily: "'Lato', 'Roboto', sans-serif",
 	},
 	card: {
-		width: 200,
+		width: 150,
 		margin: 10,
 	},
 	title: {
@@ -74,7 +74,7 @@ const ImgMediaCard = () => {
 											key={item.id}
 											component="img"
 											alt={item.alt}
-											height="200"
+											height="150"
 											image={item.src}
 										/>
 									</CardActionArea>
