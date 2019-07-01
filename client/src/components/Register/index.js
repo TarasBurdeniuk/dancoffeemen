@@ -41,6 +41,7 @@ const useStyles = makeStyles(theme => ({
 	},
 	container: {
 		minHeight: 'calc(100vh - 213px)',
+		marginBottom: 50,
 	},
 	error: {
 		color: pinkStrong,

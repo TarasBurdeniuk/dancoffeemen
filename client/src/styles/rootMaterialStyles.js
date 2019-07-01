@@ -5,6 +5,7 @@ import grey from '@material-ui/core/colors/grey';
 const pinkStrong = pink[500];
 const pinkMoreStrong = pink[600];
 const greyStrong = grey[600];
+const greyLight = grey[500];
 
 export const theme = createMuiTheme({
 	typography: {
@@ -36,10 +37,28 @@ export const theme = createMuiTheme({
 				},
 			},
 		},
+		MuiList: {
+			root: {
+				'& a': {
+					textDecoration: 'none',
+				},
+			},
+		},
 		MuiCardContent: {
 			root: {
 				margin: 0,
 				padding: 0,
+			},
+		},
+		MuiGrid: {
+			root: {
+				'& a': {
+					textDecoration: 'none',
+					color: greyLight,
+					'&:hover': {
+						color: greyStrong,
+					},
+				},
 			},
 		},
 	},
