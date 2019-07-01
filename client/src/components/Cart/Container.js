@@ -23,9 +23,48 @@ const useStyles = makeStyles({
 	price: {
 		marginTop: '1rem',
 	},
+
+	quantity: {
+		display: 'inline-block',
+		marginTop: '1rem',
+		borderRadius: '5px',
+		boxShadow: '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)',
+	},
+	quantityInput: {
+		width: '4rem',
+		padding: '.7rem',
+		fontSize: '1.5rem',
+		textAlign: 'center',
+		border: 0,
+		background: '#fff',
+	},
+	quantityChange: {
+		width: '3rem',
+		padding: '.7rem',
+		textAlign: 'center',
+		textShadow: '0 1px 0 rgba(#fff, .6)',
+		fontSize: '1.5rem',
+		border: '0 solid #dbdbdb',
+		outline: 'none',
+		background: '#f3f3f3',
+		color: '#888',
+		cursor: 'pointer',
+		'&:hover': {
+			background: '#e3e3e3',
+			color: '#636363',
+		},
+	},
+	quantityDecrement: {
+		borderRadius: '5px 0 0 5px',
+	},
+	quantityIncrement: {
+		borderRadius: '0 5px 5px 0',
+	},
 });
 
-const CartContainer = () => {
+const CartContainer = props => {
+	const { quantity, handleIncrement, handleDecrement } = props;
+
 	const classes = useStyles();
 
 	return (
@@ -43,6 +82,32 @@ const CartContainer = () => {
 						<Typography variant="h6" className={classes.price}>
 							$18
 						</Typography>
+					</Grid>
+					<Grid item xs={12} md={3}>
+						<div>
+							<div className={classes.quantity}>
+								<button
+									type="button"
+									className={`${classes.quantityChange} ${classes.quantityDecrement}`}
+									onClick={handleDecrement}
+								>
+									&mdash;
+								</button>
+								<input
+									className={classes.quantityInput}
+									type="text"
+									value={quantity}
+									disabled
+								/>
+								<button
+									type="button"
+									className={`${classes.quantityChange} ${classes.quantityIncrement}`}
+									onClick={handleIncrement}
+								>
+									&#xff0b;
+								</button>
+							</div>
+						</div>
 					</Grid>
 				</Grid>
 				<hr />
