@@ -8,11 +8,16 @@ import Badge from '@material-ui/core/Badge';
 import { ShoppingCart, Remove } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import pink from '@material-ui/core/colors/pink';
+import grey from '@material-ui/core/colors/grey';
 
 import Authorization from './Authorization';
 import Pages from './Pages';
 import MobileMenu from './MobileMenu';
 import logo from './logo.svg';
+
+const lightPink = pink[400];
+const strongGrey = grey[700];
 
 const useStyles = makeStyles(theme => ({
 	container: {
@@ -28,10 +33,10 @@ const useStyles = makeStyles(theme => ({
 	title: {
 		margin: '0 1.5rem',
 		display: 'inline-block',
-		color: '#595959',
+		color: strongGrey,
 		cursor: 'pointer',
 		'&:hover': {
-			color: '#f50057',
+			color: lightPink,
 		},
 	},
 	logo: {
@@ -40,7 +45,7 @@ const useStyles = makeStyles(theme => ({
 	line: {
 		margin: '0 .2rem -.55rem .4rem',
 		transform: 'rotate(90deg)',
-		color: '#767676',
+		color: strongGrey,
 	},
 	icons: {
 		whiteSpace: 'nowrap',

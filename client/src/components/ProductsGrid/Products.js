@@ -18,10 +18,29 @@ import Pagination from './Pagination';
 const useStyles = makeStyles({
 	grid: {
 		display: 'flex',
-		justifyContent: 'center',
+		flexDirection: 'column',
+		alignItems: 'center',
+		justifyContent: 'space-between',
 		width: '100%',
-		height: 350,
+		height: 400,
 		marginTop: '1rem',
+		padding: 5,
+		boxSizing: 'border-box',
+		'&:hover button': {
+			display: 'block',
+		},
+	},
+	buttonHover: {
+		display: 'none',
+		marginBottom: '1rem',
+	},
+	paperBlock: {
+		display: 'inherit',
+		alignItems: 'center',
+		flexDirection: 'column',
+		'& h4,h3': {
+			margin: '5px 0',
+		},
 	},
 	list: {
 		display: 'flex',
@@ -60,15 +79,17 @@ const useStyles = makeStyles({
 		margin: '1rem 0 1.2rem',
 	},
 	button: {
-		marginTop: '1.5rem',
+		marginTop: '1rem',
+		marginBottom: '1rem',
 	},
 	image: {
-		maxWidth: '80%',
-		maxHeight: '80%',
+		maxWidth: 200,
+		maxHeight: 200,
 		marginTop: '1rem',
 	},
 	pagination: {
 		marginTop: '3rem',
+		marginBottom: '3rem',
 	},
 });
 
@@ -103,8 +124,19 @@ const Products = props => {
 				return (
 					<Grid key={product.id} item xs={12} sm={6} md={4}>
 						<Paper className={classes.grid} justify="center">
-							<img src={product.src} alt={product.id} className={classes.image} />
-							{product.id}
+							<div className={classes.paperBlock}>
+								<img src={product.src} alt={product.id} className={classes.image} />
+								<h3>{product.name}</h3>
+								<h4>Price: {product.price}</h4>
+							</div>
+							<Button
+								variant="contained"
+								size="large"
+								color="secondary"
+								className={classes.buttonHover}
+							>
+								Add To Cart
+							</Button>
 						</Paper>
 					</Grid>
 				);
