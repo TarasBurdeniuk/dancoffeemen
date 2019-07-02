@@ -1,6 +1,11 @@
 const products = [
-	{ src: 'temporaryImages/image1.jpg', id: 1 },
-	{ src: 'temporaryImages/image2.jpg', id: 2 },
+	{ src: 'temporaryImages/image1.jpg', id: 1, name: 'Illy big 5kg', price: '$234' },
+	{
+		src: 'temporaryImages/image2.jpg',
+		id: 2,
+		name: 'Кофе Fineberry Ethiopia молотый 0,25 кг',
+		price: '$456',
+	},
 	{ src: 'temporaryImages/image3.jpg', id: 3 },
 	{ src: 'temporaryImages/image4.jpg', id: 4 },
 	{ src: 'temporaryImages/image5.jpg', id: 5 },
