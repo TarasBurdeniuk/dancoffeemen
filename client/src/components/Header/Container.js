@@ -17,7 +17,6 @@ import logo from './logo.svg';
 const useStyles = makeStyles(theme => ({
 	container: {
 		flexGrow: 1,
-		marginBottom: '1rem',
 	},
 	appBar: {
 		boxShadow: 'none',
@@ -110,11 +109,13 @@ const Container = props => {
 							registration={registration}
 						/>
 						<Remove className={classes.line} />
-						<IconButton aria-label="Cart">
-							<StyledBadge badgeContent={4} color="secondary">
-								<ShoppingCart />
-							</StyledBadge>
-						</IconButton>
+						<Link to="/cart">
+							<IconButton aria-label="Cart">
+								<StyledBadge badgeContent={4} color="secondary">
+									<ShoppingCart />
+								</StyledBadge>
+							</IconButton>
+						</Link>
 						<div className={classes.sectionMobile}>
 							<Remove className={classes.line} />
 							<MobileMenu />

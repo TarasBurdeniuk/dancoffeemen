@@ -166,7 +166,12 @@ const Details = props => {
 							</button>
 						</div>
 					</div>
-					<Button variant="contained" className={classes.button}>
+					<Button
+						variant="contained"
+						color="secondary"
+						size="large"
+						className={classes.button}
+					>
 						Buy
 					</Button>
 				</Grid>
