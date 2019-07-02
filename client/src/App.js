@@ -4,6 +4,7 @@ import ProductDetails from './components/ProductDetails';
 import ProductsGrid from './components/ProductsGrid';
 import Loading from './components/Loading';
 import Header from './components/Header';
+import Cart from './components/Cart';
 import Footer from './components/Footer';
 import MainPage from './components/MainPage';
 import About from './components/About';
@@ -32,6 +33,7 @@ const App = () => {
 					<Route exact path="/product-details" component={ProductDetails} />
 					<Route exact path="/products-grid" component={ProductsGrid} />
 					<Route exact path="/loading" component={Loading} />
+					<Route exact path="/cart" component={Cart} />
 					<Route exact path="/about" component={About} />
 					<Route exact path="/login" component={Login} />
 					<Route exact path="/register" component={Register} />

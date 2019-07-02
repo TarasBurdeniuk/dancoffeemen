@@ -22,6 +22,7 @@ const Header = ({ auth: { isAuthenticated, loading }, logout }) => {
 		{ route: '/product-details', text: 'ProductDetails', id: 3 },
 		{ route: '/products-grid', text: 'ProductsGrid', id: 4 },
 		{ route: '/loading', text: 'Loading', id: 5 },
+		{ route: '/cart', text: 'Cart', id: 6 },
 	];
 
 	return (
