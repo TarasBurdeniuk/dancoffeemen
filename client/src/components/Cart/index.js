@@ -20,6 +20,7 @@ const Cart = () => {
 			size: 500,
 			price: 18,
 			src: 'temporaryImages/temporaryCart/image1.jpg',
+			quantity: 22,
 			id: 1,
 		},
 		{
@@ -27,6 +28,7 @@ const Cart = () => {
 			size: 250,
 			price: 8,
 			src: 'temporaryImages/temporaryCart/image2.jpg',
+			quantity: 1,
 			id: 2,
 		},
 		{
@@ -34,6 +36,7 @@ const Cart = () => {
 			size: 250,
 			price: 15,
 			src: 'temporaryImages/temporaryCart/image3.jpg',
+			quantity: 70,
 			id: 3,
 		},
 		{
@@ -41,6 +44,7 @@ const Cart = () => {
 			size: 1000,
 			price: 24,
 			src: 'temporaryImages/temporaryCart/image4.jpg',
+			quantity: 5,
 			id: 4,
 		},
 	];

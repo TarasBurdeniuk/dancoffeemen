@@ -17,7 +17,6 @@ import logo from './logo.svg';
 const useStyles = makeStyles(theme => ({
 	container: {
 		flexGrow: 1,
-		marginBottom: '1rem',
 	},
 	appBar: {
 		boxShadow: 'none',

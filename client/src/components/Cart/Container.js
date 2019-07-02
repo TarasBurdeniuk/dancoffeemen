@@ -5,8 +5,9 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Clear from '@material-ui/icons/Clear';
+import PropTypes from 'prop-types';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
 	container: {
 		margin: '1rem 0',
 	},
@@ -14,7 +15,11 @@ const useStyles = makeStyles({
 		borderBottom: '1px solid #eeeeee',
 	},
 	product: {
-		padding: '2rem 1rem',
+		padding: '2rem 0 2rem 1rem',
+		textAlign: 'center',
+		[theme.breakpoints.up('md')]: {
+			textAlign: 'start',
+		},
 	},
 	image: {
 		width: '8rem',
@@ -36,8 +41,9 @@ const useStyles = makeStyles({
 	quantityContainer: {
 		display: 'flex',
 		alignItems: 'center',
+		justifyContent: 'center',
 		whiteSpace: 'nowrap',
-		marginBottom: '.5rem',
+		margin: '.5rem 0',
 	},
 	quantity: {
 		display: 'inline-block',
@@ -77,8 +83,18 @@ const useStyles = makeStyles({
 	total: {
 		display: 'flex',
 		alignItems: 'center',
+		justifyContent: 'center',
 	},
-});
+	deleteIcon: {
+		width: '2.5rem',
+		height: '2.5rem',
+		color: '#575757',
+		cursor: 'pointer',
+		'&:hover': {
+			color: '#f50057',
+		},
+	},
+}));
 
 const CartContainer = props => {
 	const { quantity, products, handleIncrement, handleDecrement } = props;
@@ -101,7 +117,7 @@ const CartContainer = props => {
 						>
 							{product.brand}
 						</Typography>
-						<Typography variant="subtitle1">500g</Typography>
+						<Typography variant="subtitle1">{product.size}g</Typography>
 						<Typography variant="h6" className={classes.price}>
 							${product.price}
 						</Typography>
@@ -124,7 +140,7 @@ const CartContainer = props => {
 							<button
 								type="button"
 								className={`${classes.quantityChange} ${classes.quantityIncrement}`}
-								onClick={handleIncrement}
+								onClick={() => handleIncrement(product.quantity)}
 							>
 								&#xff0b;
 							</button>
@@ -136,7 +152,9 @@ const CartContainer = props => {
 				</Grid>
 			</Grid>
 			<Grid item xs={1}>
-				<Clear />
+				<Grid container justify="flex-end">
+					<Clear className={classes.deleteIcon} />
+				</Grid>
 			</Grid>
 		</Grid>
 	));
@@ -148,6 +166,13 @@ const CartContainer = props => {
 			</Container>
 		</Grid>
 	);
+};
+
+CartContainer.propTypes = {
+	quantity: PropTypes.number.isRequired,
+	products: PropTypes.arrayOf(PropTypes.object).isRequired,
+	handleIncrement: PropTypes.func.isRequired,
+	handleDecrement: PropTypes.func.isRequired,
 };
 
 export default CartContainer;
