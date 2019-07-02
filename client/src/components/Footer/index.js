@@ -36,6 +36,9 @@ const useStyles = makeStyles({
 		flexWrap: 'wrap',
 	},
 	logo: {
+		'& a': {
+			textDecoration: 'none',
+		},
 		fontSize: '26px',
 		'& span': {
 			color: mediumPink,
@@ -58,6 +61,7 @@ const useStyles = makeStyles({
 		},
 	},
 	link: {
+		textDecoration: 'none',
 		transition: '0.5s',
 		margin: '5px 0',
 		'&:hover': {
@@ -94,8 +98,8 @@ const Footer = () => {
 								</Link>
 							</li>
 							<li>
-								<Link to="/product" className={classes.link}>
-									Product
+								<Link to="/products-grid" className={classes.link}>
+									Products
 								</Link>
 							</li>
 							<li>
