@@ -19,8 +19,8 @@ import TextField from '@material-ui/core/TextField';
       width: 400,
     },
   }));
-  
-  export default function ContactForm() {
+
+  const ContactForm = () => {
     const classes = useStyles();
     const [values, setValues] = React.useState({
       name: '',
@@ -65,5 +65,7 @@ import TextField from '@material-ui/core/TextField';
           variant="outlined"
         />
       </form>
-    );
+    );  
   }
+  
+  export default ContactForm;

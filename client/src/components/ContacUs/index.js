@@ -2,14 +2,13 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import MapContainer from './MapContainer';
 import ContactForm from './ContactForm';
-import { flexbox } from '@material-ui/system';
 
 const useStyles = makeStyles({
     root: {
         display: 'flex',
         flexDirection: 'column',
         fontFamily: "'Lato', 'Roboto', sans serif",
-        fontSize: 13
+        fontSize: 15
     },
     container: {
         display: 'flex',
@@ -21,8 +20,7 @@ const useStyles = makeStyles({
     "contact-item": {
         textAlign: 'center',
         lineHeight: '20px',
-        fontSize: 17,
-        lineHeight: '20px'
+        fontSize: 20
     },
     title: {
         textTransform: 'uppercase',
