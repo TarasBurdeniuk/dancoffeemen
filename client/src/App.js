@@ -8,6 +8,7 @@ import Cart from './components/Cart';
 import Footer from './components/Footer';
 import MainPage from './components/MainPage';
 import About from './components/About';
+import ContactUs from './components/ContacUs';
 import Login from './components/Login';
 import Register from './components/Register';
 import './styles/index.css';
@@ -35,6 +36,7 @@ const App = () => {
 					<Route exact path="/loading" component={Loading} />
 					<Route exact path="/cart" component={Cart} />
 					<Route exact path="/about" component={About} />
+					<Route exact path="/contact-us" component={ContactUs} />
 					<Route exact path="/login" component={Login} />
 					<Route exact path="/register" component={Register} />
 				</Switch>
