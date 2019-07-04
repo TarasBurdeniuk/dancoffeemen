@@ -11,6 +11,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { validateEmail } from '../../utills/validateFields';
 import { login } from '../../actions/auth';
+import pink from '@material-ui/core/colors/pink';
+
+const pinkStrong = pink[500];
 
 const useStyles = makeStyles(theme => ({
 	'@global': {
@@ -39,7 +42,7 @@ const useStyles = makeStyles(theme => ({
 		minHeight: 'calc(100vh - 213px)',
 	},
 	error: {
-		color: 'red',
+		color: pinkStrong,
 	},
 }));
 

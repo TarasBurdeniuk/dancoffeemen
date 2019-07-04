@@ -1,10 +1,15 @@
-import React, { Fragment } from 'react';
+import React from 'react';
+import SwipeableTextMobileStepper from './KaruselMaterial';
+import ImgMediaCard from './BrandsGrid';
+import MultiCarouselPage from './MultiCarouselPage';
 
 const MainPage = () => {
 	return (
 		<div>
-			<h1>Main Page</h1>
-			<Fragment>In this place must be carusel</Fragment>
+			<SwipeableTextMobileStepper />
+			<MultiCarouselPage header="new arrivals" />
+			<ImgMediaCard />
+			<MultiCarouselPage header="top rates" />
 		</div>
 	);
 };
