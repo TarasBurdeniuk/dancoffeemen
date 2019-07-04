@@ -1,11 +1,13 @@
 import React, { Fragment } from 'react';
 import { makeStyles } from '@material-ui/core';
 import Fab from '@material-ui/core/Fab';
+import { FirstPage, ChevronLeft, ChevronRight, LastPage } from '@material-ui/icons';
 import PropTypes from 'prop-types';
 
 const useStyles = makeStyles({
 	button: {
 		margin: '1rem .3rem 1rem',
+		fontSize: '1.1rem',
 	},
 	hiddenButton: {
 		display: 'none',
@@ -60,7 +62,7 @@ const Pagination = props => {
 				onClick={handleChangeFirstPage}
 				size="medium"
 			>
-				˂˂
+				<FirstPage />
 			</Fab>
 			<Fab
 				className={
@@ -71,7 +73,7 @@ const Pagination = props => {
 				onClick={handleChangePrevPage}
 				size="medium"
 			>
-				˂
+				<ChevronLeft />
 			</Fab>
 			{pages}
 			<Fab
@@ -83,7 +85,7 @@ const Pagination = props => {
 				onClick={handleChangeNextPage}
 				size="medium"
 			>
-				˃
+				<ChevronRight />
 			</Fab>
 			<Fab
 				className={
@@ -94,7 +96,7 @@ const Pagination = props => {
 				onClick={handleChangeLastPage}
 				size="medium"
 			>
-				˃˃
+				<LastPage />
 			</Fab>
 		</Fragment>
 	);

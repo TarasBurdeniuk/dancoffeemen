@@ -10,6 +10,7 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import { GridOn, List } from '@material-ui/icons';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import StarsRate from '../ProductDetails/StarsRate';
@@ -125,7 +126,13 @@ const Products = props => {
 					<Grid key={product.id} item xs={12} sm={6} md={4}>
 						<Paper className={classes.grid} justify="center">
 							<div className={classes.paperBlock}>
-								<img src={product.src} alt={product.id} className={classes.image} />
+								<Link to="/product-details">
+									<img
+										src={product.src}
+										alt={product.id}
+										className={classes.image}
+									/>
+								</Link>
 								<h3>{product.name}</h3>
 								<h4>Price: {product.price}</h4>
 							</div>
@@ -151,9 +158,15 @@ const Products = props => {
 						spacing={5}
 					>
 						<Grid item xs={12} sm={12} md={4}>
-							<Paper className={classes.list}>
-								<img src={product.src} alt={product.id} className={classes.image} />
-							</Paper>
+							<Link to="/product-details">
+								<Paper className={classes.list}>
+									<img
+										src={product.src}
+										alt={product.id}
+										className={classes.image}
+									/>
+								</Paper>
+							</Link>
 						</Grid>
 						<Grid item className={classes.details} xs={12} sm={12} md={7}>
 							<Typography variant="h5" gutterBottom>

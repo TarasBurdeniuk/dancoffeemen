@@ -1,7 +1,7 @@
 import React, { useEffect, Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Products from './components/Products';
 import ProductDetails from './components/ProductDetails';
-import ProductsGrid from './components/ProductsGrid';
 import Loading from './components/Loading';
 import Header from './components/Header';
 import Cart from './components/Cart';
@@ -31,8 +31,8 @@ const App = () => {
 				<Header />
 				<Switch>
 					<Route exact path="/" component={MainPage} />
+					<Route exact path="/products" component={Products} />
 					<Route exact path="/product-details" component={ProductDetails} />
-					<Route exact path="/products-grid" component={ProductsGrid} />
 					<Route exact path="/loading" component={Loading} />
 					<Route exact path="/cart" component={Cart} />
 					<Route exact path="/about" component={About} />
