@@ -104,6 +104,11 @@ const Container = props => {
 								About Us
 							</Typography>
 						</Link>
+						<Link to="/contact-us">
+							<Typography variant="h6" className={classes.title}>
+								Contact Us
+							</Typography>
+						</Link>
 					</div>
 					<Pages links={links} />
 					<div className={classes.icons}>
