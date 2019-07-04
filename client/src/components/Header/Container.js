@@ -94,7 +94,7 @@ const Container = props => {
 								Home
 							</Typography>
 						</Link>
-						<Link to="/products-grid">
+						<Link to="/products">
 							<Typography variant="h6" className={classes.title}>
 								Products
 							</Typography>
