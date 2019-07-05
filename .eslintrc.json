@@ -1,4 +1,9 @@
 {
+	"env": {
+		"es6": true,
+		"browser": true,
+		"node": true
+	},
 	"extends": [
 		"airbnb",
 		"prettier",
@@ -9,6 +14,17 @@
 		"prettier"
 	],
 	"rules": {
+		"no-underscore-dangle": ["error", { "allow": ["_id"] }],
+		"no-console": "off",
+		"no-plusplus": "off",
+		"no-shadow": "off",
+		"no-restricted-syntax": [
+			"error",
+			{
+				"selector": "CallExpression[callee.object.name='console'][callee.property.name!=/^(log|warn|error|info|trace)$/]",
+				"message": "Unexpected property on console object was called"
+			}
+		],
 		"react/jsx-filename-extension": [
 			1,
 			{
@@ -18,13 +34,18 @@
 				]
 			}
 		],
-		"prettier/prettier": "error",
+		"prettier/prettier": [
+			"error",
+			{
+				"endOfLine": "auto"
+			}
+		],
 		"max-len": [
 			"error",
-			100
+			100,
+			{
+				"ignoreUrls": true
+			}
 		]
-	},
-	"env": {
-		"browser": true
 	}
 }
