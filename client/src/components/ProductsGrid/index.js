@@ -1,8 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
+import { connect } from 'react-redux';
 import Container from './Container';
-import products from './temporaryProducts/products';
+import { loadProducts } from '../../actions/products';
+import PropTypes from 'prop-types';
+import Spinner from '../Spinner';
 
-const ProductsGrid = () => {
+const ProductsGrid = ({ product: { loading, products }, loadProducts }) => {
+	useEffect(() => {
+		loadProducts();
+	}, [loadProducts]);
+
 	const [sorting, setSorting] = useState('');
 	const [productsFrom, setProductsFrom] = useState(1);
 	const [productsTo, setProductsTo] = useState(12);
@@ -66,23 +73,43 @@ const ProductsGrid = () => {
 		setProductsTo(numTo);
 	};
 
-	return (
-		<Container
-			products={products}
-			sorting={sorting}
-			productsFrom={productsFrom}
-			productsTo={productsTo}
-			quantity={quantity}
-			handleChangeSorting={handleChangeSorting}
-			handleSelectGrid={handleSelectGrid}
-			handleSelectList={handleSelectList}
-			handleChangePage={handleChangePage}
-			handleChangeFirstPage={handleChangeFirstPage}
-			handleChangePrevPage={handleChangePrevPage}
-			handleChangeNextPage={handleChangeNextPage}
-			handleChangeLastPage={handleChangeLastPage}
-		/>
+	return loading || products === null ? (
+		<Spinner />
+	) : (
+		<Fragment>
+			<Container
+				products={products}
+				sorting={sorting}
+				productsFrom={productsFrom}
+				productsTo={productsTo}
+				quantity={quantity}
+				handleChangeSorting={handleChangeSorting}
+				handleSelectGrid={handleSelectGrid}
+				handleSelectList={handleSelectList}
+				handleChangePage={handleChangePage}
+				handleChangeFirstPage={handleChangeFirstPage}
+				handleChangePrevPage={handleChangePrevPage}
+				handleChangeNextPage={handleChangeNextPage}
+				handleChangeLastPage={handleChangeLastPage}
+			/>
+		</Fragment>
 	);
 };
 
-export default ProductsGrid;
+ProductsGrid.propTypes = {
+	loadProducts: PropTypes.func.isRequired,
+	product: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = ({ product }) => ({
+	product,
+});
+
+const mapDispatchToProps = {
+	loadProducts,
+};
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps,
+)(ProductsGrid);
