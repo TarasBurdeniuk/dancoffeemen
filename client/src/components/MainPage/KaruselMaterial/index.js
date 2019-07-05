@@ -14,25 +14,35 @@ const white = grey[50];
 const tutorialSteps = [
 	{
 		id: 1,
-		imgPath:
-			'https://www.shambhalaschool.org/wp-content/uploads/2017/11/pp-hot-coffee-rf-istock.jpg',
+		imgPath: 'photo/mainPage/mainCarusel/coffee1.jpg',
 	},
 	{
 		id: 2,
-		imgPath: 'https://kabar.kg/site/assets/files/38765/1-1.jpg',
+		imgPath: 'photo/mainPage/mainCarusel/coffee2.jpg',
 	},
 	{
 		id: 3,
-		imgPath: 'https://riabir.ru/wp-content/uploads/2019/03/CHay.jpg',
+		imgPath: 'photo/mainPage/mainCarusel/coffee3.jpg',
 	},
 	{
 		id: 4,
-		imgPath: 'https://www.stanforddaily.com/wp-content/uploads/2016/05/coffee-grind.jpg',
+		imgPath: 'photo/mainPage/mainCarusel/coffee4.jpg',
 	},
 	{
 		id: 5,
-		imgPath:
-			'https://s3.amazonaws.com/bncore/wp-content/uploads/2018/05/1010290878-Gusto-Cheap-12-e1545847595185.jpg',
+		imgPath: 'photo/mainPage/mainCarusel/coffee5.jpg',
+	},
+	{
+		id: 6,
+		imgPath: 'photo/mainPage/mainCarusel/coffee6.jpg',
+	},
+	{
+		id: 7,
+		imgPath: 'photo/mainPage/mainCarusel/coffee7.jpg',
+	},
+	{
+		id: 8,
+		imgPath: 'photo/mainPage/mainCarusel/coffee8.jpg',
 	},
 ];
 

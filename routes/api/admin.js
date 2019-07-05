@@ -10,25 +10,31 @@ const Product = require('../../models/Product');
 router.post(
 	'/',
 	[
-		check('name', 'Name is required')
+		check('brand', 'Brand is required')
+			.not()
+			.isEmpty(),
+		check('model', 'Model is required')
 			.not()
 			.isEmpty(),
 		check('productType', 'Product type is required')
 			.not()
 			.isEmpty(),
-		check('image.previewImage', 'Preview image is required')
+		check('image', 'Image is required')
 			.not()
 			.isEmpty(),
-		check('specifications.previewSpecifications', 'Preview Specifications is required')
+		check('specifications', 'Specifications is required')
 			.not()
 			.isEmpty(),
-		check('price.basePrice', 'Base Price is required')
+		check('price', 'Price is required')
 			.not()
 			.isEmpty(),
-		check('quantity.default', 'Quantity is required')
+		check('quantity', 'Quantity is required')
 			.not()
 			.isEmpty(),
-		check('status.default', 'Status is required')
+		check('status', 'Status is required')
+			.not()
+			.isEmpty(),
+		check('shortDescription', 'Short Description is required')
 			.not()
 			.isEmpty(),
 	],
@@ -40,50 +46,53 @@ router.post(
 			return res.status(400).json({ errors: errors.array() });
 		}
 		const {
-			name,
+			brand,
+			model,
 			productType,
-			productVariables,
 			image,
 			specifications,
 			price,
+			discount,
 			quantity,
 			status,
-			review,
+			shortDescription,
+			mainDescription,
 			id,
 		} = req.body;
 
 		const newProduct = {};
-		if (name) {
-			newProduct.name = name;
+		if (brand) {
+			newProduct.brand = brand;
+		}
+		if (model) {
+			newProduct.model = model;
 		}
 		if (productType) {
 			newProduct.productType = productType;
 		}
-		if (productVariables) {
-			newProduct.productVariables = productVariables.split(',').map(item => item.trim());
-		}
 		if (image) {
-			newProduct.image = { ...image };
-		}
-		if (image.defaultCardImage) {
-			newProduct.image.defaultCardImage = image.defaultCardImage
-				.split(',')
-				.map(item => item.trim());
+			newProduct.image = [...image];
 		}
 		if (specifications) {
 			newProduct.specifications = { ...specifications };
 		}
 		if (price) {
-			newProduct.price = { ...price };
+			newProduct.price = price;
+		}
+		if (discount) {
+			newProduct.discount = discount;
 		}
 		if (quantity) {
-			newProduct.quantity = { ...quantity };
+			newProduct.quantity = quantity;
 		}
 		if (status) {
-			newProduct.status = { ...status };
+			newProduct.status = status;
 		}
-		if (review) {
-			newProduct.review = [...review];
+		if (shortDescription) {
+			newProduct.shortDescription = shortDescription;
+		}
+		if (mainDescription) {
+			newProduct.mainDescription = mainDescription;
 		}
 		try {
 			let product = await Product.findOne({ _id: id });
