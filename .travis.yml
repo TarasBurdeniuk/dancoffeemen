@@ -1,0 +1,11 @@
+dist: trusty
+
+cache:
+  directories:
+    - $HOME/client/node_modules
+
+before_script:
+  - npm install --prefix client
+
+script:
+  - npm run build --prefix client

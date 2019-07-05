@@ -1,6 +1,6 @@
 const express = require('express');
-const connectDB = require('./config/db');
 const path = require('path');
+const connectDB = require('./config/db');
 
 const app = express();
 
@@ -10,6 +10,13 @@ connectDB();
 // Init Middleware
 app.use(express.json({ extended: false }));
 
+// Define routes
+app.use('/api/users', require('./routes/api/users'));
+app.use('/api/auth', require('./routes/api/auth'));
+app.use('/api/admin', require('./routes/api/admin'));
+app.use('/api/products', require('./routes/api/products'));
+app.use('/api/order', require('./routes/api/order'));
+app.use('/api/wishlist', require('./routes/api/wishlist'));
 
 // Serve static assets in production
 if (process.env.NODE_ENV === 'production') {
