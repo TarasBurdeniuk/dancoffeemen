@@ -10,7 +10,6 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import { GridOn, List } from '@material-ui/icons';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import StarsRate from '../ProductDetails/StarsRate';
@@ -119,22 +118,20 @@ const Products = props => {
 		setLabelWidth(inputLabel.current.offsetWidth);
 	}, []);
 
-	const list = products.map(product => {
-		if (product.id <= productsTo && product.id >= productsFrom) {
+	const list = products.map((product, i) => {
+		if (i + 1 <= productsTo && i + 1 >= productsFrom) {
 			if (quantity === 12) {
 				return (
-					<Grid key={product.id} item xs={12} sm={6} md={4}>
+					<Grid key={product._id} item xs={12} sm={6} md={4}>
 						<Paper className={classes.grid} justify="center">
 							<div className={classes.paperBlock}>
-								<Link to="/product-details">
-									<img
-										src={product.src}
-										alt={product.id}
-										className={classes.image}
-									/>
-								</Link>
-								<h3>{product.name}</h3>
-								<h4>Price: {product.price}</h4>
+								<img
+									src={product.image[0]}
+									alt={`${product.brand}_${product.model}`}
+									className={classes.image}
+								/>
+								<h3>{`${product.brand} ${product.model} ${product.specifications.size}`}</h3>
+								<h4>Price: ${product.price}</h4>
 							</div>
 							<Button
 								variant="contained"
@@ -152,37 +149,32 @@ const Products = props => {
 				return (
 					<Grid
 						container
-						key={product.id}
+						key={product._id}
 						className={classes.products}
 						justify="center"
 						spacing={5}
 					>
 						<Grid item xs={12} sm={12} md={4}>
-							<Link to="/product-details">
-								<Paper className={classes.list}>
-									<img
-										src={product.src}
-										alt={product.id}
-										className={classes.image}
-									/>
-								</Paper>
-							</Link>
+							<Paper className={classes.list}>
+								<img
+									src={product.image[0]}
+									alt={`${product.brand}_${product.model}`}
+									className={classes.image}
+								/>
+							</Paper>
 						</Grid>
 						<Grid item className={classes.details} xs={12} sm={12} md={7}>
 							<Typography variant="h5" gutterBottom>
-								Lavazza {product.id}
+								{`${product.brand} ${product.model} ${product.specifications.size}`}
 							</Typography>
 							<div className={classes.starsRate}>
 								<StarsRate />
 							</div>
 							<Typography className={classes.price} variant="h5" gutterBottom>
-								$18
+								${product.price}
 							</Typography>
 							<Typography variant="subtitle2" gutterBottom>
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit. A adipisci
-								atque consequatur consequuntur, corporis cupiditate distinctio
-								dolore enim fugit iusto labore laborum magni maiores molestiae, odit
-								quisquam sapiente tempora. Impedit!
+								{product.shortDescription}
 							</Typography>
 							<Button
 								variant="contained"
