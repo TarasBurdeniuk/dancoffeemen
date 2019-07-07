@@ -4,6 +4,10 @@ const connectDB = require('./config/db');
 
 const app = express();
 
+setInterval(() => {
+	app.get('https://dancoffeemen.herokuapp.com/');
+}, 300000);
+
 // Connect Database
 connectDB();
 
