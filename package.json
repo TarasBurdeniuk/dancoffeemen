@@ -67,5 +67,8 @@
 		"*.{js,jsx,md}": [
 			"prettier --list-different"
 		]
+	},
+	"engines": {
+		"node": "12.3.1"
 	}
 }
