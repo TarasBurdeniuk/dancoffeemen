@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator/check');
 const Product = require('../../models/Product');
+const Contact = require('../../models/Contact');
 
 // Route   POST api/products
 // Desc    add or update products from admin panel
@@ -119,5 +120,56 @@ router.post(
 		}
 	},
 );
+
+// Route   POST api/contacts
+// Desc    add or update contacts from admin panel
+
+// eslint-disable-next-line consistent-return
+router.post('/contacts', async (req, res) => {
+	const { address, country, city, email, phone, workTime, id } = req.body;
+	const contacts = {};
+
+	if (address) {
+		contacts.address = address;
+	}
+	if (country) {
+		contacts.country = country;
+	}
+	if (city) {
+		contacts.city = city;
+	}
+	if (email) {
+		contacts.email = email;
+	}
+	if (phone) {
+		contacts.phone = phone;
+	}
+	if (workTime) {
+		contacts.workTime = workTime;
+	}
+	try {
+		let contact = await Contact.findById(id);
+
+		// Checking if contacts exist
+		if (contact) {
+			// Update contacts by id
+			contact = await Contact.findOneAndUpdate(
+				{ _id: id },
+				{ $set: contacts },
+				{ new: true },
+			);
+			return res.json(contact);
+		}
+
+		// Create new contact
+		contact = new Contact(contacts);
+
+		await contact.save();
+		res.json(contact);
+	} catch (err) {
+		console.error(err.message);
+		res.status(500).send('Server error');
+	}
+});
 
 module.exports = router;
