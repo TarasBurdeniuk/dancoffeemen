@@ -40,7 +40,6 @@ router.post(
 			.isEmpty(),
 	],
 
-	// eslint-disable-next-line consistent-return
 	async (req, res) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
@@ -58,44 +57,52 @@ router.post(
 			status,
 			shortDescription,
 			mainDescription,
+			itemNo,
 			id,
 		} = req.body;
 
-		const newProduct = {};
-		if (brand) {
-			newProduct.brand = brand;
-		}
-		if (model) {
-			newProduct.model = model;
-		}
-		if (productType) {
-			newProduct.productType = productType;
-		}
-		if (image) {
-			newProduct.image = [...image];
-		}
-		if (specifications) {
-			newProduct.specifications = { ...specifications };
-		}
-		if (price) {
-			newProduct.price = price;
-		}
-		if (discount) {
-			newProduct.discount = discount;
-		}
-		if (quantity) {
-			newProduct.quantity = quantity;
-		}
-		if (status) {
-			newProduct.status = status;
-		}
-		if (shortDescription) {
-			newProduct.shortDescription = shortDescription;
-		}
-		if (mainDescription) {
-			newProduct.mainDescription = mainDescription;
-		}
 		try {
+			const newProduct = {};
+			if (brand) {
+				newProduct.brand = brand;
+			}
+			if (model) {
+				newProduct.model = model;
+			}
+			if (productType) {
+				newProduct.productType = productType;
+			}
+			if (image) {
+				newProduct.image = [...image];
+			}
+			if (specifications) {
+				newProduct.specifications = { ...specifications };
+			}
+			if (price) {
+				newProduct.price = price;
+			}
+			if (discount) {
+				newProduct.discount = discount;
+			}
+			if (quantity) {
+				newProduct.quantity = quantity;
+			}
+			if (status) {
+				newProduct.status = status;
+			}
+			if (shortDescription) {
+				newProduct.shortDescription = shortDescription;
+			}
+			if (mainDescription) {
+				newProduct.mainDescription = mainDescription;
+			}
+			if (itemNo) {
+				newProduct.itemNo = itemNo;
+			} else {
+				const allProduct = await Product.estimatedDocumentCount();
+				newProduct.itemNo = allProduct + 1;
+			}
+
 			let product = await Product.findById(id);
 
 			// Checking if product exist
@@ -124,7 +131,6 @@ router.post(
 // Route   POST api/admin/contacts
 // Desc    add or update contacts from admin panel
 
-// eslint-disable-next-line consistent-return
 router.post('/contacts', async (req, res) => {
 	const { address, country, city, email, phone, workTime, id } = req.body;
 	const contacts = {};
@@ -166,6 +172,19 @@ router.post('/contacts', async (req, res) => {
 
 		await contact.save();
 		res.json(contact);
+	} catch (err) {
+		console.error(err.message);
+		res.status(500).send('Server error');
+	}
+});
+
+// Route   GET api/admin/contacts
+// Desc    get contacts
+
+router.get('/contacts', async (req, res) => {
+	try {
+		const contacts = await Contact.find();
+		res.json(contacts);
 	} catch (err) {
 		console.error(err.message);
 		res.status(500).send('Server error');
