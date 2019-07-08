@@ -57,44 +57,52 @@ router.post(
 			status,
 			shortDescription,
 			mainDescription,
+			itemNo,
 			id,
 		} = req.body;
 
-		const newProduct = {};
-		if (brand) {
-			newProduct.brand = brand;
-		}
-		if (model) {
-			newProduct.model = model;
-		}
-		if (productType) {
-			newProduct.productType = productType;
-		}
-		if (image) {
-			newProduct.image = [...image];
-		}
-		if (specifications) {
-			newProduct.specifications = { ...specifications };
-		}
-		if (price) {
-			newProduct.price = price;
-		}
-		if (discount) {
-			newProduct.discount = discount;
-		}
-		if (quantity) {
-			newProduct.quantity = quantity;
-		}
-		if (status) {
-			newProduct.status = status;
-		}
-		if (shortDescription) {
-			newProduct.shortDescription = shortDescription;
-		}
-		if (mainDescription) {
-			newProduct.mainDescription = mainDescription;
-		}
 		try {
+			const newProduct = {};
+			if (brand) {
+				newProduct.brand = brand;
+			}
+			if (model) {
+				newProduct.model = model;
+			}
+			if (productType) {
+				newProduct.productType = productType;
+			}
+			if (image) {
+				newProduct.image = [...image];
+			}
+			if (specifications) {
+				newProduct.specifications = { ...specifications };
+			}
+			if (price) {
+				newProduct.price = price;
+			}
+			if (discount) {
+				newProduct.discount = discount;
+			}
+			if (quantity) {
+				newProduct.quantity = quantity;
+			}
+			if (status) {
+				newProduct.status = status;
+			}
+			if (shortDescription) {
+				newProduct.shortDescription = shortDescription;
+			}
+			if (mainDescription) {
+				newProduct.mainDescription = mainDescription;
+			}
+			if (itemNo) {
+				newProduct.itemNo = itemNo;
+			} else {
+				const allProduct = await Product.estimatedDocumentCount();
+				newProduct.itemNo = allProduct + 1;
+			}
+
 			let product = await Product.findById(id);
 
 			// Checking if product exist
