@@ -35,7 +35,6 @@ router.get('/:id', async (req, res) => {
 // Router   DELETE api/products/:id
 // Desc     delete product by id
 
-// eslint-disable-next-line consistent-return
 router.delete('/:id', async (req, res) => {
 	try {
 		const product = await Product.findById(req.params.id);
@@ -70,7 +69,6 @@ router.post(
 				.isLength({ max: 10 }),
 		],
 	],
-	// eslint-disable-next-line consistent-return
 	async (req, res) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {

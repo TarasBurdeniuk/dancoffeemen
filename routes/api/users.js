@@ -20,7 +20,6 @@ router.post(
 		check('password', 'Please enter a password with 6 or more character').isLength({ min: 6 }),
 		check('phone', 'Please enter a phone with 10 character ').isLength({ min: 10 }),
 	],
-	// eslint-disable-next-line consistent-return
 	async (req, res) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
