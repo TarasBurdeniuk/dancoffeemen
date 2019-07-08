@@ -5,11 +5,11 @@ const { check, validationResult } = require('express-validator/check');
 const Product = require('../../models/Product');
 const Contact = require('../../models/Contact');
 
-// Route   POST api/products
+// Route   POST api/admin/products
 // Desc    add or update products from admin panel
 
 router.post(
-	'/',
+	'/products',
 	[
 		check('brand', 'Brand is required')
 			.not()
@@ -96,7 +96,7 @@ router.post(
 			newProduct.mainDescription = mainDescription;
 		}
 		try {
-			let product = await Product.findOne({ _id: id });
+			let product = await Product.findById(id);
 
 			// Checking if product exist
 			if (product) {
@@ -121,7 +121,7 @@ router.post(
 	},
 );
 
-// Route   POST api/contacts
+// Route   POST api/admin/contacts
 // Desc    add or update contacts from admin panel
 
 // eslint-disable-next-line consistent-return
