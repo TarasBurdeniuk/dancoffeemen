@@ -14,7 +14,7 @@ import grey from '@material-ui/core/colors/grey';
 import Authorization from './Authorization';
 import Pages from './Pages';
 import MobileMenu from './MobileMenu';
-import logo from './logo.svg';
+import logo from './logo.png';
 
 const lightPink = pink[400];
 const strongGrey = grey[700];
@@ -28,7 +28,10 @@ const useStyles = makeStyles(theme => ({
 	},
 	toolBar: {
 		display: 'flex',
-		justifyContent: 'space-around',
+		justifyContent: 'space-between',
+		[theme.breakpoints.up('md')]: {
+			justifyContent: 'space-around',
+		},
 	},
 	title: {
 		margin: '0 1.5rem',
@@ -40,7 +43,22 @@ const useStyles = makeStyles(theme => ({
 		},
 	},
 	logo: {
-		cursor: 'pointer',
+		display: 'flex',
+		alignItems: 'center',
+		'& img': {
+			width: '38px',
+			height: '38px',
+			cursor: 'pointer',
+		},
+	},
+	name: {
+		display: 'none',
+		marginLeft: '.2rem',
+		color: '#632e12',
+		textDecoration: 'none',
+		[theme.breakpoints.up(1160)]: {
+			display: 'inline-block',
+		},
 	},
 	line: {
 		margin: '0 .2rem -.55rem .4rem',
@@ -86,6 +104,9 @@ const Container = props => {
 					<div className={classes.logo}>
 						<Link to="/">
 							<img src={logo} alt="logo" />
+						</Link>
+						<Link to="/" className={classes.name}>
+							<Typography variant="h6">Coffeemen</Typography>
 						</Link>
 					</div>
 					<div className={classes.sectionDesktop}>
