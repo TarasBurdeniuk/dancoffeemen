@@ -18,10 +18,29 @@ import Pagination from './Pagination';
 const useStyles = makeStyles({
 	grid: {
 		display: 'flex',
-		justifyContent: 'center',
+		flexDirection: 'column',
+		alignItems: 'center',
+		justifyContent: 'space-between',
 		width: '100%',
-		height: 350,
+		height: 400,
 		marginTop: '1rem',
+		padding: 5,
+		boxSizing: 'border-box',
+		'&:hover button': {
+			display: 'block',
+		},
+	},
+	buttonHover: {
+		display: 'none',
+		marginBottom: '1rem',
+	},
+	paperBlock: {
+		display: 'inherit',
+		alignItems: 'center',
+		flexDirection: 'column',
+		'& h4,h3': {
+			margin: '5px 0',
+		},
 	},
 	list: {
 		display: 'flex',
@@ -60,15 +79,17 @@ const useStyles = makeStyles({
 		margin: '1rem 0 1.2rem',
 	},
 	button: {
-		marginTop: '1.5rem',
+		marginTop: '1rem',
+		marginBottom: '1rem',
 	},
 	image: {
-		maxWidth: '80%',
-		maxHeight: '80%',
+		maxWidth: 200,
+		maxHeight: 200,
 		marginTop: '1rem',
 	},
 	pagination: {
 		marginTop: '3rem',
+		marginBottom: '3rem',
 	},
 });
 
@@ -97,14 +118,29 @@ const Products = props => {
 		setLabelWidth(inputLabel.current.offsetWidth);
 	}, []);
 
-	const list = products.map(product => {
-		if (product.id <= productsTo && product.id >= productsFrom) {
+	const list = products.map((product, i) => {
+		if (i + 1 <= productsTo && i + 1 >= productsFrom) {
 			if (quantity === 12) {
 				return (
-					<Grid key={product.id} item xs={12} sm={6} md={4}>
+					<Grid key={product._id} item xs={12} sm={6} md={4}>
 						<Paper className={classes.grid} justify="center">
-							<img src={product.src} alt={product.id} className={classes.image} />
-							{product.id}
+							<div className={classes.paperBlock}>
+								<img
+									src={product.image[0]}
+									alt={`${product.brand}_${product.model}`}
+									className={classes.image}
+								/>
+								<h3>{`${product.brand} ${product.model} ${product.specifications.size}`}</h3>
+								<h4>Price: ${product.price}</h4>
+							</div>
+							<Button
+								variant="contained"
+								size="large"
+								color="secondary"
+								className={classes.buttonHover}
+							>
+								Add To Cart
+							</Button>
 						</Paper>
 					</Grid>
 				);
@@ -113,31 +149,32 @@ const Products = props => {
 				return (
 					<Grid
 						container
-						key={product.id}
+						key={product._id}
 						className={classes.products}
 						justify="center"
 						spacing={5}
 					>
 						<Grid item xs={12} sm={12} md={4}>
 							<Paper className={classes.list}>
-								<img src={product.src} alt={product.id} className={classes.image} />
+								<img
+									src={product.image[0]}
+									alt={`${product.brand}_${product.model}`}
+									className={classes.image}
+								/>
 							</Paper>
 						</Grid>
 						<Grid item className={classes.details} xs={12} sm={12} md={7}>
 							<Typography variant="h5" gutterBottom>
-								Lavazza {product.id}
+								{`${product.brand} ${product.model} ${product.specifications.size}`}
 							</Typography>
 							<div className={classes.starsRate}>
 								<StarsRate />
 							</div>
 							<Typography className={classes.price} variant="h5" gutterBottom>
-								$18
+								${product.price}
 							</Typography>
 							<Typography variant="subtitle2" gutterBottom>
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit. A adipisci
-								atque consequatur consequuntur, corporis cupiditate distinctio
-								dolore enim fugit iusto labore laborum magni maiores molestiae, odit
-								quisquam sapiente tempora. Impedit!
+								{product.shortDescription}
 							</Typography>
 							<Button
 								variant="contained"

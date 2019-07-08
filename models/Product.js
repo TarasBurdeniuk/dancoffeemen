@@ -1,97 +1,50 @@
 const mongoose = require('mongoose');
 
-const { Schema } = mongoose;
-
 const ProductSchema = new mongoose.Schema({
-	name: {
+	brand: {
 		type: String,
 		required: true,
-		minlength: 6,
+	},
+	model: {
+		type: String,
+		require: true,
 	},
 	productType: {
 		type: String,
 		required: true,
 	},
-	productVariables: [
+	image: [
 		{
 			type: String,
+			require: true,
 		},
 	],
-	image: {
-		previewImage: {
-			type: String,
-			required: true,
-		},
-		defaultCardImage: [
-			{
-				type: String,
-			},
-		],
-		variablesImage: {
-			type: Object,
-		},
-	},
 	specifications: {
-		previewSpecifications: {
-			type: Object,
-			required: true,
-		},
-		additionalSpecifications: {
-			type: Object,
-		},
+		type: Object,
+		require: true,
 	},
 	price: {
-		basePrice: {
-			type: Number,
-			required: true,
-		},
-		discount: {
-			type: Number,
-			max: 0.99,
-		},
+		type: Number,
+		require: true,
+	},
+	discount: {
+		type: Number,
 	},
 	quantity: {
-		default: {
-			type: Number,
-			require: true,
-		},
-		variablesQuantity: {
-			type: Object,
-		},
+		type: Number,
+		require: true,
 	},
 	status: {
-		default: {
-			type: Boolean,
-			require: true,
-		},
-		variablesStatus: {
-			type: Object,
-		},
+		type: Boolean,
+		require: true,
 	},
-	review: [
-		{
-			description: {
-				type: String,
-			},
-			regard: {
-				type: Number,
-				required: true,
-				min: 1,
-				max: 10,
-			},
-			author: {
-				type: Schema.Types.ObjectId,
-				ref: 'User',
-			},
-			name: {
-				type: String,
-			},
-			date: {
-				type: Date,
-				default: Date.now,
-			},
-		},
-	],
+	shortDescription: {
+		type: String,
+		require: true,
+	},
+	mainDescription: {
+		type: String,
+	},
 });
 
 module.exports = mongoose.model('products', ProductSchema);

@@ -13,8 +13,8 @@ const useStyles = makeStyles({
 	root: {
 		display: 'flex',
 		justifyContent: 'center',
-		fontFamily: '"Montserrat", sans-serif',
-		marginTop: '20px',
+		fontFamily: "'Lato', 'Roboto', sans-serif",
+		fontSize: 13,
 		backgroundColor: darkGrey,
 		color: lightGrey,
 		'& a': {
@@ -36,6 +36,9 @@ const useStyles = makeStyles({
 		flexWrap: 'wrap',
 	},
 	logo: {
+		'& a': {
+			textDecoration: 'none',
+		},
 		fontSize: '26px',
 		'& span': {
 			color: mediumPink,
@@ -49,12 +52,18 @@ const useStyles = makeStyles({
 	block: {
 		width: '250px',
 		margin: '20px 0',
+		padding: 10,
 		'& ul': {
 			listStyleType: 'none',
+			'& li': {
+				margin: '5px 0',
+			},
 		},
 	},
 	link: {
+		textDecoration: 'none',
 		transition: '0.5s',
+		margin: '5px 0',
 		'&:hover': {
 			color: mediumPink,
 			transition: '0.5s',
@@ -89,8 +98,8 @@ const Footer = () => {
 								</Link>
 							</li>
 							<li>
-								<Link to="/product" className={classes.link}>
-									Product
+								<Link to="/products-grid" className={classes.link}>
+									Products
 								</Link>
 							</li>
 							<li>

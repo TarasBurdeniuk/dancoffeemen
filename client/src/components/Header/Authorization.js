@@ -24,13 +24,13 @@ const Authorization = props => {
 	const [anchorEl, setAnchorEl] = useState(null);
 	const open = Boolean(anchorEl);
 
-	function handleMenu(event) {
+	const handleMenu = event => {
 		setAnchorEl(event.currentTarget);
-	}
+	};
 
-	function handleClose() {
+	const handleClose = () => {
 		setAnchorEl(null);
-	}
+	};
 
 	const authLink = (
 		<Link to={registration[0].authLink.route} onClick={logout} className={classes.link}>
