@@ -40,7 +40,6 @@ router.post(
 			.isEmpty(),
 	],
 
-	// eslint-disable-next-line consistent-return
 	async (req, res) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
@@ -124,7 +123,6 @@ router.post(
 // Route   POST api/admin/contacts
 // Desc    add or update contacts from admin panel
 
-// eslint-disable-next-line consistent-return
 router.post('/contacts', async (req, res) => {
 	const { address, country, city, email, phone, workTime, id } = req.body;
 	const contacts = {};
@@ -166,6 +164,19 @@ router.post('/contacts', async (req, res) => {
 
 		await contact.save();
 		res.json(contact);
+	} catch (err) {
+		console.error(err.message);
+		res.status(500).send('Server error');
+	}
+});
+
+// Route   GET api/admin/contacts
+// Desc    get contacts
+
+router.get('/contacts', async (req, res) => {
+	try {
+		const contacts = await Contact.find();
+		res.json(contacts);
 	} catch (err) {
 		console.error(err.message);
 		res.status(500).send('Server error');

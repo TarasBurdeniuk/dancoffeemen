@@ -41,7 +41,6 @@ router.post(
 				.isEmpty(),
 		],
 	],
-	// eslint-disable-next-line consistent-return
 	async (req, res) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
@@ -57,7 +56,6 @@ router.post(
 		try {
 			const orderProducts = await Product.find({ _id: allIdProducts });
 
-			// eslint-disable-next-line consistent-return
 			orderProducts.forEach((item, i) => {
 				if (item.quantity.default < allAmountByProduct[i]) {
 					return res.status(400).json({ msg: 'Amount is less that from order amount' });
@@ -116,7 +114,6 @@ router.post(
 // Route   DELETE api/order
 // Desc    delete order
 
-// eslint-disable-next-line consistent-return
 router.delete('/:id', async (req, res) => {
 	try {
 		const order = await Order.findById(req.params.id);
@@ -139,7 +136,6 @@ router.delete('/:id', async (req, res) => {
 // Route   GET api/order
 // Desc    get all orders by users
 
-// eslint-disable-next-line consistent-return
 router.get('/', auth, async (req, res) => {
 	try {
 		const orders = await Order.find({ client: req.user.id });
