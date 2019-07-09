@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import grey from '@material-ui/core/colors/grey';
 import pink from '@material-ui/core/colors/pink';
-import Spinner from '../Spinner';
+import Spinner from '../Loading';
 import PropTypes from 'prop-types';
 
 const darkGrey = grey[900];
