@@ -1,8 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import grey from '@material-ui/core/colors/grey';
 import pink from '@material-ui/core/colors/pink';
+import Spinner from '../Spinner';
+import PropTypes from 'prop-types';
 
 const darkGrey = grey[900];
 const lightGrey = grey[50];
@@ -24,7 +27,7 @@ const useStyles = makeStyles({
 	container: {
 		width: '1160px',
 		margin: '0 auto',
-		padding: '30px 0',
+		padding: '10px 0',
 		display: 'flex',
 		justifyContent: 'center',
 		alignItems: 'center',
@@ -50,9 +53,10 @@ const useStyles = makeStyles({
 		},
 	},
 	block: {
+		boxSizing: 'border-box',
 		width: '250px',
-		margin: '20px 0',
-		padding: 10,
+		margin: '5px 0',
+		padding: 5,
 		'& ul': {
 			listStyleType: 'none',
 			'& li': {
@@ -70,12 +74,29 @@ const useStyles = makeStyles({
 		},
 	},
 	copyright: {},
+	info: {
+		display: 'none',
+	},
+	'@media screen and (min-width:1160px)': {
+		info: {
+			display: 'flex',
+		},
+		block: {
+			margin: '20px 0',
+			padding: 10,
+		},
+		container: {
+			padding: '30px 0',
+		},
+	},
 });
 
-const Footer = () => {
+const Footer = ({ contact: { contacts, loading } }) => {
 	const classes = useStyles();
 
-	return (
+	return loading ? (
+		<Spinner />
+	) : (
 		<div className={classes.root}>
 			<div className={classes.container}>
 				<div className={classes.main_block}>
@@ -98,47 +119,47 @@ const Footer = () => {
 								</Link>
 							</li>
 							<li>
-								<Link to="/products-grid" className={classes.link}>
+								<Link to="/products" className={classes.link}>
 									Products
 								</Link>
 							</li>
 							<li>
-								<Link to="/about" className={classes.link}>
-									About
+								<Link to="/contact-us" className={classes.link}>
+									Contact Us
 								</Link>
 							</li>
 							<li>
-								<Link to="/basket" className={classes.link}>
+								<Link to="/cart" className={classes.link}>
 									Basket
-								</Link>
-							</li>
-							<li>
-								<Link to="/support" className={classes.link}>
-									Support
 								</Link>
 							</li>
 						</ul>
 					</div>
 					<div className={classes.block}>
-						<div>
-							<a href="tel: +380442902244">(044) 290-22-44</a>
+						<address>
+							<a href={`tel: ${contacts.phone}`}>{contacts.phone}</a>
 							<br />
-							<span>AVAILABLE AT 10AM - 20PM</span>
-						</div>
-						<div>
-							<h4>Kyiv, KYI</h4>
-							<span>Pavla Tycheny avenu, 1v, 6 floor</span>
+							<span>{contacts.workTime}</span>
 							<br />
-							<span>Ukraine</span>
+							Written by
+							<a href={`mailto:${contacts.email}`}> DanCoffeeMen</a>
+						</address>
+						<div>
+							<h4>{contacts.city}</h4>
+							<span>{contacts.address}</span>
+							<br />
+							<span>{contacts.country}</span>
 						</div>
 					</div>
-					<div className={classes.block}>
-						<h3>Info</h3>
-						<p>
-							Wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper
-							suscipit lobortis nisl ut aliquip ex commodo consequat. Autem vel
-							hendrerit iriure dolor in hendrerit.
-						</p>
+					<div className={classes.info}>
+						<div className={classes.block}>
+							<h3>Info</h3>
+							<p>
+								Wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper
+								suscipit lobortis nisl ut aliquip ex commodo consequat. Autem vel
+								hendrerit iriure dolor in hendrerit.
+							</p>
+						</div>
 					</div>
 				</div>
 				<div className={classes.copyright}>
@@ -149,4 +170,13 @@ const Footer = () => {
 	);
 };
 
-export default Footer;
+Footer.propTypes = {
+	contacts: PropTypes.object,
+	loading: PropTypes.bool,
+};
+
+const mapDispatchToProps = ({ contact }) => ({
+	contact,
+});
+
+export default connect(mapDispatchToProps)(Footer);

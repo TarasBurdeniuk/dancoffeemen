@@ -10,7 +10,7 @@ trim_trailing_whitespace = true
 # Переводы строк в стиле Unix с пустой строкой в конце файла
 [*]
 indent_style = tab
-indent_size = 2
+indent_size = 4
 end_of_line = lf
 charset = utf-8
 insert_final_newline = true
