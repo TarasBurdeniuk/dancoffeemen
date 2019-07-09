@@ -15,6 +15,7 @@ import './styles/index.css';
 import setAuthToken from './utills/setAuthToken';
 import store from './store';
 import { loadUser } from './actions/auth';
+import { loadContacts } from './actions/contacts';
 
 if (localStorage.token) {
 	setAuthToken(localStorage.token);
@@ -23,6 +24,7 @@ if (localStorage.token) {
 const App = () => {
 	useEffect(() => {
 		store.dispatch(loadUser());
+		store.dispatch(loadContacts());
 	}, []);
 
 	return (
