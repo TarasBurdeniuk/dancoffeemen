@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { PRODUCT_ERROR, LOAD_PRODUCTS } from './productsTypes';
+import { PRODUCT_ERROR, LOAD_PRODUCTS } from './types';
 
 // Load products
 

@@ -1,4 +1,4 @@
-import { PRODUCT_ERROR, LOAD_PRODUCTS } from '../actions/productsTypes';
+import { PRODUCT_ERROR, LOAD_PRODUCTS } from '../actions/types';
 
 const initialState = {
 	products: null,
