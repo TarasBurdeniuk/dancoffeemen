@@ -7,3 +7,5 @@ export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const LOGOUT = 'LOGOUT';
 export const CONTACTS_LOADED = 'CONTACTS_LOADED';
 export const CONTACTS_ERROR = 'CONTACTS_ERROR';
+export const LOAD_PRODUCTS = 'LOAD_PRODUCTS';
+export const PRODUCT_ERROR = 'PRODUCT_ERROR';
