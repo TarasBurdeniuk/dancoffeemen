@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Container from './Container';
 import { loadProducts } from '../../actions/products';
 import PropTypes from 'prop-types';
-import Spinner from '../Spinner';
+import Spinner from '../Loading';
 
 const ProductsGrid = ({ product: { loading, products }, loadProducts }) => {
 	useEffect(() => {
