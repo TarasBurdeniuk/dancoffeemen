@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -7,6 +8,8 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import Chip from '@material-ui/core/Chip';
+import { loadBrands } from '../../actions/products';
+import Spinner from '../Loading';
 
 const useStyles = makeStyles(theme => ({
 	container: {
@@ -16,52 +19,49 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-const Brands = () => {
+const Brands = ({ loadBrands, brands }) => {
+	useEffect(() => {
+		loadBrands();
+	}, [loadBrands]);
+
 	const classes = useStyles();
 	const [checked, setChecked] = useState([]);
 
-	const handleToggle = value => () => {
+	const handleToggle = value => {
 		const currentIndex = checked.indexOf(value);
 		const newChecked = [...checked];
+
 		if (currentIndex === -1) {
 			newChecked.push(value);
+			console.log(`aad ${value}`);
 		} else {
 			newChecked.splice(currentIndex, 1);
+			console.log(`delete ${value}`);
 		}
+		console.log(newChecked);
 		setChecked(newChecked);
 	};
 
-	const brands = [
-		{ name: 'Lavazza', goodsQuantity: 17, id: 0 },
-		{ name: 'Kimbo', goodsQuantity: 9, id: 1 },
-		{ name: 'Illy', goodsQuantity: 11, id: 2 },
-		{ name: 'Fineberry', goodsQuantity: 5, id: 3 },
-		{ name: 'Lucaffee', goodsQuantity: 1, id: 4 },
-		{ name: 'Alvorada', goodsQuantity: 19, id: 5 },
-		{ name: 'Trevi', goodsQuantity: 3, id: 6 },
-		{ name: 'Gemini', goodsQuantity: 10, id: 7 },
-		{ name: 'Cornella', goodsQuantity: 7, id: 8 },
-		{ name: 'Melitta', goodsQuantity: 5, id: 9 },
-	];
-
-	return (
+	return brands === null ? (
+		<Spinner />
+	) : (
 		<List className={classes.container}>
 			{brands.map(brand => {
-				const labelId = brand.name;
+				const labelId = brand;
 				return (
-					<ListItem key={brand.id} dense button onClick={handleToggle(brand.id)}>
+					<ListItem key={brand} dense button onClick={() => handleToggle(brand)}>
 						<ListItemIcon>
 							<Checkbox
 								edge="start"
 								color="secondary"
-								checked={checked.indexOf(brand.id) !== -1}
+								checked={checked.indexOf(brand) !== -1}
 								inputProps={{ 'aria-labelledby': labelId }}
 							/>
 						</ListItemIcon>
-						<ListItemText id={labelId} primary={brand.name} />
-						<ListItemSecondaryAction>
-							<Chip label={brand.goodsQuantity} />
-						</ListItemSecondaryAction>
+						<ListItemText id={labelId} primary={brand} />
+						{/*<ListItemSecondaryAction>*/}
+						{/*	<Chip label={brand.goodsQuantity} />*/}
+						{/*</ListItemSecondaryAction>*/}
 					</ListItem>
 				);
 			})}
@@ -69,4 +69,15 @@ const Brands = () => {
 	);
 };
 
-export default Brands;
+const mapStateToProps = state => ({
+	brands: state.product.brands,
+});
+
+const mapDispatchToProps = {
+	loadBrands,
+};
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps,
+)(Brands);
