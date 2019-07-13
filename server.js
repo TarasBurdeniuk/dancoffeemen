@@ -23,6 +23,7 @@ app.use('/api/order', require('./routes/api/order'));
 app.use('/api/wishlist', require('./routes/api/wishlist'));
 app.use('/api/brands', require('./routes/api/brands'));
 app.use('/api/filter', require('./routes/api/filter'));
+app.use('/api/size', require('./routes/api/size'));
 
 // Serve static assets in production
 if (process.env.NODE_ENV === 'production') {
