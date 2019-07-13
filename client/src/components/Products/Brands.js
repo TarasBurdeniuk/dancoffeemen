@@ -9,6 +9,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import Chip from '@material-ui/core/Chip';
 import { loadBrands } from '../../actions/products';
+import { loadFilteredProducts } from '../../actions/products';
 import Spinner from '../Loading';
 
 const useStyles = makeStyles(theme => ({
@@ -19,7 +20,7 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-const Brands = ({ loadBrands, brands }) => {
+const Brands = ({ loadBrands, brands, chosenFilter, loadFilteredProducts, filteredProducts }) => {
 	useEffect(() => {
 		loadBrands();
 	}, [loadBrands]);
@@ -33,12 +34,19 @@ const Brands = ({ loadBrands, brands }) => {
 
 		if (currentIndex === -1) {
 			newChecked.push(value);
-			console.log(`aad ${value}`);
+			loadFilteredProducts({
+				brands: [...chosenFilter.brands, value],
+				price: chosenFilter.price,
+				size: chosenFilter.size,
+			});
 		} else {
 			newChecked.splice(currentIndex, 1);
-			console.log(`delete ${value}`);
+			loadFilteredProducts({
+				brands: chosenFilter.brands.filter(item => item !== value),
+				price: chosenFilter.price,
+				size: chosenFilter.size,
+			});
 		}
-		console.log(newChecked);
 		setChecked(newChecked);
 	};
 
@@ -59,9 +67,15 @@ const Brands = ({ loadBrands, brands }) => {
 							/>
 						</ListItemIcon>
 						<ListItemText id={labelId} primary={brand} />
-						{/*<ListItemSecondaryAction>*/}
-						{/*	<Chip label={brand.goodsQuantity} />*/}
-						{/*</ListItemSecondaryAction>*/}
+						<ListItemSecondaryAction>
+							<Chip
+								label={
+									filteredProducts.length &&
+									filteredProducts.filter(product => product.brand === brand)
+										.length
+								}
+							/>
+						</ListItemSecondaryAction>
 					</ListItem>
 				);
 			})}
@@ -71,10 +85,13 @@ const Brands = ({ loadBrands, brands }) => {
 
 const mapStateToProps = state => ({
 	brands: state.product.brands,
+	chosenFilter: state.product.chosenFilter,
+	filteredProducts: state.product.filteredProducts,
 });
 
 const mapDispatchToProps = {
 	loadBrands,
+	loadFilteredProducts,
 };
 
 export default connect(
