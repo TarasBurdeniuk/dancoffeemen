@@ -5,7 +5,7 @@ import { loadProducts } from '../../actions/products';
 import PropTypes from 'prop-types';
 import Spinner from '../Loading';
 
-const ProductsGrid = ({ product: { loading, products }, loadProducts }) => {
+const ProductsGrid = ({ product: { products, filteredProducts }, loadProducts }) => {
 	useEffect(() => {
 		loadProducts();
 	}, [loadProducts]);
@@ -73,12 +73,12 @@ const ProductsGrid = ({ product: { loading, products }, loadProducts }) => {
 		setProductsTo(numTo);
 	};
 
-	return loading || products === null ? (
+	return products === null ? (
 		<Spinner />
 	) : (
 		<Fragment>
 			<Container
-				products={products}
+				products={filteredProducts.length ? filteredProducts : products}
 				sorting={sorting}
 				productsFrom={productsFrom}
 				productsTo={productsTo}
@@ -101,8 +101,9 @@ ProductsGrid.propTypes = {
 	product: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = ({ product }) => ({
-	product,
+const mapStateToProps = state => ({
+	product: state.product,
+	filteredProducts: state.product.filteredProducts,
 });
 
 const mapDispatchToProps = {
