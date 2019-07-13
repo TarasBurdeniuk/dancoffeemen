@@ -55,23 +55,28 @@ const Brands = ({ loadBrands, brands, chosenFilter, loadFilteredProducts, filter
 	) : (
 		<List className={classes.container}>
 			{brands.map(brand => {
-				const labelId = brand;
+				const labelId = brand.name;
 				return (
-					<ListItem key={brand} dense button onClick={() => handleToggle(brand)}>
+					<ListItem
+						key={brand.name}
+						dense
+						button
+						onClick={() => handleToggle(brand.name)}
+					>
 						<ListItemIcon>
 							<Checkbox
 								edge="start"
 								color="secondary"
-								checked={checked.indexOf(brand) !== -1}
+								checked={checked.indexOf(brand.name) !== -1}
 								inputProps={{ 'aria-labelledby': labelId }}
 							/>
 						</ListItemIcon>
-						<ListItemText id={labelId} primary={brand} />
+						<ListItemText id={labelId} primary={brand.name} />
 						<ListItemSecondaryAction>
 							<Chip
 								label={
 									filteredProducts.length &&
-									filteredProducts.filter(product => product.brand === brand)
+									filteredProducts.filter(product => product.brand === brand.name)
 										.length
 								}
 							/>
