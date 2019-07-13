@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -20,11 +20,7 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-const Brands = ({ loadBrands, brands, chosenFilter, loadFilteredProducts, filteredProducts }) => {
-	useEffect(() => {
-		loadBrands();
-	}, [loadBrands]);
-
+const Brands = ({ brands, chosenFilter, loadFilteredProducts, filteredProducts }) => {
 	const classes = useStyles();
 	const [checked, setChecked] = useState([]);
 
