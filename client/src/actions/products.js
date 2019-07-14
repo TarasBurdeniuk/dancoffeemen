@@ -6,6 +6,8 @@ import {
 	BRANDS_LOADED,
 	LOAD_FILTERED_PRODUCTS,
 	LOADING,
+	SIZES_ERROR,
+	SIZES_LOADED,
 } from './types';
 
 // Load products
@@ -68,6 +70,24 @@ export const loadFilteredProducts = filteredObject => async dispatch => {
 	} catch (err) {
 		dispatch({
 			type: BRANDS_ERROR,
+			payload: {
+				msg: err.message,
+			},
+		});
+	}
+};
+
+export const loadSizes = () => async dispatch => {
+	try {
+		const sizes = await axios.get('/api/size');
+
+		dispatch({
+			type: SIZES_LOADED,
+			payload: sizes.data,
+		});
+	} catch (err) {
+		dispatch({
+			type: SIZES_ERROR,
 			payload: {
 				msg: err.message,
 			},

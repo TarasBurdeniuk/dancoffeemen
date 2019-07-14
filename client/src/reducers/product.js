@@ -5,6 +5,8 @@ import {
 	BRANDS_ERROR,
 	LOAD_FILTERED_PRODUCTS,
 	LOADING,
+	SIZES_ERROR,
+	SIZES_LOADED,
 } from '../actions/types';
 
 const initialState = {
@@ -12,6 +14,7 @@ const initialState = {
 	loading: false,
 	error: null,
 	brands: null,
+	sizes: null,
 	filteredProducts: [],
 	chosenFilter: {
 		brands: [],
@@ -29,6 +32,8 @@ const product = (state = initialState, action) => {
 			return { ...state, products: payload, loading: false };
 		case BRANDS_LOADED:
 			return { ...state, brands: payload };
+		case SIZES_LOADED:
+			return { ...state, sizes: payload[0].size };
 		case LOAD_FILTERED_PRODUCTS:
 			return {
 				...state,
@@ -37,6 +42,7 @@ const product = (state = initialState, action) => {
 			};
 		case PRODUCT_ERROR:
 		case BRANDS_ERROR:
+		case SIZES_ERROR:
 			return { ...state, error: payload, loading: false };
 		default:
 			return state;
