@@ -1,9 +1,9 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Slider from '@material-ui/lab/Slider';
 import Typography from '@material-ui/core/Typography';
-import { loadFilteredProducts } from '../../actions/products';
+import { loadFilteredProducts, clearFilter } from '../../actions/products';
 
 const useStyles = makeStyles({
 	price: {
@@ -14,9 +14,12 @@ const useStyles = makeStyles({
 	},
 });
 
-const Price = ({ chosenFilter, loadFilteredProducts }) => {
+const Price = ({ chosenFilter, loadFilteredProducts, clearFilter }) => {
 	const classes = useStyles();
-	const [price, setPrice] = useState([15, 55]);
+	const [price, setPrice] = useState([5, 30]);
+	useEffect(() => {
+		clearFilter();
+	}, [clearFilter]);
 
 	const handleChangePrice = (event, newPrice) => {
 		setPrice(newPrice);
@@ -34,7 +37,7 @@ const Price = ({ chosenFilter, loadFilteredProducts }) => {
 		<Fragment>
 			<Slider
 				value={price}
-				min={0}
+				min={1}
 				onChange={handleChangePrice}
 				onMouseUp={() => load(price)}
 				onTouchEnd={() => load(price)}
@@ -54,6 +57,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
 	loadFilteredProducts,
+	clearFilter,
 };
 
 export default connect(

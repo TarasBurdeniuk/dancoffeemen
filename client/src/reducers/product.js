@@ -7,6 +7,7 @@ import {
 	LOADING,
 	SIZES_ERROR,
 	SIZES_LOADED,
+	CLEAR_FILTER,
 } from '../actions/types';
 
 const initialState = {
@@ -34,6 +35,12 @@ const product = (state = initialState, action) => {
 			return { ...state, brands: payload };
 		case SIZES_LOADED:
 			return { ...state, sizes: payload[0].size };
+		case CLEAR_FILTER:
+			return {
+				...state,
+				chosenFilter: { brands: [], price: [], size: [] },
+				filteredProducts: [],
+			};
 		case LOAD_FILTERED_PRODUCTS:
 			return {
 				...state,
