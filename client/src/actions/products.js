@@ -9,6 +9,7 @@ import {
 	SIZES_ERROR,
 	SIZES_LOADED,
 	CLEAR_FILTER,
+	GET_PRODUCT,
 } from './types';
 
 // Load products
@@ -104,4 +105,23 @@ export const clearFilter = () => dispatch => {
 	dispatch({
 		type: CLEAR_FILTER,
 	});
+};
+
+// Get product by id
+
+export const getProduct = id => async dispatch => {
+	try {
+		const product = await axios.get(`/api/products/${id}`);
+		dispatch({
+			type: GET_PRODUCT,
+			payload: product.data,
+		});
+	} catch (err) {
+		dispatch({
+			type: PRODUCT_ERROR,
+			payload: {
+				msg: err.message,
+			},
+		});
+	}
 };

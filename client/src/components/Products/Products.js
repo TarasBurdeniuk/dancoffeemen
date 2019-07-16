@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -11,8 +12,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import { GridOn, List } from '@material-ui/icons';
 import PropTypes from 'prop-types';
-
-import StarsRate from '../ProductDetails/StarsRate';
 import Pagination from './Pagination';
 
 const useStyles = makeStyles({
@@ -72,9 +71,6 @@ const useStyles = makeStyles({
 	details: {
 		marginLeft: '2rem',
 	},
-	starsRate: {
-		margin: '1rem 0 0 -.3rem',
-	},
 	price: {
 		margin: '1rem 0 1.2rem',
 	},
@@ -125,11 +121,13 @@ const Products = props => {
 					<Grid key={product._id} item xs={12} sm={6} md={4}>
 						<Paper className={classes.grid} justify="center">
 							<div className={classes.paperBlock}>
-								<img
-									src={product.image[0]}
-									alt={`${product.brand}_${product.model}`}
-									className={classes.image}
-								/>
+								<Link to={`/${product._id}`}>
+									<img
+										src={product.image[0]}
+										alt={`${product.brand}_${product.model}`}
+										className={classes.image}
+									/>
+								</Link>
 								<h3>{`${product.brand} ${product.model} ${product.specifications.size}`}</h3>
 								<h4>Price: ${product.price}</h4>
 							</div>
@@ -139,7 +137,7 @@ const Products = props => {
 								color="secondary"
 								className={classes.buttonHover}
 							>
-								Add To Cart
+								Add To Basket
 							</Button>
 						</Paper>
 					</Grid>
@@ -155,21 +153,20 @@ const Products = props => {
 						spacing={5}
 					>
 						<Grid item xs={12} sm={12} md={4}>
-							<Paper className={classes.list}>
-								<img
-									src={product.image[0]}
-									alt={`${product.brand}_${product.model}`}
-									className={classes.image}
-								/>
-							</Paper>
+							<Link to={`/${product._id}`}>
+								<Paper className={classes.list}>
+									<img
+										src={product.image[0]}
+										alt={`${product.brand}_${product.model}`}
+										className={classes.image}
+									/>
+								</Paper>
+							</Link>
 						</Grid>
 						<Grid item className={classes.details} xs={12} sm={12} md={7}>
 							<Typography variant="h5" gutterBottom>
 								{`${product.brand} ${product.model} ${product.specifications.size}`}
 							</Typography>
-							<div className={classes.starsRate}>
-								<StarsRate />
-							</div>
 							<Typography className={classes.price} variant="h5" gutterBottom>
 								${product.price}
 							</Typography>
@@ -182,7 +179,7 @@ const Products = props => {
 								color="secondary"
 								className={classes.button}
 							>
-								Add To Cart
+								Add To Basket
 							</Button>
 						</Grid>
 					</Grid>

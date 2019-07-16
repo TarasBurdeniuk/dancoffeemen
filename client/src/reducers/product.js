@@ -8,10 +8,12 @@ import {
 	SIZES_ERROR,
 	SIZES_LOADED,
 	CLEAR_FILTER,
+	GET_PRODUCT,
 } from '../actions/types';
 
 const initialState = {
 	products: null,
+	product: null,
 	loading: false,
 	error: null,
 	brands: null,
@@ -29,6 +31,8 @@ const product = (state = initialState, action) => {
 	switch (type) {
 		case LOADING:
 			return { ...state, loading: true };
+		case GET_PRODUCT:
+			return { ...state, product: payload };
 		case LOAD_PRODUCTS:
 			return { ...state, products: payload, loading: false };
 		case BRANDS_LOADED:

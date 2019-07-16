@@ -16,3 +16,4 @@ export const LOADING = 'LOADING';
 export const SIZES_ERROR = 'SIZES_ERROR';
 export const SIZES_LOADED = 'SIZES_LOADED';
 export const CLEAR_FILTER = 'CLEAR_FILTER';
+export const GET_PRODUCT = 'GET_PRODUCT';
