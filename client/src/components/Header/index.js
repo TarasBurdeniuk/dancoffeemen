@@ -18,10 +18,7 @@ const Header = ({ auth: { isAuthenticated, loading }, logout }) => {
 
 	const links = [
 		{ route: '/', text: 'DancoffeeMen', id: 1 },
-		{ route: '/about', text: 'About', id: 2 },
 		{ route: '/products', text: 'Products', id: 3 },
-		{ route: '/product-details', text: 'ProductDetails', id: 4 },
-		{ route: '/loading', text: 'Loading', id: 5 },
 		{ route: '/cart', text: 'Cart', id: 6 },
 	];
 

@@ -58,10 +58,10 @@ const MobileMenu = () => {
 				<Link to="/" className={classes.link}>
 					<MenuItem onClick={handleClose}>Home</MenuItem>
 				</Link>
-				<Link to="/products-grid" className={classes.link}>
+				<Link to="/products" className={classes.link}>
 					<MenuItem onClick={handleClose}>Products</MenuItem>
 				</Link>
-				<Link to="/about" className={classes.link}>
+				<Link to="/contact-us" className={classes.link}>
 					<MenuItem onClick={handleClose}>About Us</MenuItem>
 				</Link>
 			</Menu>

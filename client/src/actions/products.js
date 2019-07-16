@@ -8,6 +8,8 @@ import {
 	LOADING,
 	SIZES_ERROR,
 	SIZES_LOADED,
+	CLEAR_FILTER,
+	GET_PRODUCT,
 } from './types';
 
 // Load products
@@ -77,6 +79,8 @@ export const loadFilteredProducts = filteredObject => async dispatch => {
 	}
 };
 
+// Load array all sizes
+
 export const loadSizes = () => async dispatch => {
 	try {
 		const sizes = await axios.get('/api/size');
@@ -88,6 +92,33 @@ export const loadSizes = () => async dispatch => {
 	} catch (err) {
 		dispatch({
 			type: SIZES_ERROR,
+			payload: {
+				msg: err.message,
+			},
+		});
+	}
+};
+
+// Clear filter
+
+export const clearFilter = () => dispatch => {
+	dispatch({
+		type: CLEAR_FILTER,
+	});
+};
+
+// Get product by id
+
+export const getProduct = id => async dispatch => {
+	try {
+		const product = await axios.get(`/api/products/${id}`);
+		dispatch({
+			type: GET_PRODUCT,
+			payload: product.data,
+		});
+	} catch (err) {
+		dispatch({
+			type: PRODUCT_ERROR,
 			payload: {
 				msg: err.message,
 			},

@@ -1,25 +1,30 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import MenuItem from '@material-ui/core/MenuItem';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-
 import PropTypes from 'prop-types';
-import Images from './Images';
-import StarsRate from './StarsRate';
+import pink from '@material-ui/core/colors/pink';
+import grey from '@material-ui/core/colors/grey';
+
+const strongPink = pink[800];
+const white = grey[0];
+const lightGrey = grey[100];
+const strongGrey = grey[700];
 
 const useStyles = makeStyles({
 	container: {
 		marginTop: '2rem',
+		marginBottom: '2rem',
 	},
 	price: {
 		margin: '1rem 0',
+		'& span': {
+			color: strongPink,
+			fontWeight: 800,
+			fontSize: 26,
+		},
 	},
 	availability: {
 		display: 'inline-block',
@@ -43,7 +48,7 @@ const useStyles = makeStyles({
 		fontSize: '1.5rem',
 		textAlign: 'center',
 		border: 0,
-		background: '#fff',
+		background: lightGrey,
 	},
 	quantityChange: {
 		width: '3rem',
@@ -53,12 +58,12 @@ const useStyles = makeStyles({
 		fontSize: '1.5rem',
 		border: '0 solid #dbdbdb',
 		outline: 'none',
-		background: '#f3f3f3',
-		color: '#888',
+		background: lightGrey,
+		color: strongGrey,
 		cursor: 'pointer',
 		'&:hover': {
-			background: '#e3e3e3',
-			color: '#636363',
+			background: lightGrey,
+			color: strongGrey,
 		},
 	},
 	quantityDecrement: {
@@ -74,72 +79,120 @@ const useStyles = makeStyles({
 	description: {
 		marginTop: '3rem',
 	},
+	preContainer: {
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center',
+	},
+	imageContainer: {
+		display: 'flex',
+		flexDirection: 'row',
+		justifyContent: 'center',
+		width: 400,
+		'& button': {
+			margin: '2rem .5rem 0 .5rem',
+			padding: 0,
+			border: 0,
+			outline: 0,
+			background: white,
+		},
+	},
+	smallImage: {
+		width: '4rem',
+		height: '4rem',
+		padding: '.5rem 1rem',
+		border: '1px solid #efece7',
+		'&:hover': {
+			border: '1px solid #c4b399',
+			cursor: 'pointer',
+		},
+	},
+	image: {
+		height: 400,
+	},
 });
 
 const Details = props => {
-	const {
-		quantity,
-		size,
-		availability,
-		handleIncrement,
-		handleDecrement,
-		handleChangeSize,
-	} = props;
+	const { quantity, handleIncrement, handleDecrement, product } = props;
 
 	const classes = useStyles();
 
-	const inputLabel = useRef(null);
-	const [labelWidth, setLabelWidth] = useState(0);
+	const {
+		brand,
+		model,
+		price,
+		status,
+		itemNo,
+		specifications,
+		shortDescription,
+		mainDescription,
+		image,
+	} = product;
 	useEffect(() => {
-		setLabelWidth(inputLabel.current.offsetWidth);
-	}, []);
+		setImageQ(image[0]);
+	}, [image]);
+
+	const [imageQ, setImageQ] = useState();
 
 	return (
 		<Container className={classes.container} maxWidth="md">
 			<Grid container spacing={3}>
 				<Grid item md={5} xs={12}>
-					<Images />
+					<div className={classes.preContainer}>
+						<div className={classes.imageContainer}>
+							<img src={imageQ} alt="image1" className={classes.image} />
+						</div>
+						<div className={classes.imageContainer}>
+							{image.map(item => (
+								<button key={item} type="button" onClick={() => setImageQ(item)}>
+									<img src={item} className={classes.smallImage} alt="coffee" />
+								</button>
+							))}
+						</div>
+					</div>
 				</Grid>
 				<Grid item md={7} xs={12}>
 					<Typography variant="h4" component="h2" gutterBottom>
-						Lavazza Pienaroma
+						<strong>{`${brand} ${model}`}</strong>
 					</Typography>
-					<StarsRate />
 					<Typography className={classes.price} variant="h5" gutterBottom>
-						$18
+						<span>${price}</span>
 					</Typography>
 					<Typography variant="subtitle2" gutterBottom>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit. A adipisci atque
-						consequatur consequuntur, corporis cupiditate distinctio dolore enim fugit
-						iusto labore laborum magni maiores molestiae, odit quisquam sapiente
-						tempora. Impedit!
+						{shortDescription}
 					</Typography>
-					<FormControl variant="outlined" className={classes.formControl}>
-						<InputLabel ref={inputLabel} htmlFor="outlined-age-simple">
-							Size
-						</InputLabel>
-						<Select
-							className={classes.size}
-							value={size}
-							onChange={handleChangeSize}
-							input={
-								<OutlinedInput
-									labelWidth={labelWidth}
-									name="size"
-									id="outlined-age-simple"
-								/>
-							}
-						>
-							<MenuItem value={100}>100g</MenuItem>
-							<MenuItem value={250}>250g</MenuItem>
-							<MenuItem value={500}>500g</MenuItem>
-							<MenuItem value={1000}>1000g</MenuItem>
-						</Select>
-					</FormControl>
 					<Typography variant="h6" gutterBottom>
 						Availability:&nbsp;
 						<Typography className={classes.availability}>
-							{availability ? 'In Stock' : 'Not available'}
+							{status ? 'In Stock' : 'Not available'}
+						</Typography>
+					</Typography>
+					<Typography variant="h6" gutterBottom>
+						Article:&nbsp;
+						<Typography className={classes.availability}>{itemNo}</Typography>
+					</Typography>
+					<Typography variant="h6" gutterBottom>
+						Blend:&nbsp;
+						<Typography className={classes.availability}>
+							{specifications.supplement}
+						</Typography>
+					</Typography>
+					<Typography variant="h6" gutterBottom>
+						Roasting:&nbsp;
+						<Typography className={classes.availability}>
+							{specifications.roast}
+						</Typography>
+					</Typography>
+					<Typography variant="h6" gutterBottom>
+						Grinding:&nbsp;
+						<Typography className={classes.availability}>
+							{specifications.grinding}
+						</Typography>
+					</Typography>
+					<Typography variant="h6" gutterBottom>
+						Size:&nbsp;
+						<Typography className={classes.availability}>
+							{specifications.size}
 						</Typography>
 					</Typography>
 					<div>
@@ -172,23 +225,17 @@ const Details = props => {
 						size="large"
 						className={classes.button}
 					>
-						Buy
+						Add To Basket
 					</Button>
 				</Grid>
 			</Grid>
 			<Grid item xs={12}>
-				<Typography className={classes.description} variant="h5" component="h2">
-					Description
-					<Typography>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam asperiores
-						aspernatur autem consequuntur cupiditate, delectus esse illum iste itaque
-						maxime odio pariatur praesentium, quae, quas quisquam soluta totam unde
-						vitae! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
-						assumenda distinctio ducimus excepturi ipsa iste laborum magni maxime minima
-						nisi odit officiis perspiciatis quis, recusandae repudiandae, totam ullam,
-						voluptas voluptatum!
+				{mainDescription && (
+					<Typography className={classes.description} variant="h5" component="h2">
+						Description
+						<Typography>{mainDescription}</Typography>
 					</Typography>
-				</Typography>
+				)}
 			</Grid>
 		</Container>
 	);
@@ -196,11 +243,8 @@ const Details = props => {
 
 Details.propTypes = {
 	quantity: PropTypes.number.isRequired,
-	size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-	availability: PropTypes.bool.isRequired,
 	handleIncrement: PropTypes.func.isRequired,
 	handleDecrement: PropTypes.func.isRequired,
-	handleChangeSize: PropTypes.func.isRequired,
 };
 
 export default Details;
