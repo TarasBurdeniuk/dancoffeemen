@@ -1,36 +1,53 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import Details from './Details';
+import { getProduct } from '../../actions/products';
+import Spinner from '../Loading';
 
-const ProductDetailsContainer = () => {
+const ProductDetailsContainer = ({ match, getProduct, product }) => {
+	useEffect(() => {
+		getProduct(match.params.id);
+	}, [match.params.id, getProduct]);
+
 	const [quantity, setQuantity] = useState(1);
-	const [size, setSize] = useState('');
-	const [availability] = useState(true);
 
 	const handleIncrement = () => {
+		if (!product.status || quantity >= product.quantity) {
+			return;
+		}
 		setQuantity(quantity + 1);
 	};
 
 	const handleDecrement = () => {
+		if (!product.status) {
+			return;
+		}
 		if (quantity > 1) {
 			setQuantity(quantity - 1);
 		}
 	};
 
-	const handleChangeSize = event => {
-		const { value } = event.target;
-		setSize(value);
-	};
-
-	return (
+	return product === null ? (
+		<Spinner />
+	) : (
 		<Details
 			quantity={quantity}
-			size={size}
-			availability={availability}
+			product={product}
 			handleIncrement={handleIncrement}
 			handleDecrement={handleDecrement}
-			handleChangeSize={handleChangeSize}
 		/>
 	);
 };
 
-export default ProductDetailsContainer;
+const mapStateToProps = state => ({
+	product: state.product.product,
+});
+
+const mapDispatchToProps = {
+	getProduct,
+};
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps,
+)(ProductDetailsContainer);

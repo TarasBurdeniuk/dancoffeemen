@@ -120,11 +120,6 @@ const Container = props => {
 								Products
 							</Typography>
 						</Link>
-						<Link to="/about">
-							<Typography variant="h6" className={classes.title}>
-								About Us
-							</Typography>
-						</Link>
 						<Link to="/contact-us">
 							<Typography variant="h6" className={classes.title}>
 								Contact Us
