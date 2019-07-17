@@ -26,17 +26,17 @@ const ProductsContainer = props => {
 	const {
 		products,
 		sorting,
-		productsFrom,
-		productsTo,
+		// productsFrom,
+		// productsTo,
 		quantity,
 		handleChangeSorting,
 		handleSelectGrid,
 		handleSelectList,
-		handleChangePage,
-		handleChangeFirstPage,
-		handleChangePrevPage,
-		handleChangeNextPage,
-		handleChangeLastPage,
+		// handleChangePage,
+		// handleChangeFirstPage,
+		// handleChangePrevPage,
+		// handleChangeNextPage,
+		// handleChangeLastPage,
 	} = props;
 
 	const classes = useStyles();
@@ -68,17 +68,17 @@ const ProductsContainer = props => {
 					<Products
 						products={products}
 						sorting={sorting}
-						productsFrom={productsFrom}
-						productsTo={productsTo}
+						// productsFrom={productsFrom}
+						// productsTo={productsTo}
 						quantity={quantity}
 						handleChangeSorting={handleChangeSorting}
 						handleSelectGrid={handleSelectGrid}
 						handleSelectList={handleSelectList}
-						handleChangePage={handleChangePage}
-						handleChangeFirstPage={handleChangeFirstPage}
-						handleChangePrevPage={handleChangePrevPage}
-						handleChangeNextPage={handleChangeNextPage}
-						handleChangeLastPage={handleChangeLastPage}
+						// handleChangePage={handleChangePage}
+						// handleChangeFirstPage={handleChangeFirstPage}
+						// handleChangePrevPage={handleChangePrevPage}
+						// handleChangeNextPage={handleChangeNextPage}
+						// handleChangeLastPage={handleChangeLastPage}
 					/>
 				</Grid>
 			</Grid>
@@ -89,17 +89,17 @@ const ProductsContainer = props => {
 ProductsContainer.propTypes = {
 	products: PropTypes.oneOfType([PropTypes.func, PropTypes.array]).isRequired,
 	sorting: PropTypes.string.isRequired,
-	productsFrom: PropTypes.number.isRequired,
-	productsTo: PropTypes.number.isRequired,
+	// 	productsFrom: PropTypes.number.isRequired,
+	// 	productsTo: PropTypes.number.isRequired,
 	quantity: PropTypes.number.isRequired,
-	handleChangeSorting: PropTypes.func.isRequired,
-	handleSelectGrid: PropTypes.func.isRequired,
-	handleSelectList: PropTypes.func.isRequired,
-	handleChangePage: PropTypes.func.isRequired,
-	handleChangeFirstPage: PropTypes.func.isRequired,
-	handleChangePrevPage: PropTypes.func.isRequired,
-	handleChangeNextPage: PropTypes.func.isRequired,
-	handleChangeLastPage: PropTypes.func.isRequired,
+	// 	handleChangeSorting: PropTypes.func.isRequired,
+	// 	handleSelectGrid: PropTypes.func.isRequired,
+	// 	handleSelectList: PropTypes.func.isRequired,
+	// 	handleChangePage: PropTypes.func.isRequired,
+	// 	handleChangeFirstPage: PropTypes.func.isRequired,
+	// 	handleChangePrevPage: PropTypes.func.isRequired,
+	// 	handleChangeNextPage: PropTypes.func.isRequired,
+	// 	handleChangeLastPage: PropTypes.func.isRequired,
 };
 
 export default ProductsContainer;

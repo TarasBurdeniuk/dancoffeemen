@@ -93,17 +93,17 @@ const Products = props => {
 	const {
 		products,
 		sorting,
-		productsFrom,
-		productsTo,
+		// productsFrom,
+		// productsTo,
 		quantity,
 		handleChangeSorting,
 		handleSelectGrid,
 		handleSelectList,
-		handleChangePage,
-		handleChangeFirstPage,
-		handleChangePrevPage,
-		handleChangeNextPage,
-		handleChangeLastPage,
+		// handleChangePage,
+		// handleChangeFirstPage,
+		// handleChangePrevPage,
+		// handleChangeNextPage,
+		// handleChangeLastPage,
 	} = props;
 
 	const classes = useStyles();
@@ -115,77 +115,77 @@ const Products = props => {
 	}, []);
 
 	const list = products.map((product, i) => {
-		if (i + 1 <= productsTo && i + 1 >= productsFrom) {
-			if (quantity === 12) {
-				return (
-					<Grid key={product._id} item xs={12} sm={6} md={4}>
-						<Paper className={classes.grid} justify="center">
-							<div className={classes.paperBlock}>
-								<Link to={`/${product._id}`}>
-									<img
-										src={product.image[0]}
-										alt={`${product.brand}_${product.model}`}
-										className={classes.image}
-									/>
-								</Link>
-								<h3>{`${product.brand} ${product.model} ${product.specifications.size}`}</h3>
-								<h4>Price: ${product.price}</h4>
-							</div>
-							<Button
-								variant="contained"
-								size="large"
-								color="secondary"
-								className={classes.buttonHover}
-							>
-								Add To Basket
-							</Button>
-						</Paper>
-					</Grid>
-				);
-			}
-			if (quantity === 4) {
-				return (
-					<Grid
-						container
-						key={product._id}
-						className={classes.products}
-						justify="center"
-						spacing={5}
-					>
-						<Grid item xs={12} sm={12} md={4}>
+		// if (i + 1 <= productsTo && i + 1 >= productsFrom) {
+		if (quantity === 12) {
+			return (
+				<Grid key={product._id} item xs={12} sm={6} md={4}>
+					<Paper className={classes.grid} justify="center">
+						<div className={classes.paperBlock}>
 							<Link to={`/${product._id}`}>
-								<Paper className={classes.list}>
-									<img
-										src={product.image[0]}
-										alt={`${product.brand}_${product.model}`}
-										className={classes.image}
-									/>
-								</Paper>
+								<img
+									src={product.image[0]}
+									alt={`${product.brand}_${product.model}`}
+									className={classes.image}
+								/>
 							</Link>
-						</Grid>
-						<Grid item className={classes.details} xs={12} sm={12} md={7}>
-							<Typography variant="h5" gutterBottom>
-								{`${product.brand} ${product.model} ${product.specifications.size}`}
-							</Typography>
-							<Typography className={classes.price} variant="h5" gutterBottom>
-								${product.price}
-							</Typography>
-							<Typography variant="subtitle2" gutterBottom>
-								{product.shortDescription}
-							</Typography>
-							<Button
-								variant="contained"
-								size="large"
-								color="secondary"
-								className={classes.button}
-							>
-								Add To Basket
-							</Button>
-						</Grid>
-					</Grid>
-				);
-			}
+							<h3>{`${product.brand} ${product.model} ${product.specifications.size}`}</h3>
+							<h4>Price: ${product.price}</h4>
+						</div>
+						<Button
+							variant="contained"
+							size="large"
+							color="secondary"
+							className={classes.buttonHover}
+						>
+							Add To Basket
+						</Button>
+					</Paper>
+				</Grid>
+			);
 		}
+		if (quantity === 4) {
+			return (
+				<Grid
+					container
+					key={product._id}
+					className={classes.products}
+					justify="center"
+					spacing={5}
+				>
+					<Grid item xs={12} sm={12} md={4}>
+						<Link to={`/${product._id}`}>
+							<Paper className={classes.list}>
+								<img
+									src={product.image[0]}
+									alt={`${product.brand}_${product.model}`}
+									className={classes.image}
+								/>
+							</Paper>
+						</Link>
+					</Grid>
+					<Grid item className={classes.details} xs={12} sm={12} md={7}>
+						<Typography variant="h5" gutterBottom>
+							{`${product.brand} ${product.model} ${product.specifications.size}`}
+						</Typography>
+						<Typography className={classes.price} variant="h5" gutterBottom>
+							${product.price}
+						</Typography>
+						<Typography variant="subtitle2" gutterBottom>
+							{product.shortDescription}
+						</Typography>
+						<Button
+							variant="contained"
+							size="large"
+							color="secondary"
+							className={classes.button}
+						>
+							Add To Basket
+						</Button>
+					</Grid>
+				</Grid>
+			);
+		}
+		// }
 		return null;
 	});
 
@@ -213,7 +213,7 @@ const Products = props => {
 					</Select>
 				</FormControl>
 				<Typography variant="subtitle2" className={classes.showingInfo}>
-					Showing {productsFrom}-{productsTo} of {products.length} products
+					Showing {products.length} products
 				</Typography>
 				<Grid>
 					<GridOn
@@ -231,18 +231,18 @@ const Products = props => {
 			<Grid container justify="center" spacing={4}>
 				{list}
 			</Grid>
-			<Grid container className={classes.pagination} justify="center">
-				<Pagination
-					products={products}
-					productsTo={productsTo}
-					quantity={quantity}
-					handleChangePage={handleChangePage}
-					handleChangeFirstPage={handleChangeFirstPage}
-					handleChangePrevPage={handleChangePrevPage}
-					handleChangeNextPage={handleChangeNextPage}
-					handleChangeLastPage={handleChangeLastPage}
-				/>
-			</Grid>
+			{/*<Grid container className={classes.pagination} justify="center">*/}
+			{/*	<Pagination*/}
+			{/*		products={products}*/}
+			{/*		productsTo={productsTo}*/}
+			{/*		quantity={quantity}*/}
+			{/*		handleChangePage={handleChangePage}*/}
+			{/*		// handleChangeFirstPage={handleChangeFirstPage}*/}
+			{/*		// handleChangePrevPage={handleChangePrevPage}*/}
+			{/*		// handleChangeNextPage={handleChangeNextPage}*/}
+			{/*		// handleChangeLastPage={handleChangeLastPage}*/}
+			{/*	/>*/}
+			{/*</Grid>*/}
 		</Grid>
 	);
 };
@@ -250,17 +250,17 @@ const Products = props => {
 Products.propTypes = {
 	products: PropTypes.oneOfType([PropTypes.func, PropTypes.array]).isRequired,
 	sorting: PropTypes.string.isRequired,
-	productsFrom: PropTypes.number.isRequired,
-	productsTo: PropTypes.number.isRequired,
+	// 	productsFrom: PropTypes.number.isRequired,
+	// 	productsTo: PropTypes.number.isRequired,
 	quantity: PropTypes.number.isRequired,
-	handleChangeSorting: PropTypes.func.isRequired,
-	handleSelectGrid: PropTypes.func.isRequired,
-	handleSelectList: PropTypes.func.isRequired,
-	handleChangePage: PropTypes.func.isRequired,
-	handleChangeFirstPage: PropTypes.func.isRequired,
-	handleChangePrevPage: PropTypes.func.isRequired,
-	handleChangeNextPage: PropTypes.func.isRequired,
-	handleChangeLastPage: PropTypes.func.isRequired,
+	// 	handleChangeSorting: PropTypes.func.isRequired,
+	// 	handleSelectGrid: PropTypes.func.isRequired,
+	// 	handleSelectList: PropTypes.func.isRequired,
+	// 	handleChangePage: PropTypes.func.isRequired,
+	// 	handleChangeFirstPage: PropTypes.func.isRequired,
+	// 	handleChangePrevPage: PropTypes.func.isRequired,
+	// 	handleChangeNextPage: PropTypes.func.isRequired,
+	// 	handleChangeLastPage: PropTypes.func.isRequired,
 };
 
 export default Products;
