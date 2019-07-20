@@ -14,12 +14,15 @@ import {
 
 // Load products
 
-export const loadProducts = () => async dispatch => {
+export const loadProducts = pageToStart => async dispatch => {
 	dispatch({
 		type: LOADING,
 	});
+	console.log('load');
+	console.log('pageToStart: ', pageToStart);
+
 	try {
-		const res = await axios.get('/api/products');
+		const res = await axios.get(`/api/products?start=${pageToStart}`);
 		dispatch({
 			type: LOAD_PRODUCTS,
 			payload: res.data,

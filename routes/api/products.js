@@ -10,8 +10,12 @@ const auth = require('../../middleware/auth');
 // Desc    get all products
 
 router.get('/', async (req, res) => {
+	const perPage = 6;
+	console.log(req.query);
 	try {
-		const products = await Product.find();
+		const products = await Product.find()
+			.skip(+req.query.start * perPage)
+			.limit(perPage);
 		res.json(products);
 	} catch (err) {
 		console.error(err.message);

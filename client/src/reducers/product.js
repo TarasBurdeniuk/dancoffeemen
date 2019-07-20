@@ -12,12 +12,13 @@ import {
 } from '../actions/types';
 
 const initialState = {
-	products: null,
+	products: [],
 	product: null,
 	loading: false,
 	error: null,
 	brands: null,
 	sizes: null,
+	start: 0,
 	filteredProducts: [],
 	chosenFilter: {
 		brands: [],
@@ -34,7 +35,12 @@ const product = (state = initialState, action) => {
 		case GET_PRODUCT:
 			return { ...state, product: payload };
 		case LOAD_PRODUCTS:
-			return { ...state, products: payload, loading: false };
+			return {
+				...state,
+				products: [...state.products.concat(payload)],
+				loading: false,
+				start: state.start + 1,
+			};
 		case BRANDS_LOADED:
 			return { ...state, brands: payload };
 		case SIZES_LOADED:
@@ -48,7 +54,7 @@ const product = (state = initialState, action) => {
 		case LOAD_FILTERED_PRODUCTS:
 			return {
 				...state,
-				filteredProducts: [...payload],
+				filteredProducts: [...state.filteredProducts.concat(...payload)],
 				chosenFilter: { ...filter },
 			};
 		case PRODUCT_ERROR:

@@ -14,8 +14,7 @@ import setAuthToken from './utills/setAuthToken';
 import store from './store';
 import { loadUser } from './actions/auth';
 import { loadContacts } from './actions/contacts';
-import { loadBrands } from './actions/products';
-import { loadSizes } from './actions/products';
+import { loadBrands, loadSizes } from './actions/products';
 
 if (localStorage.token) {
 	setAuthToken(localStorage.token);

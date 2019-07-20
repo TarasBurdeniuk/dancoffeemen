@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import InfiniteScroll from 'react-infinite-scroller';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -12,7 +14,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import { GridOn, List } from '@material-ui/icons';
 import PropTypes from 'prop-types';
-import Pagination from './Pagination';
+// import Pagination from './Pagination';
+import { loadProducts } from '../../actions/products';
+import Spinner from '../Loading';
 
 const useStyles = makeStyles({
 	grid: {
@@ -20,10 +24,10 @@ const useStyles = makeStyles({
 		flexDirection: 'column',
 		alignItems: 'center',
 		justifyContent: 'space-between',
-		width: '100%',
+		maxWidth: 350,
 		height: 400,
-		marginTop: '1rem',
-		padding: 5,
+		margin: '1rem',
+		padding: '5px 10px',
 		boxSizing: 'border-box',
 		'&:hover button': {
 			display: 'block',
@@ -87,32 +91,44 @@ const useStyles = makeStyles({
 		marginTop: '3rem',
 		marginBottom: '3rem',
 	},
+	buttonLoad: {
+		padding: 10,
+		margin: 10,
+		boxSizing: 'border-box',
+		border: 0,
+		backgroundColor: 'grey',
+	},
+	infinity: {
+		display: 'flex',
+		flexWrap: 'wrap',
+		justifyContent: 'space-around',
+	},
 });
 
 const Products = props => {
 	const {
 		products,
 		sorting,
-		// productsFrom,
-		// productsTo,
 		quantity,
 		handleChangeSorting,
 		handleSelectGrid,
 		handleSelectList,
-		// handleChangePage,
-		// handleChangeFirstPage,
-		// handleChangePrevPage,
-		// handleChangeNextPage,
-		// handleChangeLastPage,
+		loadProducts,
+		loading,
 	} = props;
 
 	const classes = useStyles();
 
 	const inputLabel = useRef(null);
 	const [labelWidth, setLabelWidth] = useState(0);
+	const [start, setStart] = useState(1);
 	useEffect(() => {
 		setLabelWidth(inputLabel.current.offsetWidth);
 	}, []);
+	// useEffect(() => {
+	// 	loadProducts(start);
+	// 	setStart(start + 1);
+	// }, []);
 
 	const list = products.map((product, i) => {
 		// if (i + 1 <= productsTo && i + 1 >= productsFrom) {
@@ -189,78 +205,96 @@ const Products = props => {
 		return null;
 	});
 
+	const loadMore = () => {
+		if (start === 5) return;
+		loadProducts(start);
+		setStart(start + 1);
+		console.log('loadMore');
+	};
+
 	return (
-		<Grid container>
-			<Grid container justify="center" className={classes.sorting}>
-				<FormControl variant="outlined" className={classes.formControl}>
-					<InputLabel ref={inputLabel} htmlFor="outlined-age-simple">
-						Sort by
-					</InputLabel>
-					<Select
-						value={sorting}
-						onChange={handleChangeSorting}
-						input={
-							<OutlinedInput
-								labelWidth={labelWidth}
-								name="sorting"
-								id="outlined-age-simple"
-							/>
-						}
-					>
-						<MenuItem value="rating">Rating</MenuItem>
-						<MenuItem value="popularity">Popularity</MenuItem>
-						<MenuItem value="newness">Newness</MenuItem>
-					</Select>
-				</FormControl>
-				<Typography variant="subtitle2" className={classes.showingInfo}>
-					Showing {products.length} products
-				</Typography>
-				<Grid>
-					<GridOn
-						className={classes.icon}
-						onClick={handleSelectGrid}
-						style={quantity === 12 ? { color: '#f50057' } : { color: '#515151' }}
-					/>
-					<List
-						className={classes.icon}
-						onClick={handleSelectList}
-						style={quantity === 4 ? { color: '#f50057' } : { color: '#515151' }}
-					/>
+		<>
+			<Grid container>
+				<Grid container justify="center" className={classes.sorting}>
+					<FormControl variant="outlined" className={classes.formControl}>
+						<InputLabel ref={inputLabel} htmlFor="outlined-age-simple">
+							Sort by
+						</InputLabel>
+						<Select
+							value={sorting}
+							onChange={handleChangeSorting}
+							input={
+								<OutlinedInput
+									labelWidth={labelWidth}
+									name="sorting"
+									id="outlined-age-simple"
+								/>
+							}
+						>
+							<MenuItem value="rating">Rating</MenuItem>
+							<MenuItem value="popularity">Popularity</MenuItem>
+							<MenuItem value="newness">Newness</MenuItem>
+						</Select>
+					</FormControl>
+					<Typography variant="subtitle2" className={classes.showingInfo}>
+						Showing {products.length} products
+					</Typography>
+					<Grid>
+						<GridOn
+							className={classes.icon}
+							onClick={handleSelectGrid}
+							style={quantity === 12 ? { color: '#f50057' } : { color: '#515151' }}
+						/>
+						<List
+							className={classes.icon}
+							onClick={handleSelectList}
+							style={quantity === 4 ? { color: '#f50057' } : { color: '#515151' }}
+						/>
+					</Grid>
 				</Grid>
+				<InfiniteScroll
+					className={classes.infinity}
+					pageStart={0}
+					// loadMore={() => console.log('loadMore')}
+					loadMore={() => loadMore}
+					hasMore={true}
+					// loader={<h4 key="h4key">Loading...</h4>}
+					threshold={100}
+					useWindow={true}
+				>
+					{/*<Grid container justify="center" spacing={4}>*/}
+					{list}
+					{/*</Grid>*/}
+					{loading && <Spinner />}
+				</InfiniteScroll>
 			</Grid>
-			<Grid container justify="center" spacing={4}>
-				{list}
-			</Grid>
-			{/*<Grid container className={classes.pagination} justify="center">*/}
-			{/*	<Pagination*/}
-			{/*		products={products}*/}
-			{/*		productsTo={productsTo}*/}
-			{/*		quantity={quantity}*/}
-			{/*		handleChangePage={handleChangePage}*/}
-			{/*		// handleChangeFirstPage={handleChangeFirstPage}*/}
-			{/*		// handleChangePrevPage={handleChangePrevPage}*/}
-			{/*		// handleChangeNextPage={handleChangeNextPage}*/}
-			{/*		// handleChangeLastPage={handleChangeLastPage}*/}
-			{/*	/>*/}
-			{/*</Grid>*/}
-		</Grid>
+			<button
+				type="button"
+				className={classes.buttonLoad}
+				// onClick={() => console.log('click')}
+				onClick={loadMore}
+			>
+				load 6 products
+			</button>
+		</>
 	);
 };
 
 Products.propTypes = {
 	products: PropTypes.oneOfType([PropTypes.func, PropTypes.array]).isRequired,
 	sorting: PropTypes.string.isRequired,
-	// 	productsFrom: PropTypes.number.isRequired,
-	// 	productsTo: PropTypes.number.isRequired,
 	quantity: PropTypes.number.isRequired,
-	// 	handleChangeSorting: PropTypes.func.isRequired,
-	// 	handleSelectGrid: PropTypes.func.isRequired,
-	// 	handleSelectList: PropTypes.func.isRequired,
-	// 	handleChangePage: PropTypes.func.isRequired,
-	// 	handleChangeFirstPage: PropTypes.func.isRequired,
-	// 	handleChangePrevPage: PropTypes.func.isRequired,
-	// 	handleChangeNextPage: PropTypes.func.isRequired,
-	// 	handleChangeLastPage: PropTypes.func.isRequired,
 };
 
-export default Products;
+const mapStateToProps = state => ({
+	loading: state.product.loading,
+});
+
+const mapDispatchToProps = {
+	loadProducts,
+};
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps,
+)(Products);
