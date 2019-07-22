@@ -11,12 +11,13 @@ const auth = require('../../middleware/auth');
 
 router.get('/', async (req, res) => {
 	const perPage = 6;
-	console.log(req.query);
+
 	try {
 		const products = await Product.find()
 			.skip(+req.query.start * perPage)
 			.limit(perPage);
-		res.json(products);
+		const quantity = await Product.estimatedDocumentCount();
+		res.json({ products, quantity });
 	} catch (err) {
 		console.error(err.message);
 		res.status(500).send('Server Error');

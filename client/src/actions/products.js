@@ -14,13 +14,10 @@ import {
 
 // Load products
 
-export const loadProducts = pageToStart => async dispatch => {
+export const loadProducts = (pageToStart = 0) => async dispatch => {
 	dispatch({
 		type: LOADING,
 	});
-	console.log('load');
-	console.log('pageToStart: ', pageToStart);
-
 	try {
 		const res = await axios.get(`/api/products?start=${pageToStart}`);
 		dispatch({
@@ -74,7 +71,7 @@ export const loadFilteredProducts = filteredObject => async dispatch => {
 		});
 	} catch (err) {
 		dispatch({
-			type: BRANDS_ERROR,
+			type: PRODUCT_ERROR,
 			payload: {
 				msg: err.message,
 			},

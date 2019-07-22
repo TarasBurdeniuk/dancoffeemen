@@ -18,12 +18,15 @@ const initialState = {
 	error: null,
 	brands: null,
 	sizes: null,
-	start: 0,
+	startPage: 0,
+	quantityAllProducts: 0,
+	quantityChosenFilter: 0,
 	filteredProducts: [],
 	chosenFilter: {
 		brands: [],
-		price: [],
+		price: [5, 25],
 		size: [],
+		startPage: 0,
 	},
 };
 
@@ -37,9 +40,10 @@ const product = (state = initialState, action) => {
 		case LOAD_PRODUCTS:
 			return {
 				...state,
-				products: [...state.products.concat(payload)],
+				products: [...state.products.concat(payload.products)],
 				loading: false,
-				start: state.start + 1,
+				startPage: state.startPage + 1,
+				quantityAllProducts: payload.quantity,
 			};
 		case BRANDS_LOADED:
 			return { ...state, brands: payload };
@@ -48,14 +52,25 @@ const product = (state = initialState, action) => {
 		case CLEAR_FILTER:
 			return {
 				...state,
-				chosenFilter: { brands: [], price: [], size: [] },
+				chosenFilter: { brands: [], price: [5, 25], size: [], startPage: 0 },
 				filteredProducts: [],
+				quantityChosenFilter: 0,
 			};
 		case LOAD_FILTERED_PRODUCTS:
+			let prod = [];
+			if (filter.startPage > 0) {
+				prod = [...state.filteredProducts.concat(...payload.products)];
+			} else {
+				prod = [...payload.products];
+			}
 			return {
 				...state,
-				filteredProducts: [...state.filteredProducts.concat(...payload)],
-				chosenFilter: { ...filter },
+				filteredProducts: prod,
+				chosenFilter: {
+					...filter,
+					startPage: filter.startPage + 1,
+				},
+				quantityChosenFilter: payload.quantity,
 			};
 		case PRODUCT_ERROR:
 		case BRANDS_ERROR:

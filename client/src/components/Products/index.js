@@ -1,15 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import Container from './Container';
-import { loadProducts } from '../../actions/products';
+import { loadProducts, clearFilter } from '../../actions/products';
 import PropTypes from 'prop-types';
 import Spinner from '../Loading';
 
-const ProductsGrid = ({ product: { products, filteredProducts, start }, loadProducts }) => {
-	useEffect(() => {
-		loadProducts(start);
-	}, []);
-
+const ProductsGrid = ({ product: { products, filteredProducts }, clearFilter }) => {
 	const [sorting, setSorting] = useState('');
 	const [quantity, setQuantity] = useState(12);
 
@@ -26,6 +22,10 @@ const ProductsGrid = ({ product: { products, filteredProducts, start }, loadProd
 		setQuantity(4);
 	};
 
+	const handleClearFilter = () => {
+		clearFilter();
+	};
+
 	return !products.length ? (
 		<Spinner />
 	) : (
@@ -37,6 +37,7 @@ const ProductsGrid = ({ product: { products, filteredProducts, start }, loadProd
 				handleChangeSorting={handleChangeSorting}
 				handleSelectGrid={handleSelectGrid}
 				handleSelectList={handleSelectList}
+				handleClearFilter={handleClearFilter}
 			/>
 		</>
 	);
@@ -44,6 +45,7 @@ const ProductsGrid = ({ product: { products, filteredProducts, start }, loadProd
 
 ProductsGrid.propTypes = {
 	loadProducts: PropTypes.func.isRequired,
+	clearFilter: PropTypes.func.isRequired,
 	product: PropTypes.object.isRequired,
 };
 
@@ -54,6 +56,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
 	loadProducts,
+	clearFilter,
 };
 
 export default connect(

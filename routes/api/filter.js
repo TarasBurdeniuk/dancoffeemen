@@ -7,10 +7,13 @@ const Product = require('../../models/Product');
 // Desc     get array all filtered products
 
 router.post('/', async (req, res) => {
-	const { brands, size, price } = req.body;
+	const { brands, size, price, startPage } = req.body;
+
 	if (!brands.length && !price.length && !size.length) {
-		return res.json([]);
+		return res.json({ products: [], quantity: 0 });
 	}
+
+	const perPage = 6;
 
 	try {
 		const queryObject = {};
@@ -25,8 +28,11 @@ router.post('/', async (req, res) => {
 			queryObject.price = { $gt: price[0], $lt: price[1] };
 		}
 
-		const products = await Product.find(queryObject);
-		res.json(products);
+		const products = await Product.find(queryObject)
+			.skip(startPage * perPage)
+			.limit(perPage);
+		const quantity = await Product.find(queryObject);
+		res.json({ products, quantity: quantity.length });
 	} catch (err) {
 		console.error(err.message);
 		res.status(500).send('Server error');

@@ -14,8 +14,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import { GridOn, List } from '@material-ui/icons';
 import PropTypes from 'prop-types';
-// import Pagination from './Pagination';
-import { loadProducts } from '../../actions/products';
+import { loadProducts, loadFilteredProducts } from '../../actions/products';
 import Spinner from '../Loading';
 
 const useStyles = makeStyles({
@@ -25,6 +24,7 @@ const useStyles = makeStyles({
 		alignItems: 'center',
 		justifyContent: 'space-between',
 		maxWidth: 350,
+		minWidth: 200,
 		height: 400,
 		margin: '1rem',
 		padding: '5px 10px',
@@ -87,21 +87,12 @@ const useStyles = makeStyles({
 		maxHeight: 200,
 		marginTop: '1rem',
 	},
-	pagination: {
-		marginTop: '3rem',
-		marginBottom: '3rem',
-	},
-	buttonLoad: {
-		padding: 10,
-		margin: 10,
-		boxSizing: 'border-box',
-		border: 0,
-		backgroundColor: 'grey',
-	},
 	infinity: {
 		display: 'flex',
 		flexWrap: 'wrap',
 		justifyContent: 'space-around',
+		width: '100%',
+		marginBottom: 20,
 	},
 });
 
@@ -115,23 +106,23 @@ const Products = props => {
 		handleSelectList,
 		loadProducts,
 		loading,
+		startPage,
+		quantityAllProducts,
+		quantityChosenFilter,
+		filteredProducts,
+		loadFilteredProducts,
+		chosenFilter,
 	} = props;
 
 	const classes = useStyles();
 
 	const inputLabel = useRef(null);
 	const [labelWidth, setLabelWidth] = useState(0);
-	const [start, setStart] = useState(1);
 	useEffect(() => {
 		setLabelWidth(inputLabel.current.offsetWidth);
 	}, []);
-	// useEffect(() => {
-	// 	loadProducts(start);
-	// 	setStart(start + 1);
-	// }, []);
 
-	const list = products.map((product, i) => {
-		// if (i + 1 <= productsTo && i + 1 >= productsFrom) {
+	const list = products.map(product => {
 		if (quantity === 12) {
 			return (
 				<Grid key={product._id} item xs={12} sm={6} md={4}>
@@ -201,82 +192,73 @@ const Products = props => {
 				</Grid>
 			);
 		}
-		// }
 		return null;
 	});
 
 	const loadMore = () => {
-		if (start === 5) return;
-		loadProducts(start);
-		setStart(start + 1);
-		console.log('loadMore');
+		if (
+			quantityAllProducts === products.length ||
+			quantityChosenFilter === products.length ||
+			loading
+		)
+			return;
+		filteredProducts.length
+			? loadFilteredProducts({ ...chosenFilter })
+			: loadProducts(startPage);
 	};
 
 	return (
-		<>
-			<Grid container>
-				<Grid container justify="center" className={classes.sorting}>
-					<FormControl variant="outlined" className={classes.formControl}>
-						<InputLabel ref={inputLabel} htmlFor="outlined-age-simple">
-							Sort by
-						</InputLabel>
-						<Select
-							value={sorting}
-							onChange={handleChangeSorting}
-							input={
-								<OutlinedInput
-									labelWidth={labelWidth}
-									name="sorting"
-									id="outlined-age-simple"
-								/>
-							}
-						>
-							<MenuItem value="rating">Rating</MenuItem>
-							<MenuItem value="popularity">Popularity</MenuItem>
-							<MenuItem value="newness">Newness</MenuItem>
-						</Select>
-					</FormControl>
-					<Typography variant="subtitle2" className={classes.showingInfo}>
-						Showing {products.length} products
-					</Typography>
-					<Grid>
-						<GridOn
-							className={classes.icon}
-							onClick={handleSelectGrid}
-							style={quantity === 12 ? { color: '#f50057' } : { color: '#515151' }}
-						/>
-						<List
-							className={classes.icon}
-							onClick={handleSelectList}
-							style={quantity === 4 ? { color: '#f50057' } : { color: '#515151' }}
-						/>
-					</Grid>
+		<Grid container>
+			<Grid container justify="center" className={classes.sorting}>
+				<FormControl variant="outlined" className={classes.formControl}>
+					<InputLabel ref={inputLabel} htmlFor="outlined-age-simple">
+						Sort by
+					</InputLabel>
+					<Select
+						value={sorting}
+						onChange={handleChangeSorting}
+						input={
+							<OutlinedInput
+								labelWidth={labelWidth}
+								name="sorting"
+								id="outlined-age-simple"
+							/>
+						}
+					>
+						<MenuItem value="rating">Rating</MenuItem>
+						<MenuItem value="popularity">Popularity</MenuItem>
+						<MenuItem value="newness">Newness</MenuItem>
+					</Select>
+				</FormControl>
+				<Typography variant="subtitle2" className={classes.showingInfo}>
+					Showing {products.length} products of{' '}
+					{quantityChosenFilter > 0 ? quantityChosenFilter : quantityAllProducts}
+				</Typography>
+				<Grid>
+					<GridOn
+						className={classes.icon}
+						onClick={handleSelectGrid}
+						style={quantity === 12 ? { color: '#f50057' } : { color: '#515151' }}
+					/>
+					<List
+						className={classes.icon}
+						onClick={handleSelectList}
+						style={quantity === 4 ? { color: '#f50057' } : { color: '#515151' }}
+					/>
 				</Grid>
-				<InfiniteScroll
-					className={classes.infinity}
-					pageStart={0}
-					// loadMore={() => console.log('loadMore')}
-					loadMore={() => loadMore}
-					hasMore={true}
-					// loader={<h4 key="h4key">Loading...</h4>}
-					threshold={100}
-					useWindow={true}
-				>
-					{/*<Grid container justify="center" spacing={4}>*/}
-					{list}
-					{/*</Grid>*/}
-					{loading && <Spinner />}
-				</InfiniteScroll>
 			</Grid>
-			<button
-				type="button"
-				className={classes.buttonLoad}
-				// onClick={() => console.log('click')}
-				onClick={loadMore}
+			<InfiniteScroll
+				className={classes.infinity}
+				pageStart={0}
+				loadMore={loadMore}
+				hasMore={true}
+				threshold={100}
+				useWindow={true}
 			>
-				load 6 products
-			</button>
-		</>
+				{list}
+				{loading && <Spinner />}
+			</InfiniteScroll>
+		</Grid>
 	);
 };
 
@@ -288,10 +270,16 @@ Products.propTypes = {
 
 const mapStateToProps = state => ({
 	loading: state.product.loading,
+	startPage: state.product.startPage,
+	quantityAllProducts: state.product.quantityAllProducts,
+	quantityChosenFilter: state.product.quantityChosenFilter,
+	filteredProducts: state.product.filteredProducts,
+	chosenFilter: state.product.chosenFilter,
 });
 
 const mapDispatchToProps = {
 	loadProducts,
+	loadFilteredProducts,
 };
 
 export default connect(
