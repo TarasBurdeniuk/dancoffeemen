@@ -13,9 +13,12 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import { GridOn, List } from '@material-ui/icons';
+import pink from '@material-ui/core/colors/pink';
 import PropTypes from 'prop-types';
 import { loadProducts, loadFilteredProducts } from '../../actions/products';
 import Spinner from '../Loading';
+
+const strongPink = pink[800];
 
 const useStyles = makeStyles({
 	grid: {
@@ -77,6 +80,8 @@ const useStyles = makeStyles({
 	},
 	price: {
 		margin: '1rem 0 1.2rem',
+		color: strongPink,
+		fontSize: 18,
 	},
 	button: {
 		marginTop: '1rem',
@@ -135,8 +140,9 @@ const Products = props => {
 									className={classes.image}
 								/>
 							</Link>
-							<h3>{`${product.brand} ${product.model} ${product.specifications.size}`}</h3>
-							<h4>Price: ${product.price}</h4>
+							<h3>{`${product.brand} ${product.model}`}</h3>
+							<h3>{product.specifications.size}</h3>
+							<h4 className={classes.price}>Price: ${product.price}</h4>
 						</div>
 						<Button
 							variant="contained"
@@ -174,9 +180,7 @@ const Products = props => {
 						<Typography variant="h5" gutterBottom>
 							{`${product.brand} ${product.model} ${product.specifications.size}`}
 						</Typography>
-						<Typography className={classes.price} variant="h5" gutterBottom>
-							${product.price}
-						</Typography>
+						<h4 className={classes.price}>${product.price}</h4>
 						<Typography variant="subtitle2" gutterBottom>
 							{product.shortDescription}
 						</Typography>
@@ -231,8 +235,9 @@ const Products = props => {
 					</Select>
 				</FormControl>
 				<Typography variant="subtitle2" className={classes.showingInfo}>
-					Showing {products.length} products of{' '}
-					{quantityChosenFilter > 0 ? quantityChosenFilter : quantityAllProducts}
+					Showing {products.length} items of{' '}
+					{quantityChosenFilter > 0 ? quantityChosenFilter : quantityAllProducts}{' '}
+					{filteredProducts.length > 0 ? 'filtered products' : 'products'}
 				</Typography>
 				<Grid>
 					<GridOn
