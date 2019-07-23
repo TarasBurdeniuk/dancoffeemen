@@ -1,9 +1,9 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Slider from '@material-ui/lab/Slider';
 import Typography from '@material-ui/core/Typography';
-import { loadFilteredProducts, clearFilter } from '../../actions/products';
+import { loadFilteredProducts } from '../../actions/products';
 
 const useStyles = makeStyles({
 	price: {
@@ -14,12 +14,12 @@ const useStyles = makeStyles({
 	},
 });
 
-const Price = ({ chosenFilter, loadFilteredProducts, clearFilter }) => {
+const Price = ({ chosenFilter, loadFilteredProducts }) => {
 	const classes = useStyles();
-	const [price, setPrice] = useState([5, 30]);
+	const [price, setPrice] = useState([...chosenFilter.price]);
 	useEffect(() => {
-		clearFilter();
-	}, [clearFilter]);
+		setPrice(chosenFilter.price);
+	}, [chosenFilter.price]);
 
 	const handleChangePrice = (event, newPrice) => {
 		setPrice(newPrice);
@@ -30,11 +30,12 @@ const Price = ({ chosenFilter, loadFilteredProducts, clearFilter }) => {
 			brands: chosenFilter.brands,
 			price: price,
 			size: chosenFilter.size,
+			startPage: 0,
 		});
 	};
 
 	return (
-		<Fragment>
+		<>
 			<Slider
 				value={price}
 				min={1}
@@ -47,7 +48,7 @@ const Price = ({ chosenFilter, loadFilteredProducts, clearFilter }) => {
 			<Typography variant="subtitle2" className={classes.price}>
 				Price: ${price[0]} - ${price[1]}
 			</Typography>
-		</Fragment>
+		</>
 	);
 };
 
@@ -57,7 +58,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
 	loadFilteredProducts,
-	clearFilter,
 };
 
 export default connect(
