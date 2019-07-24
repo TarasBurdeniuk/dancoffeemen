@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -18,18 +18,23 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Size = ({ sizes, loadFilteredProducts, chosenFilter }) => {
-	const classes = useStyles();
+	useEffect(() => {
+		setChecked(chosenFilter.size);
+	}, [chosenFilter.size]);
 	const [checked, setChecked] = useState([]);
+	const classes = useStyles();
 
 	const handleToggle = value => () => {
 		const currentIndex = checked.indexOf(value);
 		const newChecked = [...checked];
+
 		if (currentIndex === -1) {
 			newChecked.push(value);
 			loadFilteredProducts({
 				brands: chosenFilter.brands,
 				price: chosenFilter.price,
 				size: [...chosenFilter.size, value],
+				startPage: 0,
 			});
 		} else {
 			newChecked.splice(currentIndex, 1);
@@ -37,6 +42,7 @@ const Size = ({ sizes, loadFilteredProducts, chosenFilter }) => {
 				brands: chosenFilter.brands,
 				price: chosenFilter.price,
 				size: chosenFilter.size.filter(size => size !== value),
+				startPage: 0,
 			});
 		}
 		setChecked(newChecked);

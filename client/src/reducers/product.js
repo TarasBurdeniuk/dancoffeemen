@@ -12,17 +12,21 @@ import {
 } from '../actions/types';
 
 const initialState = {
-	products: null,
+	products: [],
 	product: null,
 	loading: false,
 	error: null,
 	brands: null,
 	sizes: null,
+	startPage: 0,
+	quantityAllProducts: 0,
+	quantityChosenFilter: 0,
 	filteredProducts: [],
 	chosenFilter: {
 		brands: [],
-		price: [],
+		price: [5, 25],
 		size: [],
+		startPage: 0,
 	},
 };
 
@@ -34,7 +38,13 @@ const product = (state = initialState, action) => {
 		case GET_PRODUCT:
 			return { ...state, product: payload };
 		case LOAD_PRODUCTS:
-			return { ...state, products: payload, loading: false };
+			return {
+				...state,
+				products: [...state.products.concat(payload.products)],
+				loading: false,
+				startPage: state.startPage + 1,
+				quantityAllProducts: payload.quantity,
+			};
 		case BRANDS_LOADED:
 			return { ...state, brands: payload };
 		case SIZES_LOADED:
@@ -42,14 +52,25 @@ const product = (state = initialState, action) => {
 		case CLEAR_FILTER:
 			return {
 				...state,
-				chosenFilter: { brands: [], price: [], size: [] },
+				chosenFilter: { brands: [], price: [5, 25], size: [], startPage: 0 },
 				filteredProducts: [],
+				quantityChosenFilter: 0,
 			};
 		case LOAD_FILTERED_PRODUCTS:
+			let prod = [];
+			if (filter.startPage > 0) {
+				prod = [...state.filteredProducts.concat(...payload.products)];
+			} else {
+				prod = [...payload.products];
+			}
 			return {
 				...state,
-				filteredProducts: [...payload],
-				chosenFilter: { ...filter },
+				filteredProducts: prod,
+				chosenFilter: {
+					...filter,
+					startPage: filter.startPage + 1,
+				},
+				quantityChosenFilter: payload.quantity,
 			};
 		case PRODUCT_ERROR:
 		case BRANDS_ERROR:
