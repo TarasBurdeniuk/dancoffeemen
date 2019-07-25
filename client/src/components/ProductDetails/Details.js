@@ -113,7 +113,7 @@ const useStyles = makeStyles({
 });
 
 const Details = props => {
-	const { quantity, handleIncrement, handleDecrement, product } = props;
+	const { quantity, handleIncrement, handleDecrement, product, handleAddToBasket } = props;
 
 	const classes = useStyles();
 
@@ -127,6 +127,7 @@ const Details = props => {
 		shortDescription,
 		mainDescription,
 		image,
+		_id,
 	} = product;
 	useEffect(() => {
 		setImageQ(image[0]);
@@ -224,6 +225,7 @@ const Details = props => {
 						color="secondary"
 						size="large"
 						className={classes.button}
+						onClick={() => handleAddToBasket(_id, price)}
 					>
 						Add To Basket
 					</Button>
