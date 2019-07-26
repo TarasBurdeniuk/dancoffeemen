@@ -10,29 +10,28 @@ const ProductDetailsContainer = ({ match, getProduct, product, addToBasket }) =>
 		getProduct(match.params.id);
 	}, [match.params.id, getProduct]);
 
-	const [quantity, setQuantity] = useState(1);
+	const [addQuantity, setQuantity] = useState(1);
 
 	const handleIncrement = () => {
-		if (!product.status || quantity >= product.quantity) {
+		if (!product.status || addQuantity >= product.quantity) {
 			return;
 		}
-		setQuantity(quantity + 1);
+		setQuantity(addQuantity + 1);
 	};
 
 	const handleDecrement = () => {
 		if (!product.status) {
 			return;
 		}
-		if (quantity > 1) {
-			setQuantity(quantity - 1);
+		if (addQuantity > 1) {
+			setQuantity(addQuantity - 1);
 		}
 	};
 
-	const handleAddToBasket = (id, price) => {
+	const handleAddToBasket = product => {
 		addToBasket({
-			id,
-			price,
-			quantity,
+			...product,
+			addQuantity,
 		});
 	};
 
@@ -40,7 +39,7 @@ const ProductDetailsContainer = ({ match, getProduct, product, addToBasket }) =>
 		<Spinner />
 	) : (
 		<Details
-			quantity={quantity}
+			quantity={addQuantity}
 			product={product}
 			handleIncrement={handleIncrement}
 			handleDecrement={handleDecrement}

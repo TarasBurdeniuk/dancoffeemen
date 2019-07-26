@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADD_TO_BASKET } from './types';
+import { ADD_TO_BASKET, SET_BASKET } from './types';
 
 // Add to basket product
 
@@ -8,11 +8,11 @@ export const addToBasket = product => dispatch => {
 	if (localStorage.shoppingCart) {
 		localCart = JSON.parse(localStorage.shoppingCart);
 
-		const newCart = localCart.filter(item => item.id === product.id);
+		const newCart = localCart.filter(item => item._id === product._id);
 		if (newCart.length) {
 			localCart.forEach(item => {
-				if (item.id === product.id) {
-					item.quantity += product.quantity;
+				if (item._id === product._id) {
+					item.addQuantity += product.addQuantity;
 				}
 			});
 		} else {
@@ -20,11 +20,47 @@ export const addToBasket = product => dispatch => {
 		}
 
 		localStorage.setItem('shoppingCart', JSON.stringify([...localCart]));
+		localCart = JSON.parse(localStorage.shoppingCart);
 	} else {
-		localCart = localStorage.setItem('shoppingCart', JSON.stringify([product]));
+		localStorage.setItem('shoppingCart', JSON.stringify([product]));
+		localCart = JSON.parse(localStorage.shoppingCart);
 	}
 	dispatch({
 		type: ADD_TO_BASKET,
+		payload: localCart,
+	});
+};
+
+// Set quantity 0f product in basket
+
+export const setQuantity = (prod, quantity) => dispatch => {
+	const localCart = JSON.parse(localStorage.shoppingCart);
+
+	localCart.map(item => {
+		if (item._id === prod._id) {
+			item.addQuantity = quantity;
+		}
+		return item;
+	});
+	localStorage.setItem('shoppingCart', JSON.stringify([...localCart]));
+
+	dispatch({
+		type: SET_BASKET,
+		payload: localCart,
+	});
+};
+
+// Remove product from basket
+
+export const removeProduct = product => dispatch => {
+	const localCart = JSON.parse(localStorage.shoppingCart).filter(
+		item => item._id !== product._id,
+	);
+
+	localStorage.setItem('shoppingCart', JSON.stringify([...localCart]));
+
+	dispatch({
+		type: SET_BASKET,
 		payload: localCart,
 	});
 };

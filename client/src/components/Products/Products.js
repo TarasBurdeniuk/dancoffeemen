@@ -17,6 +17,7 @@ import pink from '@material-ui/core/colors/pink';
 import PropTypes from 'prop-types';
 import { loadProducts, loadFilteredProducts } from '../../actions/products';
 import Spinner from '../Loading';
+import { addToBasket } from '../../actions/basket';
 
 const strongPink = pink[800];
 
@@ -117,6 +118,7 @@ const Products = props => {
 		filteredProducts,
 		loadFilteredProducts,
 		chosenFilter,
+		addToBasket,
 	} = props;
 
 	const classes = useStyles();
@@ -149,6 +151,7 @@ const Products = props => {
 							size="large"
 							color="secondary"
 							className={classes.buttonHover}
+							onClick={() => handleAddToBasket(product)}
 						>
 							Add To Basket
 						</Button>
@@ -189,6 +192,7 @@ const Products = props => {
 							size="large"
 							color="secondary"
 							className={classes.button}
+							onClick={() => handleAddToBasket(product)}
 						>
 							Add To Basket
 						</Button>
@@ -209,6 +213,10 @@ const Products = props => {
 		filteredProducts.length
 			? loadFilteredProducts({ ...chosenFilter })
 			: loadProducts(startPage);
+	};
+
+	const handleAddToBasket = product => {
+		addToBasket({ ...product, addQuantity: 1 });
 	};
 
 	return (
@@ -285,6 +293,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
 	loadProducts,
 	loadFilteredProducts,
+	addToBasket,
 };
 
 export default connect(

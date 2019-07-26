@@ -127,7 +127,6 @@ const Details = props => {
 		shortDescription,
 		mainDescription,
 		image,
-		_id,
 	} = product;
 	useEffect(() => {
 		setImageQ(image[0]);
@@ -225,7 +224,7 @@ const Details = props => {
 						color="secondary"
 						size="large"
 						className={classes.button}
-						onClick={() => handleAddToBasket(_id, price)}
+						onClick={() => handleAddToBasket(product)}
 					>
 						Add To Basket
 					</Button>

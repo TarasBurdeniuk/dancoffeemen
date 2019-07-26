@@ -1,58 +1,135 @@
 import React, { useState } from 'react';
-import Container from './Container';
+import { makeStyles } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Paper from '@material-ui/core/Paper';
+import Stepper from '@material-ui/core/Stepper';
+import Step from '@material-ui/core/Step';
+import StepLabel from '@material-ui/core/StepLabel';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import AddressForm from './AddressForm';
+import PaymentForm from './PaymentForm';
+import Review from './Review';
+import ShoppingCart from './ShoppingCart';
 
-const Cart = () => {
-	const [quantity, setQuantity] = useState(1);
+const useStyles = makeStyles(theme => ({
+	appBar: {
+		position: 'relative',
+	},
+	layout: {
+		width: 'auto',
+		marginLeft: theme.spacing(2),
+		marginRight: theme.spacing(2),
+		[theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
+			maxWidth: 1000,
+			marginLeft: 'auto',
+			marginRight: 'auto',
+		},
+	},
+	paper: {
+		marginTop: theme.spacing(3),
+		marginBottom: theme.spacing(3),
+		padding: theme.spacing(2),
+		[theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
+			marginTop: theme.spacing(6),
+			marginBottom: theme.spacing(6),
+			padding: theme.spacing(3),
+		},
+	},
+	stepper: {
+		padding: theme.spacing(3, 0, 5),
+	},
+	buttons: {
+		display: 'flex',
+		justifyContent: 'flex-end',
+	},
+	button: {
+		marginTop: theme.spacing(3),
+		marginLeft: theme.spacing(1),
+	},
+}));
 
-	const handleIncrement = () => {
-		setQuantity(quantity + 1);
+const steps = ['Shopping cart', 'Shipping address', 'Payment details', 'Review your order'];
+
+function getStepContent(step) {
+	switch (step) {
+		case 0:
+			return <ShoppingCart />;
+		case 1:
+			return <AddressForm />;
+		case 2:
+			return <PaymentForm />;
+		case 3:
+			return <Review />;
+		default:
+			throw new Error('Unknown step');
+	}
+}
+
+const Checkout = () => {
+	const classes = useStyles();
+	const [activeStep, setActiveStep] = useState(0);
+
+	const handleNext = () => {
+		setActiveStep(activeStep + 1);
 	};
 
-	const handleDecrement = () => {
-		if (quantity > 1) {
-			setQuantity(quantity - 1);
-		}
+	const handleBack = () => {
+		setActiveStep(activeStep - 1);
 	};
-
-	const products = [
-		{
-			brand: 'Lavazza Pienaroma',
-			size: 500,
-			price: 18,
-			src: 'temporaryImages/temporaryCart/image1.jpg',
-			id: 1,
-		},
-		{
-			brand: 'Kimbo Napoletano',
-			size: 250,
-			price: 8,
-			src: 'temporaryImages/temporaryCart/image2.jpg',
-			id: 2,
-		},
-		{
-			brand: 'Illy Moka',
-			size: 250,
-			price: 15,
-			src: 'temporaryImages/temporaryCart/image3.jpg',
-			id: 3,
-		},
-		{
-			brand: 'Fineberry Nicaragua',
-			size: 1000,
-			price: 24,
-			src: 'temporaryImages/temporaryCart/image4.jpg',
-			id: 4,
-		},
-	];
 
 	return (
-		<Container
-			quantity={quantity}
-			products={products}
-			handleIncrement={handleIncrement}
-			handleDecrement={handleDecrement}
-		/>
+		<>
+			<CssBaseline />
+			<main className={classes.layout}>
+				<Paper className={classes.paper}>
+					<Typography component="h1" variant="h4" align="center">
+						Checkout
+					</Typography>
+					<Stepper activeStep={activeStep} className={classes.stepper}>
+						{steps.map(label => (
+							<Step key={label}>
+								<StepLabel>{label}</StepLabel>
+							</Step>
+						))}
+					</Stepper>
+					<>
+						{activeStep === steps.length ? (
+							<>
+								<Typography variant="h5" gutterBottom>
+									Thank you for your order.
+								</Typography>
+								<Typography variant="subtitle1">
+									Your order number is #2001539. We have emailed your order
+									confirmation, and will send you an update when your order has
+									shipped.
+								</Typography>
+							</>
+						) : (
+							<>
+								{getStepContent(activeStep)}
+								<div className={classes.buttons}>
+									{activeStep !== 0 && (
+										<Button onClick={handleBack} className={classes.button}>
+											Back
+										</Button>
+									)}
+									<Button
+										variant="contained"
+										color="primary"
+										onClick={handleNext}
+										className={classes.button}
+									>
+										{activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+									</Button>
+								</div>
+							</>
+						)}
+					</>
+				</Paper>
+			</main>
+		</>
 	);
 };
 
-export default Cart;
+export default Checkout;

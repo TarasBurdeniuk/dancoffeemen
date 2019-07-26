@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -93,7 +94,7 @@ const StyledBadge = withStyles(theme => ({
 }))(Badge);
 
 const Container = props => {
-	const { isAuthenticated, loading, logout, registration, links } = props;
+	const { isAuthenticated, loading, logout, registration, links, products } = props;
 
 	const classes = useStyles();
 
@@ -137,7 +138,7 @@ const Container = props => {
 						<Remove className={classes.line} />
 						<Link to="/cart">
 							<IconButton aria-label="Cart">
-								<StyledBadge badgeContent={4} color="secondary">
+								<StyledBadge badgeContent={products.length} color="secondary">
 									<ShoppingCart />
 								</StyledBadge>
 							</IconButton>
@@ -165,4 +166,8 @@ Container.propTypes = {
 	links: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-export default Container;
+const mapStateToProps = state => ({
+	products: state.basket.products,
+});
+
+export default connect(mapStateToProps)(Container);
