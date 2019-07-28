@@ -223,6 +223,7 @@ const Details = props => {
 						variant="contained"
 						color="secondary"
 						size="large"
+						disabled={!status}
 						className={classes.button}
 						onClick={() => handleAddToBasket(product)}
 					>

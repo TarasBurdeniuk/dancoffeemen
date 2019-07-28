@@ -7,7 +7,14 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Clear from '@material-ui/icons/Clear';
 import { PropTypes } from 'prop-types';
+import pink from '@material-ui/core/colors/pink';
+import grey from '@material-ui/core/colors/grey';
 import { setQuantity, removeProduct } from '../../actions/basket';
+
+const lightPink = pink[300];
+const strongPink = pink[500];
+const moreStrongPink = pink[700];
+const white = grey[0];
 
 const useStyles = makeStyles(theme => ({
 	container: {
@@ -34,11 +41,12 @@ const useStyles = makeStyles(theme => ({
 		display: 'inline-block',
 		cursor: 'pointer',
 		'&:hover': {
-			color: '#f50057',
+			color: strongPink,
 		},
 	},
 	price: {
 		margin: '1rem 0',
+		color: moreStrongPink,
 	},
 	quantityContainer: {
 		display: 'flex',
@@ -58,7 +66,7 @@ const useStyles = makeStyles(theme => ({
 		fontSize: '1.5rem',
 		textAlign: 'center',
 		border: 0,
-		background: '#fff',
+		background: white,
 	},
 	quantityChange: {
 		width: '3rem',
@@ -93,8 +101,11 @@ const useStyles = makeStyles(theme => ({
 		color: '#575757',
 		cursor: 'pointer',
 		'&:hover': {
-			color: '#f50057',
+			color: strongPink,
 		},
+	},
+	available: {
+		color: lightPink,
 	},
 }));
 
@@ -145,6 +156,11 @@ const ShoppingCart = props => {
 						<Typography variant="h6" className={classes.price}>
 							${product.price}
 						</Typography>
+						{product.quantity === 0 && (
+							<Typography variant="subtitle1" className={classes.available}>
+								Product is not available
+							</Typography>
+						)}
 					</Grid>
 					<Grid item xs={12} md={3} className={classes.quantityContainer}>
 						<div className={classes.quantity}>
@@ -171,7 +187,7 @@ const ShoppingCart = props => {
 						</div>
 					</Grid>
 					<Grid item xs={12} md={1} className={classes.total}>
-						<Typography variant="h5">
+						<Typography variant="h5" className={classes.price}>
 							{'$'}
 							{calc(product.price, product.addQuantity)}
 						</Typography>
@@ -187,11 +203,16 @@ const ShoppingCart = props => {
 	));
 
 	return (
-		<Grid container justify="center" className={classes.container}>
-			<Container maxWidth="lg">
-				<Paper>{productsCart}</Paper>
-			</Container>
-		</Grid>
+		<>
+			<Typography variant="h6" gutterBottom>
+				Shopping cart
+			</Typography>
+			<Grid container justify="center" className={classes.container}>
+				<Container maxWidth="lg">
+					<Paper>{productsCart}</Paper>
+				</Container>
+			</Grid>
+		</>
 	);
 };
 

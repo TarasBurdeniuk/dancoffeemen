@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Paper from '@material-ui/core/Paper';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
@@ -11,17 +10,20 @@ import AddressForm from './AddressForm';
 import PaymentForm from './PaymentForm';
 import Review from './Review';
 import ShoppingCart from './ShoppingCart';
+import { loadLocalStorageProducts } from '../../actions/basket';
+import pink from '@material-ui/core/colors/pink';
+
+const moreStrongPink = pink[700];
 
 const useStyles = makeStyles(theme => ({
-	appBar: {
-		position: 'relative',
-	},
 	layout: {
-		width: 'auto',
+		maxWidth: 1160,
+		padding: 50,
+		boxSizing: 'border-box',
 		marginLeft: theme.spacing(2),
 		marginRight: theme.spacing(2),
 		[theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
-			maxWidth: 1000,
+			maxWidth: 1160,
 			marginLeft: 'auto',
 			marginRight: 'auto',
 		},
@@ -37,7 +39,7 @@ const useStyles = makeStyles(theme => ({
 		},
 	},
 	stepper: {
-		padding: theme.spacing(3, 0, 5),
+		padding: theme.spacing(3, 16, 5),
 	},
 	buttons: {
 		display: 'flex',
@@ -46,6 +48,11 @@ const useStyles = makeStyles(theme => ({
 	button: {
 		marginTop: theme.spacing(3),
 		marginLeft: theme.spacing(1),
+	},
+	price: {
+		color: moreStrongPink,
+		textAlign: 'end',
+		padding: 5,
 	},
 }));
 
@@ -66,9 +73,13 @@ function getStepContent(step) {
 	}
 }
 
-const Checkout = () => {
+const Checkout = ({ loadLocalStorageProducts, products }) => {
 	const classes = useStyles();
 	const [activeStep, setActiveStep] = useState(0);
+	const localStorageProducts = JSON.parse(localStorage.shoppingCart);
+	useEffect(() => {
+		loadLocalStorageProducts(localStorageProducts);
+	}, []);
 
 	const handleNext = () => {
 		setActiveStep(activeStep + 1);
@@ -78,58 +89,80 @@ const Checkout = () => {
 		setActiveStep(activeStep - 1);
 	};
 
+	const calculateSum = () => {
+		let sum = 0;
+		products.forEach(product => {
+			const prodSum = product.price * product.addQuantity;
+			sum = Math.round(sum * 1000 + prodSum * 1000) / 1000;
+		});
+		return sum;
+	};
+
 	return (
 		<>
-			<CssBaseline />
 			<main className={classes.layout}>
-				<Paper className={classes.paper}>
-					<Typography component="h1" variant="h4" align="center">
-						Checkout
-					</Typography>
-					<Stepper activeStep={activeStep} className={classes.stepper}>
-						{steps.map(label => (
-							<Step key={label}>
-								<StepLabel>{label}</StepLabel>
-							</Step>
-						))}
-					</Stepper>
-					<>
-						{activeStep === steps.length ? (
-							<>
-								<Typography variant="h5" gutterBottom>
-									Thank you for your order.
-								</Typography>
-								<Typography variant="subtitle1">
-									Your order number is #2001539. We have emailed your order
-									confirmation, and will send you an update when your order has
-									shipped.
-								</Typography>
-							</>
-						) : (
-							<>
-								{getStepContent(activeStep)}
-								<div className={classes.buttons}>
-									{activeStep !== 0 && (
-										<Button onClick={handleBack} className={classes.button}>
-											Back
-										</Button>
-									)}
-									<Button
-										variant="contained"
-										color="primary"
-										onClick={handleNext}
-										className={classes.button}
-									>
-										{activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+				<Typography component="h1" variant="h4" align="center">
+					Checkout
+				</Typography>
+				<Stepper activeStep={activeStep} className={classes.stepper}>
+					{steps.map(label => (
+						<Step key={label}>
+							<StepLabel>{label}</StepLabel>
+						</Step>
+					))}
+				</Stepper>
+				<>
+					{activeStep === steps.length ? (
+						<>
+							<Typography variant="h5" gutterBottom>
+								Thank you for your order.
+							</Typography>
+							<Typography variant="subtitle1">
+								Your order number is #2001539. We have emailed your order
+								confirmation, and will send you an update when your order has
+								shipped.
+							</Typography>
+						</>
+					) : (
+						<>
+							{getStepContent(activeStep)}
+							<Typography variant="h5" className={classes.price}>
+								{'Total price: $'}
+								{calculateSum()}
+							</Typography>
+							<div className={classes.buttons}>
+								{activeStep !== 0 && (
+									<Button onClick={handleBack} className={classes.button}>
+										Back
 									</Button>
-								</div>
-							</>
-						)}
-					</>
-				</Paper>
+								)}
+								<Button
+									variant="contained"
+									color="primary"
+									disabled={calculateSum() === 0}
+									onClick={() => handleNext()}
+									className={classes.button}
+								>
+									{activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+								</Button>
+							</div>
+						</>
+					)}
+				</>
 			</main>
 		</>
 	);
 };
 
-export default Checkout;
+const mapStateToProps = state => ({
+	products: state.basket.products,
+});
+
+const mapDispatchToProps = {
+	loadLocalStorageProducts,
+};
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps,
+)(Checkout);

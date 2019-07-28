@@ -16,19 +16,12 @@ const Header = ({ auth: { isAuthenticated, loading }, logout }) => {
 		},
 	];
 
-	const links = [
-		{ route: '/', text: 'DancoffeeMen', id: 1 },
-		{ route: '/products', text: 'Products', id: 3 },
-		{ route: '/cart', text: 'Cart', id: 6 },
-	];
-
 	return (
 		<Container
 			isAuthenticated={isAuthenticated}
 			loading={loading}
 			logout={logout}
 			registration={registration}
-			links={links}
 		/>
 	);
 };

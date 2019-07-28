@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADD_TO_BASKET, SET_BASKET } from './types';
+import { ADD_TO_BASKET, PRODUCT_ERROR, SET_BASKET } from './types';
 
 // Add to basket product
 
@@ -63,4 +63,31 @@ export const removeProduct = product => dispatch => {
 		type: SET_BASKET,
 		payload: localCart,
 	});
+};
+
+// Load products from localStorage in data base
+
+export const loadLocalStorageProducts = products => async dispatch => {
+	const config = {
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	};
+	try {
+		const res = await axios.post('/api/products', products, config);
+
+		localStorage.setItem('shoppingCart', JSON.stringify([...res.data]));
+
+		dispatch({
+			type: ADD_TO_BASKET,
+			payload: res.data,
+		});
+	} catch (err) {
+		dispatch({
+			type: PRODUCT_ERROR,
+			payload: {
+				msg: err.message,
+			},
+		});
+	}
 };
