@@ -69,5 +69,12 @@ export const theme = createMuiTheme({
 				color: `${greyStrong} !important`,
 			},
 		},
+		MuiInput: {
+			underline: {
+				'&:after': {
+					borderBottom: `2px solid ${pinkStrong}`,
+				},
+			},
+		},
 	},
 });

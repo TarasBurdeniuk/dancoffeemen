@@ -20,3 +20,7 @@ export const validatePhone = phone => {
 export const validatePassword = password => {
 	return !password.length >= 6 ? 'Password must be 6 or more character' : '';
 };
+
+export const validateCVV = cvv => {
+	return cvv.length === 3 ? '' : 'CVV must contains 3 digits';
+};

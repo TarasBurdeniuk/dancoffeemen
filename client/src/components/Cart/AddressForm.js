@@ -1,57 +1,153 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+import { validateName, validateEmail, validatePhone } from '../../utills/validateFields';
+import pink from '@material-ui/core/colors/pink';
+import { setShippingAddress } from '../../actions/basket';
 
-const AddressForm = () => {
+const pinkStrong = pink[500];
+
+const AddressForm = ({ setShippingAddress, shippingAddress }) => {
+	const [formData, setFormData] = useState({
+		name: '',
+		email: '',
+		country: '',
+		state: '',
+		city: '',
+		street: '',
+		homeNumber: '',
+		apartments: '',
+		contactPhone: '',
+		index: '',
+	});
+	const [errorData, setErrorData] = useState({
+		errorName: '',
+		errorEmail: '',
+		errorPhone: '',
+	});
+
+	useEffect(() => {
+		setFormData({
+			name: shippingAddress.name,
+			email: shippingAddress.email,
+			country: shippingAddress.country,
+			state: shippingAddress.state,
+			city: shippingAddress.city,
+			street: shippingAddress.street,
+			homeNumber: shippingAddress.homeNumber,
+			apartments: shippingAddress.apartments,
+			contactPhone: shippingAddress.contactPhone,
+			index: shippingAddress.index,
+		});
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	const {
+		name,
+		email,
+		country,
+		state,
+		city,
+		street,
+		homeNumber,
+		apartments,
+		contactPhone,
+		index,
+	} = formData;
+
+	const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+	const onBlur = form => {
+		setShippingAddress(form);
+	};
+
 	return (
 		<>
 			<Typography variant="h6" gutterBottom>
 				Shipping address
 			</Typography>
 			<Grid container spacing={3}>
-				<Grid item xs={12} sm={6}>
+				<Grid item xs={12} sm={4}>
 					<TextField
 						required
-						id="firstName"
-						name="firstName"
-						label="First name"
+						id="Name"
+						name="name"
+						label="Name"
 						fullWidth
-						autoComplete="fname"
+						autoComplete="name"
+						value={name}
+						onChange={e => onChange(e)}
+						onBlur={e => {
+							setErrorData({ errorName: validateName(e.target.value) });
+							onBlur(formData);
+						}}
 					/>
+					{errorData.errorName && (
+						<div style={{ color: pinkStrong }}>{errorData.errorName}</div>
+					)}
 				</Grid>
-				<Grid item xs={12} sm={6}>
+				<Grid item xs={12} sm={4}>
 					<TextField
 						required
-						id="lastName"
-						name="lastName"
-						label="Last name"
+						id="email"
+						name="email"
+						label="Email"
 						fullWidth
-						autoComplete="lname"
+						autoComplete="email"
+						value={email}
+						onChange={e => onChange(e)}
+						onBlur={e => {
+							setErrorData({ errorEmail: validateEmail(e.target.value) });
+							onBlur(formData);
+						}}
 					/>
+					{errorData.errorEmail && (
+						<div style={{ color: pinkStrong }}>{errorData.errorEmail}</div>
+					)}
 				</Grid>
-				<Grid item xs={12}>
+				<Grid item xs={12} sm={4}>
 					<TextField
 						required
-						id="address1"
-						name="address1"
-						label="Address line 1"
+						id="contactPhone"
+						name="contactPhone"
+						label="Phone number"
 						fullWidth
-						autoComplete="billing address-line1"
+						value={contactPhone}
+						onChange={e => onChange(e)}
+						onBlur={e => {
+							setErrorData({ errorPhone: validatePhone(e.target.value) });
+							onBlur(formData);
+						}}
 					/>
+					{errorData.errorPhone && (
+						<div style={{ color: pinkStrong }}>{errorData.errorPhone}</div>
+					)}
 				</Grid>
-				<Grid item xs={12}>
+				<Grid item xs={12} sm={3}>
 					<TextField
-						id="address2"
-						name="address2"
-						label="Address line 2"
+						id="country"
+						name="country"
+						label="Country"
 						fullWidth
-						autoComplete="billing address-line2"
+						autoComplete="billing country"
+						value={country}
+						onChange={e => onChange(e)}
+						onBlur={() => onBlur(formData)}
 					/>
 				</Grid>
-				<Grid item xs={12} sm={6}>
+				<Grid item xs={12} sm={3}>
+					<TextField
+						id="state"
+						name="state"
+						label="State/Region"
+						fullWidth
+						value={state}
+						onChange={e => onChange(e)}
+						onBlur={() => onBlur(formData)}
+					/>
+				</Grid>
+				<Grid item xs={12} sm={3}>
 					<TextField
 						required
 						id="city"
@@ -59,35 +155,58 @@ const AddressForm = () => {
 						label="City"
 						fullWidth
 						autoComplete="billing address-level2"
+						value={city}
+						onChange={e => onChange(e)}
+						onBlur={() => onBlur(formData)}
 					/>
 				</Grid>
-				<Grid item xs={12} sm={6}>
-					<TextField id="state" name="state" label="State/Province/Region" fullWidth />
-				</Grid>
-				<Grid item xs={12} sm={6}>
+				<Grid item xs={12} sm={3}>
 					<TextField
 						required
-						id="zip"
-						name="zip"
+						id="street"
+						name="street"
+						label="Street"
+						fullWidth
+						autoComplete="street"
+						value={street}
+						onChange={e => onChange(e)}
+						onBlur={() => onBlur(formData)}
+					/>
+				</Grid>
+				<Grid item xs={12} sm={3}>
+					<TextField
+						required
+						id="homeNumber"
+						name="homeNumber"
+						label="Home number"
+						fullWidth
+						autoComplete="home number"
+						value={homeNumber}
+						onChange={e => onChange(e)}
+						onBlur={() => onBlur(formData)}
+					/>
+				</Grid>
+				<Grid item xs={12} sm={3}>
+					<TextField
+						id="apartments"
+						name="apartments"
+						label="Apartments"
+						fullWidth
+						value={apartments}
+						onChange={e => onChange(e)}
+						onBlur={() => onBlur(formData)}
+					/>
+				</Grid>
+				<Grid item xs={12} sm={3}>
+					<TextField
+						id="index"
+						name="index"
 						label="Zip / Postal code"
 						fullWidth
-						autoComplete="billing postal-code"
-					/>
-				</Grid>
-				<Grid item xs={12} sm={6}>
-					<TextField
-						required
-						id="country"
-						name="country"
-						label="Country"
-						fullWidth
-						autoComplete="billing country"
-					/>
-				</Grid>
-				<Grid item xs={12}>
-					<FormControlLabel
-						control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
-						label="Use this address for payment details"
+						autoComplete="index"
+						value={index}
+						onChange={e => onChange(e)}
+						onBlur={() => onBlur(formData)}
 					/>
 				</Grid>
 			</Grid>
@@ -95,4 +214,15 @@ const AddressForm = () => {
 	);
 };
 
-export default AddressForm;
+const mapStateToProps = state => ({
+	shippingAddress: state.basket.shippingAddress,
+});
+
+const mapDispatchToProps = {
+	setShippingAddress,
+};
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps,
+)(AddressForm);

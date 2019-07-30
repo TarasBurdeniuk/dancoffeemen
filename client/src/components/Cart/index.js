@@ -10,10 +10,11 @@ import AddressForm from './AddressForm';
 import PaymentForm from './PaymentForm';
 import Review from './Review';
 import ShoppingCart from './ShoppingCart';
-import { loadLocalStorageProducts } from '../../actions/basket';
+import { loadLocalStorageProducts, setShippingAddress } from '../../actions/basket';
 import pink from '@material-ui/core/colors/pink';
 
 const moreStrongPink = pink[700];
+const strongPink = pink[500];
 
 const useStyles = makeStyles(theme => ({
 	layout: {
@@ -58,7 +59,7 @@ const useStyles = makeStyles(theme => ({
 
 const steps = ['Shopping cart', 'Shipping address', 'Payment details', 'Review your order'];
 
-function getStepContent(step) {
+const getStepContent = step => {
 	switch (step) {
 		case 0:
 			return <ShoppingCart />;
@@ -71,18 +72,35 @@ function getStepContent(step) {
 		default:
 			throw new Error('Unknown step');
 	}
-}
+};
 
-const Checkout = ({ loadLocalStorageProducts, products }) => {
+const Checkout = ({
+	loadLocalStorageProducts,
+	products,
+	user,
+	setShippingAddress,
+	shippingAddress,
+}) => {
 	const classes = useStyles();
 	const [activeStep, setActiveStep] = useState(0);
 	const localStorageProducts = JSON.parse(localStorage.shoppingCart);
 	useEffect(() => {
 		loadLocalStorageProducts(localStorageProducts);
+		if (user) {
+			setShippingAddress({
+				name: user.name,
+				email: user.email,
+				contactPhone: user.phone,
+			});
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const handleNext = () => {
 		setActiveStep(activeStep + 1);
+		if (activeStep === 3) {
+			console.log('send');
+		}
 	};
 
 	const handleBack = () => {
@@ -97,6 +115,40 @@ const Checkout = ({ loadLocalStorageProducts, products }) => {
 		});
 		return sum;
 	};
+	let check = false;
+
+	const checkForms = form => {
+		const {
+			name,
+			email,
+			city,
+			street,
+			homeNumber,
+			contactPhone,
+			cardNumber,
+			expDate,
+			cvv,
+		} = form;
+		if (
+			!name ||
+			!email ||
+			!city ||
+			!street ||
+			!homeNumber ||
+			!contactPhone ||
+			!cardNumber ||
+			!expDate ||
+			!cvv
+		) {
+			check = true;
+			return false;
+		}
+		return true;
+	};
+
+	if (activeStep === 3) {
+		checkForms(shippingAddress);
+	}
 
 	return (
 		<>
@@ -130,6 +182,14 @@ const Checkout = ({ loadLocalStorageProducts, products }) => {
 								{'Total price: $'}
 								{calculateSum()}
 							</Typography>
+							{check && (
+								<Typography
+									variant="h5"
+									style={{ color: strongPink, fontSize: 24 }}
+								>
+									Please fill all required fields
+								</Typography>
+							)}
 							<div className={classes.buttons}>
 								{activeStep !== 0 && (
 									<Button onClick={handleBack} className={classes.button}>
@@ -139,7 +199,8 @@ const Checkout = ({ loadLocalStorageProducts, products }) => {
 								<Button
 									variant="contained"
 									color="primary"
-									disabled={calculateSum() === 0}
+									defaultValue={steps[activeStep]}
+									disabled={calculateSum() === 0 || check}
 									onClick={() => handleNext()}
 									className={classes.button}
 								>
@@ -156,10 +217,13 @@ const Checkout = ({ loadLocalStorageProducts, products }) => {
 
 const mapStateToProps = state => ({
 	products: state.basket.products,
+	shippingAddress: state.basket.shippingAddress,
+	user: state.auth.user,
 });
 
 const mapDispatchToProps = {
 	loadLocalStorageProducts,
+	setShippingAddress,
 };
 
 export default connect(

@@ -35,6 +35,9 @@ const OrderSchema = new mongoose.Schema({
 		minlength: 6,
 	},
 	deliveryAddress: {
+		country: {
+			type: String,
+		},
 		city: {
 			type: String,
 			required: true,
@@ -53,6 +56,9 @@ const OrderSchema = new mongoose.Schema({
 		contactPhone: {
 			type: String,
 			required: true,
+		},
+		index: {
+			type: String,
 		},
 	},
 	date: {

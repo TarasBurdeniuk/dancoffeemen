@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADD_TO_BASKET, PRODUCT_ERROR, SET_BASKET } from './types';
+import { ADD_TO_BASKET, PRODUCT_ERROR, SET_BASKET, SET_SHIPPING_ADDRESS } from './types';
 
 // Add to basket product
 
@@ -90,4 +90,13 @@ export const loadLocalStorageProducts = products => async dispatch => {
 			},
 		});
 	}
+};
+
+// Set shipping address
+
+export const setShippingAddress = form => dispatch => {
+	dispatch({
+		type: SET_SHIPPING_ADDRESS,
+		payload: form,
+	});
 };
