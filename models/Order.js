@@ -10,11 +10,7 @@ const OrderSchema = new mongoose.Schema({
 				ref: 'Product',
 				required: true,
 			},
-			productVariable: {
-				type: String,
-				required: true,
-			},
-			amountOfProduct: {
+			addQuantity: {
 				type: Number,
 				required: true,
 				min: 1,
@@ -35,7 +31,18 @@ const OrderSchema = new mongoose.Schema({
 		minlength: 6,
 	},
 	deliveryAddress: {
+		name: {
+			type: String,
+			required: true,
+		},
+		email: {
+			type: String,
+			required: true,
+		},
 		country: {
+			type: String,
+		},
+		state: {
 			type: String,
 		},
 		city: {
@@ -68,6 +75,9 @@ const OrderSchema = new mongoose.Schema({
 	orderStatus: {
 		type: String,
 		require: true,
+	},
+	orderNumber: {
+		type: Number,
 	},
 });
 

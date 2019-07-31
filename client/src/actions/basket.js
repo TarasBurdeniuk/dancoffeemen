@@ -1,5 +1,12 @@
 import axios from 'axios';
-import { ADD_TO_BASKET, PRODUCT_ERROR, SET_BASKET, SET_SHIPPING_ADDRESS } from './types';
+import {
+	ADD_TO_BASKET,
+	PRODUCT_ERROR,
+	SET_BASKET,
+	SET_SHIPPING_ADDRESS,
+	ORDER_ERROR,
+	ORDER_LOAD,
+} from './types';
 
 // Add to basket product
 
@@ -99,4 +106,36 @@ export const setShippingAddress = form => dispatch => {
 		type: SET_SHIPPING_ADDRESS,
 		payload: form,
 	});
+};
+
+// Create order
+
+export const createOrder = (form, products, totalPrice) => async dispatch => {
+	const config = {
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	};
+	const orderProducts = products.filter(product => product.addQuantity > 0);
+	const orderForm = {
+		products: orderProducts,
+		totalPrice: totalPrice,
+		shipping: 'some shipping',
+		deliveryAddress: { ...form },
+		orderStatus: 'in progress',
+	};
+	try {
+		const order = await axios.post('/api/order', orderForm, config);
+		dispatch({
+			type: ORDER_LOAD,
+			payload: order.data,
+		});
+	} catch (err) {
+		dispatch({
+			type: ORDER_ERROR,
+			payload: {
+				msg: err.message,
+			},
+		});
+	}
 };

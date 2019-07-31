@@ -14,7 +14,7 @@ export const validateEmail = email => {
 export const validatePhone = phone => {
 	const regex = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s/0-9]*$/;
 
-	return !regex.test(phone) ? ' Do not valid phone' : '';
+	return regex.test(phone) && phone.toString().length >= 8 ? '' : 'Do not valid phone';
 };
 
 export const validatePassword = password => {

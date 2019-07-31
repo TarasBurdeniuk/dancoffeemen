@@ -1,4 +1,10 @@
-import { ADD_TO_BASKET, SET_BASKET, SET_SHIPPING_ADDRESS } from '../actions/types';
+import {
+	ADD_TO_BASKET,
+	SET_BASKET,
+	SET_SHIPPING_ADDRESS,
+	LOGOUT,
+	ORDER_LOAD,
+} from '../actions/types';
 
 const initialState = {
 	products: JSON.parse(localStorage.getItem('shoppingCart')) || [],
@@ -18,6 +24,7 @@ const initialState = {
 		expDate: '',
 		cvv: '',
 	},
+	order: null,
 };
 
 const basket = (state = initialState, action) => {
@@ -32,6 +39,21 @@ const basket = (state = initialState, action) => {
 			return {
 				...state,
 				shippingAddress: { ...state.shippingAddress, ...payload },
+			};
+		case ORDER_LOAD:
+			return {
+				...state,
+				order: payload,
+			};
+		case LOGOUT:
+			return {
+				...state,
+				shippingAddress: {
+					...state.shippingAddress,
+					name: '',
+					email: '',
+					contactPhone: '',
+				},
 			};
 		default:
 			return state;

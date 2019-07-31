@@ -10,7 +10,7 @@ import AddressForm from './AddressForm';
 import PaymentForm from './PaymentForm';
 import Review from './Review';
 import ShoppingCart from './ShoppingCart';
-import { loadLocalStorageProducts, setShippingAddress } from '../../actions/basket';
+import { loadLocalStorageProducts, setShippingAddress, createOrder } from '../../actions/basket';
 import pink from '@material-ui/core/colors/pink';
 
 const moreStrongPink = pink[700];
@@ -80,6 +80,7 @@ const Checkout = ({
 	user,
 	setShippingAddress,
 	shippingAddress,
+	createOrder,
 }) => {
 	const classes = useStyles();
 	const [activeStep, setActiveStep] = useState(0);
@@ -99,7 +100,8 @@ const Checkout = ({
 	const handleNext = () => {
 		setActiveStep(activeStep + 1);
 		if (activeStep === 3) {
-			console.log('send');
+			const totalPrice = calculateSum();
+			createOrder(shippingAddress, products, totalPrice);
 		}
 	};
 
@@ -170,9 +172,8 @@ const Checkout = ({
 								Thank you for your order.
 							</Typography>
 							<Typography variant="subtitle1">
-								Your order number is #2001539. We have emailed your order
-								confirmation, and will send you an update when your order has
-								shipped.
+								Your order number is #. We have emailed your order confirmation, and
+								will send you an update when your order has shipped.
 							</Typography>
 						</>
 					) : (
@@ -224,6 +225,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
 	loadLocalStorageProducts,
 	setShippingAddress,
+	createOrder,
 };
 
 export default connect(
