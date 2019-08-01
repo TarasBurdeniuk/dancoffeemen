@@ -61,5 +61,20 @@ export const theme = createMuiTheme({
 				},
 			},
 		},
+		MuiStepIcon: {
+			active: {
+				color: `${pinkStrong} !important`,
+			},
+			root: {
+				color: `${greyStrong} !important`,
+			},
+		},
+		MuiInput: {
+			underline: {
+				'&:after': {
+					borderBottom: `2px solid ${pinkStrong}`,
+				},
+			},
+		},
 	},
 });

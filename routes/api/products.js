@@ -101,4 +101,36 @@ router.post(
 	},
 );
 
+// Route    POST api/products
+// Desc     Load products from localStorage
+
+router.post('/', async (req, res) => {
+	const localProducts = req.body;
+	try {
+		const products = await Product.find();
+
+		const filteredProducts = [];
+		localProducts.forEach(product => {
+			products.forEach(item => {
+				if (product._id === item._id.toString()) {
+					if (product.addQuantity > item.quantity) {
+						filteredProducts.push({
+							...product,
+							addQuantity: item.quantity,
+							quantity: item.quantity,
+						});
+					} else {
+						filteredProducts.push(product);
+					}
+				}
+			});
+		});
+
+		res.json(filteredProducts);
+	} catch (err) {
+		console.error(err.message);
+		res.status(500).send('Server error');
+	}
+});
+
 module.exports = router;

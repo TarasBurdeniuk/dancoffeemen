@@ -113,7 +113,7 @@ const useStyles = makeStyles({
 });
 
 const Details = props => {
-	const { quantity, handleIncrement, handleDecrement, product } = props;
+	const { quantity, handleIncrement, handleDecrement, product, handleAddToBasket } = props;
 
 	const classes = useStyles();
 
@@ -223,7 +223,9 @@ const Details = props => {
 						variant="contained"
 						color="secondary"
 						size="large"
+						disabled={!status}
 						className={classes.button}
+						onClick={() => handleAddToBasket(product)}
 					>
 						Add To Basket
 					</Button>
