@@ -19,7 +19,7 @@ const strongPink = pink[500];
 const useStyles = makeStyles(theme => ({
 	layout: {
 		maxWidth: 1160,
-		padding: 50,
+		padding: '10px 5px 20px',
 		boxSizing: 'border-box',
 		marginLeft: theme.spacing(2),
 		marginRight: theme.spacing(2),
@@ -54,6 +54,19 @@ const useStyles = makeStyles(theme => ({
 		color: moreStrongPink,
 		textAlign: 'end',
 		padding: 5,
+	},
+	step: {
+		display: 'none',
+	},
+	'@media screen and (min-width:768px)': {
+		step: {
+			display: 'block',
+		},
+	},
+	'@media screen and (min-width:1160px)': {
+		layout: {
+			padding: theme.spacing(3, 16, 5),
+		},
 	},
 }));
 
@@ -125,7 +138,7 @@ const Checkout = ({
 			email,
 			city,
 			street,
-			homeNumber,
+			houseNumber,
 			contactPhone,
 			cardNumber,
 			expDate,
@@ -136,7 +149,7 @@ const Checkout = ({
 			!email ||
 			!city ||
 			!street ||
-			!homeNumber ||
+			!houseNumber ||
 			!contactPhone ||
 			!cardNumber ||
 			!expDate ||
@@ -160,7 +173,7 @@ const Checkout = ({
 				</Typography>
 				<Stepper activeStep={activeStep} className={classes.stepper}>
 					{steps.map(label => (
-						<Step key={label}>
+						<Step key={label} className={classes.step}>
 							<StepLabel>{label}</StepLabel>
 						</Step>
 					))}

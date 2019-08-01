@@ -17,8 +17,8 @@ const AddressForm = ({ setShippingAddress, shippingAddress }) => {
 		state: '',
 		city: '',
 		street: '',
-		homeNumber: '',
-		apartments: '',
+		houseNumber: '',
+		apartment: '',
 		contactPhone: '',
 		index: '',
 	});
@@ -36,8 +36,8 @@ const AddressForm = ({ setShippingAddress, shippingAddress }) => {
 			state: shippingAddress.state,
 			city: shippingAddress.city,
 			street: shippingAddress.street,
-			homeNumber: shippingAddress.homeNumber,
-			apartments: shippingAddress.apartments,
+			houseNumber: shippingAddress.houseNumber,
+			apartment: shippingAddress.apartment,
 			contactPhone: shippingAddress.contactPhone,
 			index: shippingAddress.index,
 		});
@@ -51,7 +51,7 @@ const AddressForm = ({ setShippingAddress, shippingAddress }) => {
 		state,
 		city,
 		street,
-		homeNumber,
+		houseNumber,
 		apartments,
 		contactPhone,
 		index,
@@ -176,21 +176,21 @@ const AddressForm = ({ setShippingAddress, shippingAddress }) => {
 				<Grid item xs={12} sm={3}>
 					<TextField
 						required
-						id="homeNumber"
-						name="homeNumber"
-						label="Home number"
+						id="houseNumber"
+						name="houseNumber"
+						label="House number"
 						fullWidth
-						autoComplete="home number"
-						value={homeNumber}
+						autoComplete="house number"
+						value={houseNumber}
 						onChange={e => onChange(e)}
 						onBlur={() => onBlur(formData)}
 					/>
 				</Grid>
 				<Grid item xs={12} sm={3}>
 					<TextField
-						id="apartments"
-						name="apartments"
-						label="Apartments"
+						id="apartment"
+						name="apartment"
+						label="Apartment"
 						fullWidth
 						value={apartments}
 						onChange={e => onChange(e)}

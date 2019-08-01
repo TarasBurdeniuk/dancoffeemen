@@ -1,5 +1,6 @@
 const express = require('express');
 const nodemailer = require('nodemailer');
+const config = require('config');
 
 const router = express.Router();
 const { check, validationResult } = require('express-validator/check');
@@ -31,7 +32,7 @@ router.post(
 			check('deliveryAddress.street', 'Street is required')
 				.not()
 				.isEmpty(),
-			check('deliveryAddress.homeNumber', 'Home Number is required')
+			check('deliveryAddress.houseNumber', 'House Number is required')
 				.not()
 				.isEmpty(),
 			check('deliveryAddress.contactPhone', 'Contact Phone is required')
@@ -92,7 +93,7 @@ router.post(
 				);
 			});
 
-			const { name, city, homeNumber, street } = deliveryAddress;
+			const { name, city, houseNumber, street } = deliveryAddress;
 
 			const numberOrder = await Order.estimatedDocumentCount();
 
@@ -101,7 +102,7 @@ router.post(
 				service: 'gmail',
 				auth: {
 					user: 'dancoffeemen@gmail.com', // generated ethereal user
-					pass: '75g34tKt8DW3U5w', // generated ethereal password
+					pass: config.get('gmailPass'), // generated ethereal password
 				},
 			});
 			const orderProductsText = products
@@ -109,7 +110,7 @@ router.post(
 					// eslint-disable-next-line max-len
 					return `<li>${item.brand} ${item.model} ${item.specifications.size}: ${
 						item.addQuantity
-					} item(s) - $${(item.price * 1000 * item.addQuantity) / 1000}</li></br>`;
+					} item(s) - <b>$${(item.price * 1000 * item.addQuantity) / 1000}</b></li>`;
 				})
 				.join('');
 			const body = `<h1>Dear, ${name}, your order number is #${numberOrder + 1}</h1>
@@ -118,8 +119,8 @@ router.post(
 						${orderProductsText}
 						</ul>
 						<h2>Delivery address:</h2>
-						<p>${city}, ${street}, ${homeNumber}</p>
-						<p>Total price: $${totalPrice}</p>`;
+						<p>${city}, ${street} str., ${houseNumber}</p>
+						<p>Total price: <b>$${totalPrice.toString()}</b></p>`;
 
 			const options = {
 				from: '"CoffeeMen" <dancoffeemen.herokuapp.com>', // sender address

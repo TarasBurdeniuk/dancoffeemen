@@ -53,11 +53,11 @@ const OrderSchema = new mongoose.Schema({
 			type: String,
 			required: true,
 		},
-		homeNumber: {
+		houseNumber: {
 			type: String,
 			required: true,
 		},
-		apartments: {
+		apartment: {
 			type: String,
 		},
 		contactPhone: {

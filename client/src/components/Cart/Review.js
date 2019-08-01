@@ -55,15 +55,15 @@ const Review = ({ products, shippingAddress }) => {
 						<Typography gutterBottom>{shippingAddress.country}</Typography>
 						<Typography gutterBottom>{shippingAddress.state}</Typography>
 						<Typography gutterBottom>{shippingAddress.city}</Typography>
-						{shippingAddress.street && shippingAddress.homeNumber && (
+						{shippingAddress.street && shippingAddress.houseNumber && (
 							<Typography
 								gutterBottom
-							>{`${shippingAddress.street} ${shippingAddress.homeNumber}`}</Typography>
+							>{`${shippingAddress.street} ${shippingAddress.houseNumber}`}</Typography>
 						)}
-						{shippingAddress.apartments && (
+						{shippingAddress.apartment && (
 							<Typography
 								gutterBottom
-							>{`${shippingAddress.apartments} apart.`}</Typography>
+							>{`${shippingAddress.apartment} apart.`}</Typography>
 						)}
 					</Grid>
 					<Grid item container direction="column" xs={12} sm={6}>

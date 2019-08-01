@@ -10,11 +10,13 @@ import { PropTypes } from 'prop-types';
 import pink from '@material-ui/core/colors/pink';
 import grey from '@material-ui/core/colors/grey';
 import { setQuantity, removeProduct } from '../../actions/basket';
+import { Link } from 'react-router-dom';
 
 const lightPink = pink[300];
 const strongPink = pink[500];
 const moreStrongPink = pink[700];
 const white = grey[0];
+const strongGrey = grey[700];
 
 const useStyles = makeStyles(theme => ({
 	container: {
@@ -40,6 +42,7 @@ const useStyles = makeStyles(theme => ({
 	brand: {
 		display: 'inline-block',
 		cursor: 'pointer',
+		color: strongGrey,
 		'&:hover': {
 			color: strongPink,
 		},
@@ -98,7 +101,7 @@ const useStyles = makeStyles(theme => ({
 	deleteIcon: {
 		width: '2.5rem',
 		height: '2.5rem',
-		color: '#575757',
+		color: strongGrey,
 		cursor: 'pointer',
 		'&:hover': {
 			color: strongPink,
@@ -144,14 +147,16 @@ const ShoppingCart = props => {
 						<img src={product.image[0]} alt={product.model} className={classes.image} />
 					</Grid>
 					<Grid item xs={12} md={5}>
-						<Typography
-							variant="h6"
-							component="h2"
-							gutterBottom
-							className={classes.brand}
-						>
-							{product.brand} {product.model}
-						</Typography>
+						<Link to={`/${product._id}`}>
+							<Typography
+								variant="h6"
+								component="h2"
+								gutterBottom
+								className={classes.brand}
+							>
+								{product.brand} {product.model}
+							</Typography>
+						</Link>
 						<Typography variant="subtitle1">{product.specifications.size}</Typography>
 						<Typography variant="h6" className={classes.price}>
 							${product.price}
