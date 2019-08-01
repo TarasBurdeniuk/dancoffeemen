@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroller';
@@ -6,17 +6,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import { GridOn, List } from '@material-ui/icons';
 import pink from '@material-ui/core/colors/pink';
 import PropTypes from 'prop-types';
 import { loadProducts, loadFilteredProducts } from '../../actions/products';
 import Spinner from '../Loading';
+import { addToBasket } from '../../actions/basket';
 
 const strongPink = pink[800];
 
@@ -71,6 +67,7 @@ const useStyles = makeStyles({
 	},
 	showingInfo: {
 		marginTop: '1.1rem',
+		margin: '0 auto',
 	},
 	products: {
 		marginTop: '2rem',
@@ -104,9 +101,7 @@ const useStyles = makeStyles({
 const Products = props => {
 	const {
 		products,
-		sorting,
 		quantity,
-		handleChangeSorting,
 		handleSelectGrid,
 		handleSelectList,
 		loadProducts,
@@ -117,15 +112,10 @@ const Products = props => {
 		filteredProducts,
 		loadFilteredProducts,
 		chosenFilter,
+		addToBasket,
 	} = props;
 
 	const classes = useStyles();
-
-	const inputLabel = useRef(null);
-	const [labelWidth, setLabelWidth] = useState(0);
-	useEffect(() => {
-		setLabelWidth(inputLabel.current.offsetWidth);
-	}, []);
 
 	const list = products.map(product => {
 		if (quantity === 12) {
@@ -149,6 +139,7 @@ const Products = props => {
 							size="large"
 							color="secondary"
 							className={classes.buttonHover}
+							onClick={() => handleAddToBasket(product)}
 						>
 							Add To Basket
 						</Button>
@@ -189,6 +180,7 @@ const Products = props => {
 							size="large"
 							color="secondary"
 							className={classes.button}
+							onClick={() => handleAddToBasket(product)}
 						>
 							Add To Basket
 						</Button>
@@ -211,29 +203,13 @@ const Products = props => {
 			: loadProducts(startPage);
 	};
 
+	const handleAddToBasket = product => {
+		addToBasket({ ...product, addQuantity: 1 });
+	};
+
 	return (
 		<Grid container>
 			<Grid container justify="center" className={classes.sorting}>
-				<FormControl variant="outlined" className={classes.formControl}>
-					<InputLabel ref={inputLabel} htmlFor="outlined-age-simple">
-						Sort by
-					</InputLabel>
-					<Select
-						value={sorting}
-						onChange={handleChangeSorting}
-						input={
-							<OutlinedInput
-								labelWidth={labelWidth}
-								name="sorting"
-								id="outlined-age-simple"
-							/>
-						}
-					>
-						<MenuItem value="rating">Rating</MenuItem>
-						<MenuItem value="popularity">Popularity</MenuItem>
-						<MenuItem value="newness">Newness</MenuItem>
-					</Select>
-				</FormControl>
 				<Typography variant="subtitle2" className={classes.showingInfo}>
 					Showing {products.length} items of{' '}
 					{quantityChosenFilter > 0 ? quantityChosenFilter : quantityAllProducts}{' '}
@@ -285,6 +261,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
 	loadProducts,
 	loadFilteredProducts,
+	addToBasket,
 };
 
 export default connect(
