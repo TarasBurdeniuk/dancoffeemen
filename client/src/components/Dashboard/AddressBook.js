@@ -67,7 +67,7 @@ const AddressBook = ({ user, saveAddress }) => {
 		city,
 		street,
 		houseNumber,
-		apartments,
+		apartment,
 		phone,
 		index,
 	} = formData;
@@ -240,7 +240,7 @@ const AddressBook = ({ user, saveAddress }) => {
 							InputProps={{
 								readOnly: readOnly,
 							}}
-							value={apartments}
+							value={apartment}
 							onChange={e => onChange(e)}
 						/>
 					</Grid>

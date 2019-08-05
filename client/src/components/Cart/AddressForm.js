@@ -52,7 +52,7 @@ const AddressForm = ({ setShippingAddress, shippingAddress }) => {
 		city,
 		street,
 		houseNumber,
-		apartments,
+		apartment,
 		contactPhone,
 		index,
 	} = formData;
@@ -192,7 +192,7 @@ const AddressForm = ({ setShippingAddress, shippingAddress }) => {
 						name="apartment"
 						label="Apartment"
 						fullWidth
-						value={apartments}
+						value={apartment}
 						onChange={e => onChange(e)}
 						onBlur={() => onBlur(formData)}
 					/>

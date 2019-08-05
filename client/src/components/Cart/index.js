@@ -108,6 +108,13 @@ const Checkout = ({
 				name: user.name,
 				email: user.email,
 				contactPhone: user.phone,
+				country: user.country || '',
+				state: user.state || '',
+				city: user.city || '',
+				street: user.street || '',
+				houseNumber: user.houseNumber || '',
+				apartment: user.apartment || '',
+				index: user.index || '',
 			});
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps

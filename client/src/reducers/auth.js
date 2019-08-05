@@ -39,7 +39,7 @@ const auth = (state = initialState, action) => {
 		case EDIT_ADDRESS:
 			return {
 				...state,
-				user: { ...state.user, ...payload },
+				user: payload,
 			};
 		case REGISTER_FAIL:
 		case AUTH_ERROR:

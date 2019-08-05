@@ -97,38 +97,25 @@ export const logout = () => dispatch => {
 };
 
 // Edit user address
-export const saveAddress = form => dispatch => {
-	const { country, city, houseNumber, index, street, state, apartment } = form;
-	const newForm = {};
-	if (country) {
-		newForm.country = country;
-	}
-	if (city) {
-		newForm.city = city;
-	}
-	if (houseNumber) {
-		newForm.houseNumber = houseNumber;
-	}
-	if (index) {
-		newForm.index = index;
-	}
-	if (street) {
-		newForm.street = street;
-	}
-	if (state) {
-		newForm.state = state;
-	}
-	if (apartment) {
-		newForm.apartment = apartment;
-	}
-
-	dispatch({
-		type: EDIT_ADDRESS,
-		payload: {
-			...newForm,
-			name: form.name,
-			email: form.email,
-			phone: form.phone,
+export const saveAddress = form => async dispatch => {
+	const config = {
+		headers: {
+			'Content-Type': 'application/json',
 		},
-	});
+	};
+
+	try {
+		const res = await axios.post('/api/users/update', form, config);
+		dispatch({
+			type: EDIT_ADDRESS,
+			payload: res.data,
+		});
+	} catch (err) {
+		const errors = err.response.data.errors;
+		console.error(errors);
+
+		dispatch({
+			type: LOGIN_FAIL,
+		});
+	}
 };
