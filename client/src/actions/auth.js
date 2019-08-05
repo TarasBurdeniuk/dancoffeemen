@@ -7,6 +7,7 @@ import {
 	LOGIN_SUCCESS,
 	LOGIN_FAIL,
 	LOGOUT,
+	EDIT_ADDRESS,
 } from './types';
 import setAuthToken from '../utills/setAuthToken';
 
@@ -92,5 +93,42 @@ export const logout = () => dispatch => {
 	delete axios.defaults.headers.common['x-auth-token'];
 	dispatch({
 		type: LOGOUT,
+	});
+};
+
+// Edit user address
+export const saveAddress = form => dispatch => {
+	const { country, city, houseNumber, index, street, state, apartment } = form;
+	const newForm = {};
+	if (country) {
+		newForm.country = country;
+	}
+	if (city) {
+		newForm.city = city;
+	}
+	if (houseNumber) {
+		newForm.houseNumber = houseNumber;
+	}
+	if (index) {
+		newForm.index = index;
+	}
+	if (street) {
+		newForm.street = street;
+	}
+	if (state) {
+		newForm.state = state;
+	}
+	if (apartment) {
+		newForm.apartment = apartment;
+	}
+
+	dispatch({
+		type: EDIT_ADDRESS,
+		payload: {
+			...newForm,
+			name: form.name,
+			email: form.email,
+			phone: form.phone,
+		},
 	});
 };

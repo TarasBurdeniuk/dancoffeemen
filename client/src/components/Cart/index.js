@@ -97,6 +97,9 @@ const Checkout = ({
 }) => {
 	const classes = useStyles();
 	const [activeStep, setActiveStep] = useState(0);
+	if (!localStorage.shoppingCart) {
+		localStorage.setItem('shoppingCart', '[]');
+	}
 	const localStorageProducts = JSON.parse(localStorage.shoppingCart);
 	useEffect(() => {
 		loadLocalStorageProducts(localStorageProducts);

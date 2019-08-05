@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
 		margin: theme.spacing(3, 0, 2),
 	},
 	container: {
-		minHeight: 'calc(100vh - 213px)',
+		minHeight: '100vh',
 	},
 	error: {
 		color: pinkStrong,
@@ -66,10 +66,11 @@ const SignIn = ({ login, isAuthenticated }) => {
 
 	const onSubmit = e => {
 		e.preventDefault();
-		if (!password || !email) {
-			setErrorData({ checkFields: 'All fields must be filled in' });
+		if (!password || !email || errorData.errorEmail) {
+			setErrorData({ ...errorData, checkFields: 'All fields must be filled in' });
+		} else {
+			login(email, password);
 		}
-		login(email, password);
 	};
 
 	if (isAuthenticated) {
@@ -94,7 +95,12 @@ const SignIn = ({ login, isAuthenticated }) => {
 						name="email"
 						value={email}
 						onChange={e => onChange(e)}
-						onBlur={e => setErrorData({ errorEmail: validateEmail(e.target.value) })}
+						onBlur={e =>
+							setErrorData({
+								...errorData,
+								errorEmail: validateEmail(e.target.value),
+							})
+						}
 					/>
 					{errorData.errorEmail && (
 						<div className={classes.error}>{errorData.errorEmail}</div>

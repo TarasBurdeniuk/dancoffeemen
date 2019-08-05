@@ -22,3 +22,4 @@ export const SET_BASKET = 'SET_BASKET';
 export const SET_SHIPPING_ADDRESS = 'SET_SHIPPING_ADDRESS';
 export const ORDER_ERROR = 'ORDER_ERROR';
 export const ORDER_LOAD = 'ORDER_LOAD';
+export const EDIT_ADDRESS = 'EDIT_ADDRESS';

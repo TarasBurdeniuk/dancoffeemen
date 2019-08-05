@@ -76,5 +76,20 @@ export const theme = createMuiTheme({
 				},
 			},
 		},
+		MuiTab: {
+			textColorPrimary: {
+				color: `${greyStrong} !important`,
+			},
+		},
+		PrivateTabIndicator: {
+			root: {
+				backgroundColor: `${pinkStrong} !important`,
+			},
+		},
+		MuiPaper: {
+			elevation4: {
+				boxShadow: 'none',
+			},
+		},
 	},
 });

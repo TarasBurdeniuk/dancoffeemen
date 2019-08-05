@@ -6,6 +6,7 @@ import {
 	LOGIN_FAIL,
 	LOGIN_SUCCESS,
 	LOGOUT,
+	EDIT_ADDRESS,
 } from '../actions/types';
 
 const initialState = {
@@ -34,6 +35,11 @@ const auth = (state = initialState, action) => {
 				...payload,
 				isAuthenticated: true,
 				loading: false,
+			};
+		case EDIT_ADDRESS:
+			return {
+				...state,
+				user: { ...state.user, ...payload },
 			};
 		case REGISTER_FAIL:
 		case AUTH_ERROR:

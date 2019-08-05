@@ -210,6 +210,9 @@ const AddressForm = ({ setShippingAddress, shippingAddress }) => {
 					/>
 				</Grid>
 			</Grid>
+			<Typography style={{ padding: '15px' }}>
+				<small>* = required field</small>
+			</Typography>
 		</>
 	);
 };
