@@ -65,7 +65,7 @@ const useStyles = makeStyles(theme => ({
 	},
 	'@media screen and (min-width:1160px)': {
 		layout: {
-			padding: theme.spacing(3, 16, 5),
+			padding: theme.spacing(3, 10, 5),
 		},
 	},
 }));
