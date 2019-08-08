@@ -20,6 +20,8 @@ const useStyles = makeStyles({
 	grid: {
 		display: 'flex',
 		flexDirection: 'column',
+		position: 'relative',
+		overflow: 'hidden',
 		alignItems: 'center',
 		justifyContent: 'space-between',
 		maxWidth: 350,
@@ -29,12 +31,16 @@ const useStyles = makeStyles({
 		padding: '5px 10px',
 		boxSizing: 'border-box',
 		'&:hover button': {
-			display: 'block',
+			opacity: 1,
+			top: '85%',
 		},
 	},
 	buttonHover: {
-		display: 'none',
 		marginBottom: '1rem',
+		position: 'absolute',
+		top: '100%',
+		transition: 'all .5s',
+		opacity: 0,
 	},
 	paperBlock: {
 		display: 'inherit',
@@ -95,6 +101,22 @@ const useStyles = makeStyles({
 		justifyContent: 'space-around',
 		width: '100%',
 		marginBottom: 20,
+	},
+	'@keyframes fadeInUp': {
+		from: {
+			opacity: 0,
+			transform: 'translate3d(0, 100%, 0)',
+		},
+
+		to: {
+			opacity: 1,
+			transform: 'translate3d(0, 0, 0)',
+		},
+	},
+	fadeInUp: {
+		animationName: 'fadeInUp',
+		display: 'none',
+		marginBottom: '1rem',
 	},
 });
 

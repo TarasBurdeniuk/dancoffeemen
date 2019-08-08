@@ -52,6 +52,7 @@ export const theme = createMuiTheme({
 		},
 		MuiGrid: {
 			root: {
+				fontFamily: '"Lato", "Roboto", sans-serif',
 				'& a': {
 					textDecoration: 'none',
 					color: greyLight,
