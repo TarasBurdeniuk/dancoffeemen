@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import Spinner from '../Loading';
 import DashboardActions from './DashboardActions';
+import { loadUserOrders } from '../../actions/auth';
 
 const useStyles = makeStyles({
 	container: {
@@ -16,7 +17,10 @@ const useStyles = makeStyles({
 	},
 });
 
-const Dashboard = ({ user, loading }) => {
+const Dashboard = ({ user, loading, loadUserOrders }) => {
+	useEffect(() => {
+		loadUserOrders();
+	});
 	const classes = useStyles();
 
 	return (
@@ -39,4 +43,11 @@ const mapStateToProps = state => ({
 	loading: state.auth.loading,
 });
 
-export default connect(mapStateToProps)(Dashboard);
+const mapDispatchToProps = {
+	loadUserOrders,
+};
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps,
+)(Dashboard);

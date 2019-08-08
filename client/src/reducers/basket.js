@@ -53,6 +53,10 @@ const basket = (state = initialState, action) => {
 					name: '',
 					email: '',
 					contactPhone: '',
+					cardName: '',
+					cardNumber: '',
+					expDate: '',
+					cvv: '',
 				},
 			};
 		default:

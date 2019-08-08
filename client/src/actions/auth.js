@@ -8,6 +8,8 @@ import {
 	LOGIN_FAIL,
 	LOGOUT,
 	EDIT_ADDRESS,
+	LOAD_USER_ORDERS,
+	ORDER_ERROR,
 } from './types';
 import setAuthToken from '../utills/setAuthToken';
 
@@ -116,6 +118,26 @@ export const saveAddress = form => async dispatch => {
 
 		dispatch({
 			type: LOGIN_FAIL,
+		});
+	}
+};
+
+// Load user orders
+
+export const loadUserOrders = () => async dispatch => {
+	try {
+		const orders = await axios.get('/api/order');
+
+		dispatch({
+			type: LOAD_USER_ORDERS,
+			payload: orders.data,
+		});
+	} catch (err) {
+		const errors = err.response.data.errors;
+		console.error(errors);
+
+		dispatch({
+			type: ORDER_ERROR,
 		});
 	}
 };
