@@ -12,7 +12,6 @@ const auth = require('../../middleware/auth');
 router.post(
 	'/',
 	[auth, [check('products', 'Products is required').isArray()]],
-	// eslint-disable-next-line consistent-return
 	async (req, res) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
@@ -40,7 +39,6 @@ router.post(
 // Desc     get all wishlists by user
 // Private
 
-// eslint-disable-next-line consistent-return
 router.get('/', auth, async (req, res) => {
 	try {
 		const wishlists = await Wishlist.find({ user: req.user.id });
@@ -59,7 +57,6 @@ router.get('/', auth, async (req, res) => {
 // Desc    delete wishlist by id
 // Private
 
-// eslint-disable-next-line consistent-return
 router.delete('/:id', auth, async (req, res) => {
 	try {
 		const wishlist = await Wishlist.findById(req.params.id);

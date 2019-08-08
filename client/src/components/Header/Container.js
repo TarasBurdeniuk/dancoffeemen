@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -12,9 +13,8 @@ import pink from '@material-ui/core/colors/pink';
 import grey from '@material-ui/core/colors/grey';
 
 import Authorization from './Authorization';
-import Pages from './Pages';
 import MobileMenu from './MobileMenu';
-import logo from './logo.svg';
+import logo from './logo.png';
 
 const lightPink = pink[400];
 const strongGrey = grey[700];
@@ -28,7 +28,10 @@ const useStyles = makeStyles(theme => ({
 	},
 	toolBar: {
 		display: 'flex',
-		justifyContent: 'space-around',
+		justifyContent: 'space-between',
+		[theme.breakpoints.up('md')]: {
+			justifyContent: 'space-around',
+		},
 	},
 	title: {
 		margin: '0 1.5rem',
@@ -40,7 +43,22 @@ const useStyles = makeStyles(theme => ({
 		},
 	},
 	logo: {
-		cursor: 'pointer',
+		display: 'flex',
+		alignItems: 'center',
+		'& img': {
+			width: '38px',
+			height: '38px',
+			cursor: 'pointer',
+		},
+	},
+	name: {
+		display: 'none',
+		marginLeft: '.2rem',
+		color: '#632e12',
+		textDecoration: 'none',
+		[theme.breakpoints.up(1160)]: {
+			display: 'inline-block',
+		},
 	},
 	line: {
 		margin: '0 .2rem -.55rem .4rem',
@@ -75,7 +93,7 @@ const StyledBadge = withStyles(theme => ({
 }))(Badge);
 
 const Container = props => {
-	const { isAuthenticated, loading, logout, registration, links } = props;
+	const { registration, products } = props;
 
 	const classes = useStyles();
 
@@ -86,6 +104,9 @@ const Container = props => {
 					<div className={classes.logo}>
 						<Link to="/">
 							<img src={logo} alt="logo" />
+						</Link>
+						<Link to="/" className={classes.name}>
+							<Typography variant="h6">Coffeemen</Typography>
 						</Link>
 					</div>
 					<div className={classes.sectionDesktop}>
@@ -99,29 +120,18 @@ const Container = props => {
 								Products
 							</Typography>
 						</Link>
-						<Link to="/about">
-							<Typography variant="h6" className={classes.title}>
-								About Us
-							</Typography>
-						</Link>
 						<Link to="/contact-us">
 							<Typography variant="h6" className={classes.title}>
 								Contact Us
 							</Typography>
 						</Link>
 					</div>
-					<Pages links={links} />
 					<div className={classes.icons}>
-						<Authorization
-							isAuthenticated={isAuthenticated}
-							loading={loading}
-							logout={logout}
-							registration={registration}
-						/>
+						<Authorization registration={registration} />
 						<Remove className={classes.line} />
 						<Link to="/cart">
 							<IconButton aria-label="Cart">
-								<StyledBadge badgeContent={4} color="secondary">
+								<StyledBadge badgeContent={products.length} color="secondary">
 									<ShoppingCart />
 								</StyledBadge>
 							</IconButton>
@@ -137,16 +147,12 @@ const Container = props => {
 	);
 };
 
-Container.defaultProps = {
-	isAuthenticated: null,
-};
-
 Container.propTypes = {
-	isAuthenticated: PropTypes.bool,
-	loading: PropTypes.bool.isRequired,
-	logout: PropTypes.func.isRequired,
 	registration: PropTypes.arrayOf(PropTypes.object).isRequired,
-	links: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-export default Container;
+const mapStateToProps = state => ({
+	products: state.basket.products,
+});
+
+export default connect(mapStateToProps)(Container);

@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
 		margin: theme.spacing(3, 0, 2),
 	},
 	container: {
-		minHeight: 'calc(100vh - 213px)',
+		minHeight: '100vh',
 		marginBottom: 50,
 	},
 	error: {
@@ -78,7 +78,7 @@ const SignUp = ({ register, isAuthenticated }) => {
 	const onSubmit = e => {
 		e.preventDefault();
 		if (!password || !password2 || !name || !email || !phone) {
-			setErrorData({ checkFields: 'All fields must be filled in' });
+			setErrorData({ ...errorData, checkFields: 'All fields must be filled in' });
 		} else {
 			register({ name, phone, email, password });
 		}
@@ -107,7 +107,10 @@ const SignUp = ({ register, isAuthenticated }) => {
 								value={name}
 								onChange={e => onChange(e)}
 								onBlur={e =>
-									setErrorData({ errorName: validateName(e.target.value) })
+									setErrorData({
+										...errorData,
+										errorName: validateName(e.target.value),
+									})
 								}
 							/>
 							{errorData.errorName && (
@@ -126,7 +129,10 @@ const SignUp = ({ register, isAuthenticated }) => {
 								value={email}
 								onChange={e => onChange(e)}
 								onBlur={e =>
-									setErrorData({ errorEmail: validateEmail(e.target.value) })
+									setErrorData({
+										...errorData,
+										errorEmail: validateEmail(e.target.value),
+									})
 								}
 							/>
 							{errorData.errorEmail && (
@@ -145,7 +151,10 @@ const SignUp = ({ register, isAuthenticated }) => {
 								value={phone}
 								onChange={e => onChange(e)}
 								onBlur={e =>
-									setErrorData({ errorPhone: validatePhone(e.target.value) })
+									setErrorData({
+										...errorData,
+										errorPhone: validatePhone(e.target.value),
+									})
 								}
 							/>
 							{errorData.errorPhone && (
@@ -164,6 +173,7 @@ const SignUp = ({ register, isAuthenticated }) => {
 								onChange={e => onChange(e)}
 								onBlur={e =>
 									setErrorData({
+										...errorData,
 										errorPassword: validatePassword(e.target.value),
 									})
 								}
@@ -184,6 +194,7 @@ const SignUp = ({ register, isAuthenticated }) => {
 								onChange={e => onChange(e)}
 								onBlur={e =>
 									setErrorData({
+										...errorData,
 										errorPassword: checkPassword(password, e.target.value),
 									})
 								}

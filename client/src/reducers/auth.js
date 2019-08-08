@@ -6,12 +6,15 @@ import {
 	LOGIN_FAIL,
 	LOGIN_SUCCESS,
 	LOGOUT,
+	EDIT_ADDRESS,
+	LOAD_USER_ORDERS,
 } from '../actions/types';
 
 const initialState = {
 	token: localStorage.getItem('token'),
 	isAuthenticated: null,
 	loading: true,
+	userOrders: [],
 	user: null,
 };
 
@@ -35,6 +38,16 @@ const auth = (state = initialState, action) => {
 				isAuthenticated: true,
 				loading: false,
 			};
+		case EDIT_ADDRESS:
+			return {
+				...state,
+				user: payload,
+			};
+		case LOAD_USER_ORDERS:
+			return {
+				...state,
+				userOrders: payload,
+			};
 		case REGISTER_FAIL:
 		case AUTH_ERROR:
 		case LOGIN_FAIL:
@@ -45,6 +58,7 @@ const auth = (state = initialState, action) => {
 				token: null,
 				isAuthenticated: false,
 				loading: false,
+				userOrders: [],
 				user: null,
 			};
 		default:

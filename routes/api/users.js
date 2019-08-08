@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 const { check, validationResult } = require('express-validator/check');
 const Users = require('../../models/User');
+const auth = require('../../middleware/auth');
 
 // Route     post api/users
 // Desc      Register  user
@@ -20,7 +21,6 @@ router.post(
 		check('password', 'Please enter a password with 6 or more character').isLength({ min: 6 }),
 		check('phone', 'Please enter a phone with 10 character ').isLength({ min: 10 }),
 	],
-	// eslint-disable-next-line consistent-return
 	async (req, res) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
@@ -69,5 +69,22 @@ router.post(
 		}
 	},
 );
+
+router.post('/update', auth, async (req, res) => {
+	try {
+		const user = await Users.findOneAndUpdate(
+			{ _id: req.user.id },
+			{
+				...req.body,
+			},
+			{ new: true },
+		);
+
+		res.json(user);
+	} catch (err) {
+		console.error(err.message);
+		res.status(500).send('Server error');
+	}
+});
 
 module.exports = router;

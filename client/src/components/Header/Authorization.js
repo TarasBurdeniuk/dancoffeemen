@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from 'react';
+import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
@@ -6,6 +7,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { logout } from '../../actions/auth';
 
 const useStyles = makeStyles({
 	link: {
@@ -24,18 +26,23 @@ const Authorization = props => {
 	const [anchorEl, setAnchorEl] = useState(null);
 	const open = Boolean(anchorEl);
 
-	function handleMenu(event) {
+	const handleMenu = event => {
 		setAnchorEl(event.currentTarget);
-	}
+	};
 
-	function handleClose() {
+	const handleClose = () => {
 		setAnchorEl(null);
-	}
+	};
 
-	const authLink = (
-		<Link to={registration[0].authLink.route} onClick={logout} className={classes.link}>
-			<MenuItem onClick={handleClose}>{registration[0].authLink.text}</MenuItem>
-		</Link>
+	const authLinks = (
+		<ul>
+			<Link to="/" onClick={logout} className={classes.link}>
+				<MenuItem onClick={handleClose}>LogOut</MenuItem>
+			</Link>
+			<Link to="/dashboard" className={classes.link}>
+				<MenuItem onClick={handleClose}>Dashboard</MenuItem>
+			</Link>
+		</ul>
 	);
 
 	const guestLinks = registration[1].guestLinks.map(link => (
@@ -70,14 +77,10 @@ const Authorization = props => {
 				open={open}
 				onClose={handleClose}
 			>
-				{!loading && (isAuthenticated ? authLink : guestLinks)}
+				{!loading && (isAuthenticated ? authLinks : guestLinks)}
 			</Menu>
 		</Fragment>
 	);
-};
-
-Authorization.defaultProps = {
-	isAuthenticated: null,
 };
 
 Authorization.propTypes = {
@@ -87,4 +90,16 @@ Authorization.propTypes = {
 	registration: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-export default Authorization;
+const mapStateToProps = state => ({
+	loading: state.auth.loading,
+	isAuthenticated: state.auth.isAuthenticated,
+});
+
+const mapDispatchToProps = {
+	logout,
+};
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps,
+)(Authorization);
