@@ -18,7 +18,7 @@ export const validatePhone = phone => {
 };
 
 export const validatePassword = password => {
-	return password.length <= 6 ? 'Password must be 6 or more character' : '';
+	return password.length < 6 ? 'Password must be 6 or more character' : '';
 };
 
 export const validateCVV = cvv => {
