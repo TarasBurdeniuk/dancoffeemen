@@ -9,6 +9,8 @@ import MainPage from './components/MainPage';
 import ContactUs from './components/ContacUs';
 import Login from './components/Login';
 import Register from './components/Register';
+import Dashboard from './components/Dashboard';
+import PrivateRoute from './components/routing/PrivateRoute';
 import './styles/index.css';
 import setAuthToken from './utills/setAuthToken';
 import store from './store';
@@ -40,6 +42,7 @@ const App = () => {
 					<Route exact path="/contact-us" component={ContactUs} />
 					<Route exact path="/login" component={Login} />
 					<Route exact path="/register" component={Register} />
+					<PrivateRoute exact path="/dashboard" component={Dashboard} />
 					<Route exact path="/:id" component={ProductDetails} />
 				</Switch>
 				<Footer />

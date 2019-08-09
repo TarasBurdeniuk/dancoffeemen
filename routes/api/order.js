@@ -203,10 +203,6 @@ router.get('/', auth, async (req, res) => {
 	try {
 		const orders = await Order.find({ client: req.user.id });
 
-		if (!orders.length) {
-			return res.status(404).json({ msg: 'Orders not found' });
-		}
-
 		res.json(orders);
 	} catch (err) {
 		console.error(err.message);

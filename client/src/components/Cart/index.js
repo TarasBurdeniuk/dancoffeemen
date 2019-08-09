@@ -65,7 +65,7 @@ const useStyles = makeStyles(theme => ({
 	},
 	'@media screen and (min-width:1160px)': {
 		layout: {
-			padding: theme.spacing(3, 16, 5),
+			padding: theme.spacing(3, 10, 5),
 		},
 	},
 }));
@@ -97,6 +97,9 @@ const Checkout = ({
 }) => {
 	const classes = useStyles();
 	const [activeStep, setActiveStep] = useState(0);
+	if (!localStorage.shoppingCart) {
+		localStorage.setItem('shoppingCart', '[]');
+	}
 	const localStorageProducts = JSON.parse(localStorage.shoppingCart);
 	useEffect(() => {
 		loadLocalStorageProducts(localStorageProducts);
@@ -105,6 +108,13 @@ const Checkout = ({
 				name: user.name,
 				email: user.email,
 				contactPhone: user.phone,
+				country: user.country || '',
+				state: user.state || '',
+				city: user.city || '',
+				street: user.street || '',
+				houseNumber: user.houseNumber || '',
+				apartment: user.apartment || '',
+				index: user.index || '',
 			});
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps

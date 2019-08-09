@@ -93,7 +93,7 @@ const StyledBadge = withStyles(theme => ({
 }))(Badge);
 
 const Container = props => {
-	const { isAuthenticated, loading, logout, registration, products } = props;
+	const { registration, products } = props;
 
 	const classes = useStyles();
 
@@ -127,12 +127,7 @@ const Container = props => {
 						</Link>
 					</div>
 					<div className={classes.icons}>
-						<Authorization
-							isAuthenticated={isAuthenticated}
-							loading={loading}
-							logout={logout}
-							registration={registration}
-						/>
+						<Authorization registration={registration} />
 						<Remove className={classes.line} />
 						<Link to="/cart">
 							<IconButton aria-label="Cart">
@@ -152,14 +147,7 @@ const Container = props => {
 	);
 };
 
-Container.defaultProps = {
-	isAuthenticated: null,
-};
-
 Container.propTypes = {
-	isAuthenticated: PropTypes.bool,
-	loading: PropTypes.bool.isRequired,
-	logout: PropTypes.func.isRequired,
 	registration: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 

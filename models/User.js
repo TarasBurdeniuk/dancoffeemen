@@ -25,6 +25,27 @@ const UserSchema = new mongoose.Schema({
 		minlength: 10,
 		unique: true,
 	},
+	country: {
+		type: String,
+	},
+	city: {
+		type: String,
+	},
+	houseNumber: {
+		type: String,
+	},
+	street: {
+		type: String,
+	},
+	apartment: {
+		type: String,
+	},
+	state: {
+		type: String,
+	},
+	index: {
+		type: String,
+	},
 	shoppingCard: [
 		{
 			product: {
