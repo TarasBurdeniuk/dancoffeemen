@@ -9,7 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { validateEmail } from '../../utills/validateFields';
+import { validateEmail, validatePassword } from '../../utills/validateFields';
 import { login } from '../../actions/auth';
 import pink from '@material-ui/core/colors/pink';
 
@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
 		backgroundColor: theme.palette.secondary.main,
 	},
 	form: {
-		width: '100%', // Fix IE 11 issue.
+		width: '100%',
 		marginTop: theme.spacing(1),
 	},
 	submit: {
@@ -92,15 +92,16 @@ const SignIn = ({ login, isAuthenticated }) => {
 						fullWidth
 						id="email"
 						label="Email Address"
+						type="email"
 						name="email"
 						value={email}
-						onChange={e => onChange(e)}
-						onBlur={e =>
+						onChange={e => {
+							onChange(e);
 							setErrorData({
 								...errorData,
 								errorEmail: validateEmail(e.target.value),
-							})
-						}
+							});
+						}}
 					/>
 					{errorData.errorEmail && (
 						<div className={classes.error}>{errorData.errorEmail}</div>
@@ -115,8 +116,17 @@ const SignIn = ({ login, isAuthenticated }) => {
 						type="password"
 						id="password"
 						value={password}
-						onChange={e => onChange(e)}
+						onChange={e => {
+							onChange(e);
+							setErrorData({
+								...errorData,
+								errorPassword: validatePassword(e.target.value),
+							});
+						}}
 					/>
+					{errorData.errorPassword && (
+						<div className={classes.error}>{errorData.errorPassword}</div>
+					)}
 					<Button
 						type="submit"
 						fullWidth

@@ -12,13 +12,13 @@ export const validateEmail = email => {
 };
 
 export const validatePhone = phone => {
-	const regex = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s/0-9]*$/;
+	const regex = /^\+?[0-9]{10,14}$/;
 
-	return regex.test(phone) && phone.toString().length >= 8 ? '' : 'Not valid phone';
+	return regex.test(phone) ? '' : 'Not valid phone';
 };
 
 export const validatePassword = password => {
-	return password.length <= 6 ? 'Password must be 6 or more character' : '';
+	return password.length < 6 ? 'Password must be 6 or more character' : '';
 };
 
 export const validateCVV = cvv => {

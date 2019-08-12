@@ -16,7 +16,7 @@ const styles = {
 	thItem: {
 		padding: '1rem',
 		textAlign: 'center',
-		width: '25vh',
+		width: '25vw',
 	},
 	trItem: {
 		backgroundColor: lightGrey,
