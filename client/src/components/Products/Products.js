@@ -102,22 +102,6 @@ const useStyles = makeStyles({
 		width: '100%',
 		marginBottom: 20,
 	},
-	'@keyframes fadeInUp': {
-		from: {
-			opacity: 0,
-			transform: 'translate3d(0, 100%, 0)',
-		},
-
-		to: {
-			opacity: 1,
-			transform: 'translate3d(0, 0, 0)',
-		},
-	},
-	fadeInUp: {
-		animationName: 'fadeInUp',
-		display: 'none',
-		marginBottom: '1rem',
-	},
 });
 
 const Products = props => {
