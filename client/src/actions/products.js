@@ -64,6 +64,7 @@ export const loadFilteredProducts = filteredObject => async dispatch => {
 	dispatch({
 		type: LOADING,
 	});
+
 	try {
 		const products = await axios.post('/api/filter', filteredObject, config);
 

@@ -128,11 +128,9 @@ const Checkout = ({
 			createOrder(shippingAddress, products, totalPrice);
 		}
 	};
-
 	const handleBack = () => {
 		setActiveStep(activeStep - 1);
 	};
-
 	const calculateSum = () => {
 		let sum = 0;
 		products.forEach(product => {
@@ -151,7 +149,7 @@ const Checkout = ({
 		}
 		return true;
 	};
-
+  
 	const checkPayment = form => {
 		const { cardNumber, expDate, cvv } = form;
 		if (!cardNumber || !expDate || !cvv) {

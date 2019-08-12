@@ -58,6 +58,7 @@ const AddressBook = ({ user, saveAddress }) => {
 		});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
 	const {
 		name,
 		email,

@@ -13,7 +13,6 @@ export const validateEmail = email => {
 
 export const validatePhone = phone => {
 	const regex = /^\+?[0-9]{10,14}$/;
-
 	return regex.test(phone) ? '' : 'Not valid phone';
 };
 

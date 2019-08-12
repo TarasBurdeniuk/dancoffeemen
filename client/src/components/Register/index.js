@@ -134,9 +134,6 @@ const SignUp = ({ register, isAuthenticated }) => {
 										errorName: validateName(e.target.value),
 									});
 								}}
-								// onBlur={e =>
-								//
-								// }
 							/>
 							{errorData.errorName && (
 								<div className={classes.error}>{errorData.errorName}</div>
@@ -159,9 +156,6 @@ const SignUp = ({ register, isAuthenticated }) => {
 										errorEmail: validateEmail(e.target.value),
 									});
 								}}
-								// onBlur={e =>
-								//
-								// }
 							/>
 							{errorData.errorEmail && (
 								<div className={classes.error}>{errorData.errorEmail}</div>
@@ -184,9 +178,6 @@ const SignUp = ({ register, isAuthenticated }) => {
 										errorPhone: validatePhone(e.target.value),
 									});
 								}}
-								// onBlur={e =>
-								//
-								// }
 							/>
 							{errorData.errorPhone && (
 								<div className={classes.error}>{errorData.errorPhone}</div>
@@ -234,9 +225,6 @@ const SignUp = ({ register, isAuthenticated }) => {
 									});
 									checkPassword(password, e.target.value);
 								}}
-								// onBlur={e =>
-								//
-								// }
 							/>
 							{errorData.errorPassword && (
 								<div className={classes.error}>{errorData.errorPassword}</div>
