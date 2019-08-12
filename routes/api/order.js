@@ -204,7 +204,7 @@ router.delete('/:id', async (req, res) => {
 
 router.get('/', auth, async (req, res) => {
 	try {
-		const orders = await Order.find({ client: req.user.id });
+		const orders = await Order.find({ client: req.user.id }).sort({ date: -1 });
 
 		res.json(orders);
 	} catch (err) {

@@ -219,7 +219,7 @@ const AddressBook = ({ user, saveAddress }) => {
 						<TextField
 							id="index"
 							name="index"
-							label="Zip / Postal code"
+							label="Zip/Postal code"
 							fullWidth
 							value={index}
 							onChange={e => onChange(e)}

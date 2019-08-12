@@ -201,7 +201,7 @@ const AddressForm = ({ setShippingAddress, shippingAddress }) => {
 					<TextField
 						id="index"
 						name="index"
-						label="Zip / Postal code"
+						label="Zip/Postal code"
 						fullWidth
 						autoComplete="index"
 						value={index}

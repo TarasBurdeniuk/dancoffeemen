@@ -14,12 +14,17 @@ const styles = {
 		color: strongGrey,
 	},
 	thItem: {
-		padding: '1rem',
 		textAlign: 'center',
 		width: '25vw',
+		padding: '0.5rem 0',
 	},
 	trItem: {
 		backgroundColor: lightGrey,
+	},
+	'@media screen and (min-width:480px)': {
+		thItem: {
+			padding: '1rem',
+		},
 	},
 };
 
