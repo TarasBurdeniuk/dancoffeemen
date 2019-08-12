@@ -1,4 +1,5 @@
 const express = require('express');
+const nodemailer = require('nodemailer');
 
 const router = express.Router();
 const bCrypt = require('bcryptjs');
@@ -14,9 +15,7 @@ const auth = require('../../middleware/auth');
 router.post(
 	'/',
 	[
-		check('name', 'Name is required')
-			.not()
-			.isEmpty(),
+		check('name', 'Name is required').isLength({ min: 3 }),
 		check('email', 'Please include a valid email').isEmail(),
 		check('password', 'Please enter a password with 6 or more character').isLength({ min: 6 }),
 		check('phone', 'Please enter a phone with 10 character ').isLength({ min: 10 }),
@@ -63,6 +62,53 @@ router.post(
 				}
 				res.json({ token });
 			});
+
+			// Send mail
+			const transport = nodemailer.createTransport({
+				host: 'smtp.gmail.com',
+				secure: true,
+				port: 465,
+				auth: {
+					user: 'zinovijoprisko@gmail.com',
+					pass: config.get('gmailPass'),
+				},
+				tls: {
+					rejectUnauthorized: false,
+				},
+			});
+
+			// send mail with defined transport object
+			await transport.sendMail(
+				{
+					from: '"CoffeeMen" <dancoffeemen.herokuapp.com>',
+					to: `${email}`,
+					subject: `Registration`,
+					text: 'Thank you for registration on Dancoffeemen',
+				},
+				(err, info) => {
+					if (err) {
+						console.error(err);
+					} else {
+						console.log(`Email send: ${info.response}`);
+					}
+				},
+			);
+
+			await transport.sendMail(
+				{
+					from: `"Server CoffeeMen" <dancoffeemen.herokuapp.com>`,
+					to: 'dancoffeemen@gmail.com',
+					subject: `New registration`,
+					text: `Registered new user, ${name}`,
+				},
+				(err, info) => {
+					if (err) {
+						console.error(err);
+					} else {
+						console.log(`Email send: ${info.response}`);
+					}
+				},
+			);
 		} catch (e) {
 			console.error(e);
 			res.status(500).send('Server error');

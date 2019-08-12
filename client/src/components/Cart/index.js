@@ -18,6 +18,7 @@ const strongPink = pink[500];
 
 const useStyles = makeStyles(theme => ({
 	layout: {
+		height: '100vh',
 		maxWidth: 1160,
 		padding: '10px 5px 20px',
 		boxSizing: 'border-box',
@@ -127,11 +128,9 @@ const Checkout = ({
 			createOrder(shippingAddress, products, totalPrice);
 		}
 	};
-
 	const handleBack = () => {
 		setActiveStep(activeStep - 1);
 	};
-
 	const calculateSum = () => {
 		let sum = 0;
 		products.forEach(product => {
@@ -142,37 +141,28 @@ const Checkout = ({
 	};
 	let check = false;
 
-	const checkForms = form => {
-		const {
-			name,
-			email,
-			city,
-			street,
-			houseNumber,
-			contactPhone,
-			cardNumber,
-			expDate,
-			cvv,
-		} = form;
-		if (
-			!name ||
-			!email ||
-			!city ||
-			!street ||
-			!houseNumber ||
-			!contactPhone ||
-			!cardNumber ||
-			!expDate ||
-			!cvv
-		) {
+	const checkAddress = form => {
+		const { name, email, city, street, houseNumber, contactPhone } = form;
+		if (!name || !email || !city || !street || !houseNumber || !contactPhone) {
+			check = true;
+			return false;
+		}
+		return true;
+	};
+  
+	const checkPayment = form => {
+		const { cardNumber, expDate, cvv } = form;
+		if (!cardNumber || !expDate || !cvv) {
 			check = true;
 			return false;
 		}
 		return true;
 	};
 
-	if (activeStep === 3) {
-		checkForms(shippingAddress);
+	if (activeStep === 1) {
+		checkAddress(shippingAddress);
+	} else if (activeStep === 2) {
+		checkPayment(shippingAddress);
 	}
 
 	return (

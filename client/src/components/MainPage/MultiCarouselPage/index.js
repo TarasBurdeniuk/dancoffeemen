@@ -196,7 +196,6 @@ const MultiCarouselPage = ({ header }) => {
 			<div className={classes.swipeBlock}>
 				<Button size="small" onClick={handleBack} disabled={activeStep === 0}>
 					{theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-					Back
 				</Button>
 				<AutoPlaySwipeableViews
 					axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
@@ -207,7 +206,6 @@ const MultiCarouselPage = ({ header }) => {
 					{productList}
 				</AutoPlaySwipeableViews>
 				<Button size="small" onClick={handleNext} disabled={activeStep === maxSteps - 1}>
-					Next
 					{theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
 				</Button>
 			</div>

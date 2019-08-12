@@ -58,7 +58,7 @@ const AddressBook = ({ user, saveAddress }) => {
 		});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
-	const [readOnly, setReadOnly] = useState(true);
+
 	const {
 		name,
 		email,
@@ -83,11 +83,11 @@ const AddressBook = ({ user, saveAddress }) => {
 		} else {
 			setErrorData({ errorName: '', errorEmail: '', errorPhone: '', checkFields: '' });
 			saveAddress(formData);
-			setReadOnly(!readOnly);
 		}
 	};
 	const classes = useStyles();
 	const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+
 	return (
 		<>
 			<form onSubmit={e => checkForm(e)}>
@@ -101,13 +101,8 @@ const AddressBook = ({ user, saveAddress }) => {
 							fullWidth
 							autoComplete="name"
 							value={name}
-							InputProps={{
-								readOnly: readOnly,
-							}}
 							onChange={e => {
 								onChange(e);
-							}}
-							onBlur={e => {
 								setErrorData({
 									...errorData,
 									errorName: validateName(e.target.value),
@@ -128,11 +123,8 @@ const AddressBook = ({ user, saveAddress }) => {
 							fullWidth
 							autoComplete="email"
 							value={email}
-							InputProps={{
-								readOnly: readOnly,
-							}}
-							onChange={e => onChange(e)}
-							onBlur={e => {
+							onChange={e => {
+								onChange(e);
 								setErrorData({
 									...errorData,
 									errorEmail: validateEmail(e.target.value),
@@ -151,11 +143,8 @@ const AddressBook = ({ user, saveAddress }) => {
 							label="Phone number"
 							fullWidth
 							value={phone}
-							InputProps={{
-								readOnly: readOnly,
-							}}
-							onChange={e => onChange(e)}
-							onBlur={e => {
+							onChange={e => {
+								onChange(e);
 								setErrorData({
 									...errorData,
 									errorPhone: validatePhone(e.target.value),
@@ -172,9 +161,6 @@ const AddressBook = ({ user, saveAddress }) => {
 							name="country"
 							label="Country"
 							fullWidth
-							InputProps={{
-								readOnly: readOnly,
-							}}
 							value={country}
 							onChange={e => onChange(e)}
 						/>
@@ -185,9 +171,6 @@ const AddressBook = ({ user, saveAddress }) => {
 							name="state"
 							label="State/Region"
 							fullWidth
-							InputProps={{
-								readOnly: readOnly,
-							}}
 							value={state}
 							onChange={e => onChange(e)}
 						/>
@@ -198,9 +181,6 @@ const AddressBook = ({ user, saveAddress }) => {
 							name="city"
 							label="City"
 							fullWidth
-							InputProps={{
-								readOnly: readOnly,
-							}}
 							value={city}
 							onChange={e => onChange(e)}
 						/>
@@ -211,9 +191,6 @@ const AddressBook = ({ user, saveAddress }) => {
 							name="street"
 							label="Street"
 							fullWidth
-							InputProps={{
-								readOnly: readOnly,
-							}}
 							value={street}
 							onChange={e => onChange(e)}
 						/>
@@ -224,9 +201,6 @@ const AddressBook = ({ user, saveAddress }) => {
 							name="houseNumber"
 							label="House number"
 							fullWidth
-							InputProps={{
-								readOnly: readOnly,
-							}}
 							value={houseNumber}
 							onChange={e => onChange(e)}
 						/>
@@ -237,9 +211,6 @@ const AddressBook = ({ user, saveAddress }) => {
 							name="apartment"
 							label="Apartment"
 							fullWidth
-							InputProps={{
-								readOnly: readOnly,
-							}}
 							value={apartment}
 							onChange={e => onChange(e)}
 						/>
@@ -250,9 +221,6 @@ const AddressBook = ({ user, saveAddress }) => {
 							name="index"
 							label="Zip / Postal code"
 							fullWidth
-							InputProps={{
-								readOnly: readOnly,
-							}}
 							value={index}
 							onChange={e => onChange(e)}
 						/>
@@ -264,25 +232,13 @@ const AddressBook = ({ user, saveAddress }) => {
 				</Typography>
 				{errorData.checkFields && <p className={classes.error}>{errorData.checkFields}</p>}
 				<Button
+					type="submit"
 					variant="contained"
 					color="secondary"
 					className={classes.button}
-					onClick={() => {
-						setReadOnly(!readOnly);
-					}}
 				>
-					Edit
+					Save
 				</Button>
-				{!readOnly && (
-					<Button
-						type="submit"
-						variant="contained"
-						color="secondary"
-						className={classes.button}
-					>
-						Save
-					</Button>
-				)}
 			</form>
 		</>
 	);
