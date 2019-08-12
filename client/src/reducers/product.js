@@ -71,6 +71,7 @@ const product = (state = initialState, action) => {
 					startPage: filter.startPage + 1,
 				},
 				quantityChosenFilter: payload.quantity,
+				loading: false,
 			};
 		case PRODUCT_ERROR:
 		case BRANDS_ERROR:

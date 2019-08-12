@@ -61,6 +61,9 @@ export const loadFilteredProducts = filteredObject => async dispatch => {
 			'Content-Type': 'application/json',
 		},
 	};
+	dispatch({
+		type: LOADING,
+	});
 	try {
 		const products = await axios.post('/api/filter', filteredObject, config);
 

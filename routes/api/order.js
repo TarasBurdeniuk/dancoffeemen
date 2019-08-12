@@ -97,12 +97,17 @@ router.post(
 
 			const numberOrder = await Order.estimatedDocumentCount();
 
-			// create reusable transporter object using the default SMTP transport
+			// Send mail
 			const transporter = nodemailer.createTransport({
-				service: 'gmail',
+				host: 'smtp.gmail.com',
+				secure: true,
+				port: 465,
 				auth: {
-					user: 'dancoffeemen@gmail.com', // generated ethereal user
-					pass: config.get('gmailPass'), // generated ethereal password
+					user: 'zinovijoprisko@gmail.com',
+					pass: config.get('gmailPass'),
+				},
+				tls: {
+					rejectUnauthorized: false,
 				},
 			});
 			const orderProductsText = products
@@ -122,28 +127,26 @@ router.post(
 						<p>${city}, ${street} str., ${houseNumber}</p>
 						<p>Total price: <b>$${totalPrice.toString()}</b></p>`;
 
-			const options = {
-				from: '"CoffeeMen" <dancoffeemen.herokuapp.com>', // sender address
-				to: `${deliveryAddress.email}`, // list of receivers
-				subject: `Order from CoffeeMen`, // Subject line
-				text: 'Thank you for your order', // plain text body
-				html: body, // html body
-			};
-
-			// send mail with defined transport object
-			await transporter.sendMail(options, (err, info) => {
-				if (err) {
-					console.error(err);
-				} else {
-					console.log(`Email send: ${info.response}`);
-				}
-			});
 			await transporter.sendMail(
 				{
-					from: `"Server CoffeeMen" <dancoffeemen.herokuapp.com>`,
+					from: '"CoffeeMen" <dancoffeemen.herokuapp.com>', // sender address
+					to: `${deliveryAddress.email}`,
+					subject: `Order from CoffeeMen`,
+					html: body,
+				},
+				(err, info) => {
+					if (err) {
+						console.error(err);
+					} else {
+						console.log(`Email send: ${info.response}`);
+					}
+				},
+			);
+			await transporter.sendMail(
+				{
+					from: `"Order CoffeeMen" <dancoffeemen.herokuapp.com>`,
 					to: 'dancoffeemen@gmail.com',
 					subject: `Order #${numberOrder + 1}`,
-					text: 'Plain order',
 					html: body,
 				},
 				(err, info) => {
