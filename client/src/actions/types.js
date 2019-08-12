@@ -24,3 +24,4 @@ export const ORDER_ERROR = 'ORDER_ERROR';
 export const ORDER_LOAD = 'ORDER_LOAD';
 export const EDIT_ADDRESS = 'EDIT_ADDRESS';
 export const LOAD_USER_ORDERS = 'LOAD_USER_ORDERS';
+export const GET_NEW_ARRIVALS = 'GET_NEW_ARRIVALS';

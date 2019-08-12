@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
@@ -6,6 +7,8 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
 import ImgMediaCard from './ProductCard';
+import Spinner from '../../Loading';
+import { addToBasket } from '../../../actions/basket';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -88,7 +91,9 @@ const tutorialSteps = [
 
 const useStyles = makeStyles(theme => ({
 	root: {
-		display: 'none',
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center',
 		padding: '20px 0',
 		flexGrow: 1,
 		margin: '0 auto',
@@ -96,7 +101,7 @@ const useStyles = makeStyles(theme => ({
 	},
 	title: {
 		fontSize: 16,
-		fontWeight: 400,
+		fontWeight: 500,
 		textTransform: 'uppercase',
 		marginBottom: 15,
 	},
@@ -121,10 +126,6 @@ const useStyles = makeStyles(theme => ({
 	},
 	'@media screen and (min-width:768px)': {
 		root: {
-			display: 'flex',
-			flexDirection: 'column',
-			alignItems: 'center',
-			width: 768,
 			padding: '30px 0',
 		},
 		title: {
@@ -149,7 +150,7 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-const MultiCarouselPage = ({ header }) => {
+const NewArrivals = ({ newArrivals, addToBasket }) => {
 	const classes = useStyles();
 	const theme = useTheme();
 	const [activeStep, setActiveStep] = useState(0);
@@ -167,11 +168,20 @@ const MultiCarouselPage = ({ header }) => {
 		setActiveStep(step);
 	};
 
-	const cardProduct = tutorialSteps.map(item => (
-		<div>
-			<ImgMediaCard key={item.label} src={item.imgPath} name={item.name} price={item.price} />
-		</div>
-	));
+	const cardProduct = newArrivals
+		? newArrivals.map(product => (
+				<div>
+					<ImgMediaCard
+						key={product._id}
+						src={product.image[0]}
+						name={`${product.brand} ${product.model}`}
+						price={product.price}
+						handleClick={() => addToBasket({ ...product, addQuantity: 1 })}
+						_id={product._id}
+					/>
+				</div>
+		  ))
+		: [];
 
 	const productList =
 		document.documentElement.clientWidth >= 1160
@@ -186,13 +196,13 @@ const MultiCarouselPage = ({ header }) => {
 			: cardProduct.map((item, i, arr) => (
 					<div key={i} className={classes.carusel}>
 						{arr[i]}
-						{arr[i + 1 > arr.length - 1 ? i - (arr.length - 1) : i + 1]}
+						{/*{arr[i + 1 > arr.length - 1 ? i - (arr.length - 1) : i + 1]}*/}
 					</div>
 			  ));
 
 	return (
 		<div className={classes.root}>
-			<h1 className={classes.title}>{header}</h1>
+			<h2 className={classes.title}>NEW ARRIVALS</h2>
 			<div className={classes.swipeBlock}>
 				<Button size="small" onClick={handleBack} disabled={activeStep === 0}>
 					{theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
@@ -203,7 +213,7 @@ const MultiCarouselPage = ({ header }) => {
 					onChangeIndex={handleStepChange}
 					enableMouseEvents
 				>
-					{productList}
+					{!productList.length ? <Spinner /> : productList}
 				</AutoPlaySwipeableViews>
 				<Button size="small" onClick={handleNext} disabled={activeStep === maxSteps - 1}>
 					{theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
@@ -213,4 +223,15 @@ const MultiCarouselPage = ({ header }) => {
 	);
 };
 
-export default MultiCarouselPage;
+const mapStateToProps = state => ({
+	newArrivals: state.product.newArrivals,
+});
+
+const mapDispatchToProps = {
+	addToBasket,
+};
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps,
+)(NewArrivals);

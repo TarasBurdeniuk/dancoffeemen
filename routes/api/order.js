@@ -118,7 +118,8 @@ router.post(
 					} item(s) - <b>$${(item.price * 1000 * item.addQuantity) / 1000}</b></li>`;
 				})
 				.join('');
-			const body = `<h1>Dear, ${name}, your order number is #${numberOrder + 1}</h1>
+			const body = `<h2>Dear ${name},</h2> 
+						<h2>Your order number is ${numberOrder + 1}</h2>
 						<h3>List of order:</h3>
 						<ul>
 						${orderProductsText}

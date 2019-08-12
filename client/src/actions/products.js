@@ -10,6 +10,7 @@ import {
 	SIZES_LOADED,
 	CLEAR_FILTER,
 	GET_PRODUCT,
+	GET_NEW_ARRIVALS,
 } from './types';
 
 // Load products
@@ -119,6 +120,25 @@ export const getProduct = id => async dispatch => {
 		dispatch({
 			type: GET_PRODUCT,
 			payload: product.data,
+		});
+	} catch (err) {
+		dispatch({
+			type: PRODUCT_ERROR,
+			payload: {
+				msg: err.message,
+			},
+		});
+	}
+};
+
+// Load new arrivals
+
+export const loadNewArrivals = () => async dispatch => {
+	try {
+		const newArrivals = await axios.get('/api/products/newarrivals');
+		dispatch({
+			type: GET_NEW_ARRIVALS,
+			payload: newArrivals.data,
 		});
 	} catch (err) {
 		dispatch({
