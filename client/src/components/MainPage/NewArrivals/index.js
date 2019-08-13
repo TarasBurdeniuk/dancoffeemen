@@ -12,84 +12,7 @@ import { addToBasket } from '../../../actions/basket';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
-const tutorialSteps = [
-	{
-		rate: 5,
-		price: '234$', // must be value from data base
-		name: 'Movenpick Espresso 1 кг', //  must be value from data base
-		label: 'San Francisco – Oakland Bay Bridge, United States',
-		imgPath: 'https://cdn.shopify.com/s/files/1/0113/4942/products/Illy-2.jpg?v=1484682775',
-	},
-	{
-		rate: 5,
-		price: '234$', // must be value from data base
-		name: 'Movenpick Espresso 2 кг', //  must be value from data base
-		label: 'Bird',
-		imgPath:
-			'https://target.scene7.com/is/image/Target/GUEST_9e5b7a1a-19b3-4db9-b9ce-5855f9172bfe?wid=488&hei=488&fmt=pjpeg',
-	},
-	{
-		rate: 5,
-		price: '234$', // must be value from data base
-		name: 'Movenpick Espresso 3 кг', //  must be value from data base
-		label: 'Bali, Indonesia',
-		imgPath:
-			'https://www.mk2shop.com/media/catalog/product/cache/1/image/1600x/040ec09b1e35df139433887a97daa66f/i/l/illy-coffee-capsules-iperespresso-monoarabica-brazil-18-pieces-cmally00000001000.jpg',
-	},
-	{
-		rate: 5,
-		price: '234$', // must be value from data base
-		name: 'Movenpick Espresso 4 кг', //  must be value from data base
-		label: 'NeONBRAND Digital Marketing, Las Vegas, United States',
-		imgPath: 'https://cdn.shopify.com/s/files/1/0113/4942/products/Illy-3.jpg?v=1484682815',
-	},
-	{
-		rate: 5,
-		price: '234$', // must be value from data base
-		name: 'Movenpick Espresso 5 кг', //  must be value from data base
-		label: 'Goč, Serbia',
-		imgPath: 'https://shop.coles.com.au/wcsstore/Coles-CAS/images/8/0/9/8097061.jpg',
-	},
-	{
-		rate: 5,
-		price: '234$', // must be value from data base
-		name: 'Movenpick Espresso 6 кг', //  must be value from data base
-		label: 'San Francisco – Oakland Bay Bridge, United States',
-		imgPath: 'https://cdn.shopify.com/s/files/1/0113/4942/products/Illy-2.jpg?v=1484682775',
-	},
-	{
-		rate: 5,
-		price: '234$', // must be value from data base
-		name: 'Movenpick Espresso 7 кг', //  must be value from data base
-		label: 'Bird',
-		imgPath: 'https://cdn.shopify.com/s/files/1/0113/4942/products/Illy-3.jpg?v=1484682815',
-	},
-	{
-		rate: 5,
-		price: '234$', // must be value from data base
-		name: 'Movenpick Espresso 8 кг', //  must be value from data base
-		label: 'Bali, Indonesia',
-		imgPath:
-			'https://www.mk2shop.com/media/catalog/product/cache/1/image/1600x/040ec09b1e35df139433887a97daa66f/i/l/illy-coffee-capsules-iperespresso-monoarabica-brazil-18-pieces-cmally00000001000.jpg',
-	},
-	{
-		rate: 5,
-		price: '234$', // must be value from data base
-		name: 'Movenpick Espresso 9 кг', //  must be value from data base
-		label: 'NeONBRAND Digital Marketing, Las Vegas, United States',
-		imgPath: 'https://shop.coles.com.au/wcsstore/Coles-CAS/images/8/0/9/8097061.jpg',
-	},
-	{
-		rate: 5,
-		price: '234$', // must be value from data base
-		name: 'Movenpick Espresso 10 кг', //  must be value from data base
-		label: 'Goč, Serbia',
-		imgPath:
-			'https://target.scene7.com/is/image/Target/GUEST_9e5b7a1a-19b3-4db9-b9ce-5855f9172bfe?wid=488&hei=488&fmt=pjpeg',
-	},
-];
-
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles({
 	root: {
 		display: 'flex',
 		flexDirection: 'column',
@@ -148,13 +71,13 @@ const useStyles = makeStyles(theme => ({
 			padding: '30px 0',
 		},
 	},
-}));
+});
 
 const NewArrivals = ({ newArrivals, addToBasket }) => {
 	const classes = useStyles();
 	const theme = useTheme();
 	const [activeStep, setActiveStep] = useState(0);
-	const maxSteps = tutorialSteps.length;
+	const maxSteps = newArrivals ? newArrivals.length : 10;
 
 	const handleNext = () => {
 		setActiveStep(prevActiveStep => prevActiveStep + 1);
@@ -196,7 +119,6 @@ const NewArrivals = ({ newArrivals, addToBasket }) => {
 			: cardProduct.map((item, i, arr) => (
 					<div key={i} className={classes.carusel}>
 						{arr[i]}
-						{/*{arr[i + 1 > arr.length - 1 ? i - (arr.length - 1) : i + 1]}*/}
 					</div>
 			  ));
 
