@@ -149,7 +149,7 @@ const Checkout = ({
 		}
 		return true;
 	};
-  
+
 	const checkPayment = form => {
 		const { cardNumber, expDate, cvv } = form;
 		if (!cardNumber || !expDate || !cvv) {
