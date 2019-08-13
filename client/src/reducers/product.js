@@ -26,7 +26,7 @@ const initialState = {
 	newArrivals: null,
 	chosenFilter: {
 		brands: [],
-		price: [5, 25],
+		price: [5, 40],
 		size: [],
 		startPage: 0,
 	},
@@ -56,7 +56,7 @@ const product = (state = initialState, action) => {
 		case CLEAR_FILTER:
 			return {
 				...state,
-				chosenFilter: { brands: [], price: [5, 25], size: [], startPage: 0 },
+				chosenFilter: { brands: [], price: [5, 40], size: [], startPage: 0 },
 				filteredProducts: [],
 				quantityChosenFilter: 0,
 			};

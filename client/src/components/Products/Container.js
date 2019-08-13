@@ -30,7 +30,6 @@ const useStyles = makeStyles({
 
 const ProductsContainer = props => {
 	const {
-		products,
 		sorting,
 		quantity,
 		handleChangeSorting,
@@ -74,7 +73,6 @@ const ProductsContainer = props => {
 				</Grid>
 				<Grid item md={9} xs={12} className={classes.grid}>
 					<Products
-						products={products}
 						sorting={sorting}
 						quantity={quantity}
 						handleChangeSorting={handleChangeSorting}
@@ -88,7 +86,6 @@ const ProductsContainer = props => {
 };
 
 ProductsContainer.propTypes = {
-	products: PropTypes.oneOfType([PropTypes.func, PropTypes.array]).isRequired,
 	sorting: PropTypes.string.isRequired,
 	quantity: PropTypes.number.isRequired,
 };

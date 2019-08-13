@@ -5,6 +5,8 @@ const styles = {
 	container: {
 		display: 'flex',
 		justifyContent: 'center',
+		width: '100%',
+		margin: '1rem',
 	},
 	loading: {
 		width: 100,

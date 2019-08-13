@@ -122,8 +122,14 @@ const Products = props => {
 	} = props;
 
 	const classes = useStyles();
+	let productsArray = [];
+	if (filteredProducts.length) {
+		productsArray = filteredProducts;
+	} else {
+		productsArray = products;
+	}
 
-	const list = products.map(product => {
+	const list = productsArray.map(product => {
 		if (quantity === 12) {
 			return (
 				<Grid key={product._id} item xs={12} sm={6} md={4}>
@@ -199,8 +205,8 @@ const Products = props => {
 
 	const loadMore = () => {
 		if (
-			quantityAllProducts === products.length ||
-			quantityChosenFilter === products.length ||
+			quantityAllProducts === productsArray.length ||
+			quantityChosenFilter === productsArray.length ||
 			loading
 		)
 			return;
@@ -217,7 +223,7 @@ const Products = props => {
 		<Grid container>
 			<Grid container justify="center" className={classes.sorting}>
 				<Typography variant="subtitle2" className={classes.showingInfo}>
-					Showing {products.length} items of{' '}
+					Showing {productsArray.length} items of{' '}
 					{quantityChosenFilter > 0 ? quantityChosenFilter : quantityAllProducts}{' '}
 					{filteredProducts.length > 0 ? 'filtered products' : 'products'}
 				</Typography>
@@ -243,8 +249,8 @@ const Products = props => {
 				useWindow={true}
 			>
 				{list}
-				{loading && <Spinner />}
 			</InfiniteScroll>
+			{loading && <Spinner />}
 		</Grid>
 	);
 };
@@ -262,6 +268,7 @@ const mapStateToProps = state => ({
 	quantityChosenFilter: state.product.quantityChosenFilter,
 	filteredProducts: state.product.filteredProducts,
 	chosenFilter: state.product.chosenFilter,
+	products: state.product.products,
 });
 
 const mapDispatchToProps = {
