@@ -9,6 +9,7 @@ const UserSchema = new mongoose.Schema({
 	name: {
 		type: String,
 		required: true,
+		minlength: 3,
 	},
 	email: {
 		type: String,
@@ -24,6 +25,27 @@ const UserSchema = new mongoose.Schema({
 		required: true,
 		minlength: 10,
 		unique: true,
+	},
+	country: {
+		type: String,
+	},
+	city: {
+		type: String,
+	},
+	houseNumber: {
+		type: String,
+	},
+	street: {
+		type: String,
+	},
+	apartment: {
+		type: String,
+	},
+	state: {
+		type: String,
+	},
+	index: {
+		type: String,
 	},
 	shoppingCard: [
 		{

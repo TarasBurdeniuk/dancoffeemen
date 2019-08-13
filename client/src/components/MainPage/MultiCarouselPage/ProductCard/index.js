@@ -5,7 +5,6 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import StarsRate from '../../../ProductDetails/StarsRate';
 import Button from '@material-ui/core/Button';
 import pink from '@material-ui/core/colors/pink';
 
@@ -39,11 +38,10 @@ const ImgMediaCard = ({ src, price, name }) => {
 					<Typography variant="h6" color="textSecondary" component="h3">
 						Price: {price}
 					</Typography>
-					<StarsRate />
 				</CardContent>
 			</CardActionArea>
 			<Button variant="contained" className={classes.button}>
-				Buy
+				ADD TO BASKET
 			</Button>
 		</Card>
 	);

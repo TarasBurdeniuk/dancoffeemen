@@ -52,6 +52,7 @@ export const theme = createMuiTheme({
 		},
 		MuiGrid: {
 			root: {
+				fontFamily: '"Lato", "Roboto", sans-serif',
 				'& a': {
 					textDecoration: 'none',
 					color: greyLight,
@@ -59,6 +60,36 @@ export const theme = createMuiTheme({
 						color: greyStrong,
 					},
 				},
+			},
+		},
+		MuiStepIcon: {
+			active: {
+				color: `${pinkStrong} !important`,
+			},
+			root: {
+				color: `${greyStrong} !important`,
+			},
+		},
+		MuiInput: {
+			underline: {
+				'&:after': {
+					borderBottom: `2px solid ${pinkStrong}`,
+				},
+			},
+		},
+		MuiTab: {
+			textColorPrimary: {
+				color: `${greyStrong} !important`,
+			},
+		},
+		PrivateTabIndicator: {
+			root: {
+				backgroundColor: `${pinkStrong} !important`,
+			},
+		},
+		MuiPaper: {
+			elevation4: {
+				boxShadow: 'none',
 			},
 		},
 	},

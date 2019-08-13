@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
+import Spinner from '../Loading';
+import { loadFilteredProducts } from '../../actions/products';
 
 const useStyles = makeStyles(theme => ({
 	container: {
@@ -14,43 +17,54 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-const Size = () => {
-	const classes = useStyles();
+const Size = ({ sizes, loadFilteredProducts, chosenFilter }) => {
+	useEffect(() => {
+		setChecked(chosenFilter.size);
+	}, [chosenFilter.size]);
 	const [checked, setChecked] = useState([]);
+	const classes = useStyles();
 
 	const handleToggle = value => () => {
 		const currentIndex = checked.indexOf(value);
 		const newChecked = [...checked];
+
 		if (currentIndex === -1) {
 			newChecked.push(value);
+			loadFilteredProducts({
+				brands: chosenFilter.brands,
+				price: chosenFilter.price,
+				size: [...chosenFilter.size, value],
+				startPage: 0,
+			});
 		} else {
 			newChecked.splice(currentIndex, 1);
+			loadFilteredProducts({
+				brands: chosenFilter.brands,
+				price: chosenFilter.price,
+				size: chosenFilter.size.filter(size => size !== value),
+				startPage: 0,
+			});
 		}
 		setChecked(newChecked);
 	};
 
-	const sizes = [
-		{ value: '100g', id: 0 },
-		{ value: '250g', id: 1 },
-		{ value: '500g', id: 2 },
-		{ value: '1000g', id: 3 },
-	];
-
-	return (
+	return sizes === null ? (
+		<Spinner />
+	) : (
 		<List className={classes.container}>
 			{sizes.map(size => {
-				const labelId = size.value;
+				const labelId = size;
 				return (
-					<ListItem key={size.id} dense button onClick={handleToggle(size.id)}>
+					<ListItem key={size} dense button onClick={handleToggle(size)}>
 						<ListItemIcon>
 							<Checkbox
 								edge="start"
 								color="secondary"
-								checked={checked.indexOf(size.id) !== -1}
+								checked={checked.indexOf(size) !== -1}
 								inputProps={{ 'aria-labelledby': labelId }}
 							/>
 						</ListItemIcon>
-						<ListItemText id={labelId} primary={size.value} />
+						<ListItemText id={labelId} primary={size} />
 					</ListItem>
 				);
 			})}
@@ -58,4 +72,16 @@ const Size = () => {
 	);
 };
 
-export default Size;
+const mapStateToProps = state => ({
+	sizes: state.product.sizes,
+	chosenFilter: state.product.chosenFilter,
+});
+
+const mapDispatchToProps = {
+	loadFilteredProducts,
+};
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps,
+)(Size);

@@ -10,9 +10,14 @@ const auth = require('../../middleware/auth');
 // Desc    get all products
 
 router.get('/', async (req, res) => {
+	const perPage = 6;
+
 	try {
-		const products = await Product.find();
-		res.json(products);
+		const products = await Product.find()
+			.skip(+req.query.start * perPage)
+			.limit(perPage);
+		const quantity = await Product.estimatedDocumentCount();
+		res.json({ products, quantity });
 	} catch (err) {
 		console.error(err.message);
 		res.status(500).send('Server Error');
@@ -35,7 +40,6 @@ router.get('/:id', async (req, res) => {
 // Router   DELETE api/products/:id
 // Desc     delete product by id
 
-// eslint-disable-next-line consistent-return
 router.delete('/:id', async (req, res) => {
 	try {
 		const product = await Product.findById(req.params.id);
@@ -70,7 +74,6 @@ router.post(
 				.isLength({ max: 10 }),
 		],
 	],
-	// eslint-disable-next-line consistent-return
 	async (req, res) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
@@ -97,5 +100,37 @@ router.post(
 		}
 	},
 );
+
+// Route    POST api/products
+// Desc     Load products from localStorage
+
+router.post('/', async (req, res) => {
+	const localProducts = req.body;
+	try {
+		const products = await Product.find();
+
+		const filteredProducts = [];
+		localProducts.forEach(product => {
+			products.forEach(item => {
+				if (product._id === item._id.toString()) {
+					if (product.addQuantity > item.quantity) {
+						filteredProducts.push({
+							...product,
+							addQuantity: item.quantity,
+							quantity: item.quantity,
+						});
+					} else {
+						filteredProducts.push(product);
+					}
+				}
+			});
+		});
+
+		res.json(filteredProducts);
+	} catch (err) {
+		console.error(err.message);
+		res.status(500).send('Server error');
+	}
+});
 
 module.exports = router;

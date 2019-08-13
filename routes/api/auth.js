@@ -30,7 +30,6 @@ router.post(
 		check('email', 'Please include a valid email').isEmail(),
 		check('password', 'Password is required').exists(),
 	],
-	// eslint-disable-next-line consistent-return
 	async (req, res) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {

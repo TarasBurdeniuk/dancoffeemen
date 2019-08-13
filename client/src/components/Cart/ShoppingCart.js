@@ -1,11 +1,22 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Clear from '@material-ui/icons/Clear';
-import PropTypes from 'prop-types';
+import { PropTypes } from 'prop-types';
+import pink from '@material-ui/core/colors/pink';
+import grey from '@material-ui/core/colors/grey';
+import { setQuantity, removeProduct } from '../../actions/basket';
+import { Link } from 'react-router-dom';
+
+const lightPink = pink[300];
+const strongPink = pink[500];
+const moreStrongPink = pink[700];
+const white = grey[0];
+const strongGrey = grey[700];
 
 const useStyles = makeStyles(theme => ({
 	container: {
@@ -31,12 +42,14 @@ const useStyles = makeStyles(theme => ({
 	brand: {
 		display: 'inline-block',
 		cursor: 'pointer',
+		color: strongGrey,
 		'&:hover': {
-			color: '#f50057',
+			color: strongPink,
 		},
 	},
 	price: {
 		margin: '1rem 0',
+		color: moreStrongPink,
 	},
 	quantityContainer: {
 		display: 'flex',
@@ -56,7 +69,7 @@ const useStyles = makeStyles(theme => ({
 		fontSize: '1.5rem',
 		textAlign: 'center',
 		border: 0,
-		background: '#fff',
+		background: white,
 	},
 	quantityChange: {
 		width: '3rem',
@@ -88,91 +101,140 @@ const useStyles = makeStyles(theme => ({
 	deleteIcon: {
 		width: '2.5rem',
 		height: '2.5rem',
-		color: '#575757',
+		color: strongGrey,
 		cursor: 'pointer',
 		'&:hover': {
-			color: '#f50057',
+			color: strongPink,
 		},
+	},
+	available: {
+		color: lightPink,
 	},
 }));
 
-const CartContainer = props => {
-	const { quantity, products, handleIncrement, handleDecrement } = props;
+const ShoppingCart = props => {
+	const { products, setQuantity, removeProduct } = props;
+
+	const handleIncrement = prod => {
+		let quantity = prod.addQuantity + 1;
+		if (prod.addQuantity < prod.quantity) {
+			setQuantity(prod, quantity);
+		}
+	};
+
+	const handleDecrement = prod => {
+		if (prod.addQuantity > 1) {
+			const quantity = prod.addQuantity - 1;
+			setQuantity(prod, quantity);
+		}
+	};
+
+	const handleRemove = prod => {
+		removeProduct(prod);
+	};
+
+	const calc = (price, quantity) => {
+		return (price * 1000 * quantity) / 1000;
+	};
 
 	const classes = useStyles();
 
 	const productsCart = products.map(product => (
-		<Grid container key={product.id} className={classes.item}>
+		<Grid container key={product._id} className={classes.item}>
 			<Grid item xs={11}>
 				<Grid container className={classes.product}>
 					<Grid item xs={12} md={3}>
-						<img src={product.src} alt={product.id} className={classes.image} />
+						<img src={product.image[0]} alt={product.model} className={classes.image} />
 					</Grid>
 					<Grid item xs={12} md={5}>
-						<Typography
-							variant="h6"
-							component="h2"
-							gutterBottom
-							className={classes.brand}
-						>
-							{product.brand}
-						</Typography>
-						<Typography variant="subtitle1">{product.size}g</Typography>
+						<Link to={`/${product._id}`}>
+							<Typography
+								variant="h6"
+								component="h2"
+								gutterBottom
+								className={classes.brand}
+							>
+								{product.brand} {product.model}
+							</Typography>
+						</Link>
+						<Typography variant="subtitle1">{product.specifications.size}</Typography>
 						<Typography variant="h6" className={classes.price}>
 							${product.price}
 						</Typography>
+						{product.quantity === 0 && (
+							<Typography variant="subtitle1" className={classes.available}>
+								Product is not available
+							</Typography>
+						)}
 					</Grid>
 					<Grid item xs={12} md={3} className={classes.quantityContainer}>
 						<div className={classes.quantity}>
 							<button
 								type="button"
 								className={`${classes.quantityChange} ${classes.quantityDecrement}`}
-								onClick={handleDecrement}
+								onClick={() => handleDecrement(product)}
 							>
 								&mdash;
 							</button>
 							<input
 								className={classes.quantityInput}
 								type="text"
-								value={quantity}
+								value={product.addQuantity}
 								disabled
 							/>
 							<button
 								type="button"
 								className={`${classes.quantityChange} ${classes.quantityIncrement}`}
-								onClick={() => handleIncrement(product.quantity)}
+								onClick={() => handleIncrement(product)}
 							>
 								&#xff0b;
 							</button>
 						</div>
 					</Grid>
 					<Grid item xs={12} md={1} className={classes.total}>
-						<Typography variant="h5">${product.price * quantity}</Typography>
+						<Typography variant="h5" className={classes.price}>
+							{'$'}
+							{calc(product.price, product.addQuantity)}
+						</Typography>
 					</Grid>
 				</Grid>
 			</Grid>
 			<Grid item xs={1}>
 				<Grid container justify="flex-end">
-					<Clear className={classes.deleteIcon} />
+					<Clear onClick={() => handleRemove(product)} className={classes.deleteIcon} />
 				</Grid>
 			</Grid>
 		</Grid>
 	));
 
 	return (
-		<Grid container justify="center" className={classes.container}>
-			<Container maxWidth="lg">
-				<Paper>{productsCart}</Paper>
-			</Container>
-		</Grid>
+		<>
+			<Typography variant="h6" gutterBottom>
+				Shopping cart
+			</Typography>
+			<Grid container justify="center" className={classes.container}>
+				<Container maxWidth="lg">
+					<Paper>{productsCart}</Paper>
+				</Container>
+			</Grid>
+		</>
 	);
 };
 
-CartContainer.propTypes = {
-	quantity: PropTypes.number.isRequired,
+ShoppingCart.propTypes = {
 	products: PropTypes.arrayOf(PropTypes.object).isRequired,
-	handleIncrement: PropTypes.func.isRequired,
-	handleDecrement: PropTypes.func.isRequired,
 };
 
-export default CartContainer;
+const mapStateToProps = state => ({
+	products: state.basket.products,
+});
+
+const mapDispatchToProps = {
+	setQuantity,
+	removeProduct,
+};
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps,
+)(ShoppingCart);

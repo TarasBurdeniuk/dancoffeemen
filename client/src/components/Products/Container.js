@@ -3,8 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
-
 import Price from './Price';
 import Brands from './Brands';
 import Size from './Size';
@@ -20,23 +20,23 @@ const useStyles = makeStyles({
 		borderBottom: '1px solid #9F9F9F',
 		fontWeight: 'bold',
 	},
+	button: {
+		width: '100%',
+	},
+	input: {
+		display: 'none',
+	},
 });
 
 const ProductsContainer = props => {
 	const {
 		products,
 		sorting,
-		productsFrom,
-		productsTo,
 		quantity,
 		handleChangeSorting,
 		handleSelectGrid,
 		handleSelectList,
-		handleChangePage,
-		handleChangeFirstPage,
-		handleChangePrevPage,
-		handleChangeNextPage,
-		handleChangeLastPage,
+		handleClearFilter,
 	} = props;
 
 	const classes = useStyles();
@@ -45,6 +45,14 @@ const ProductsContainer = props => {
 		<Container className={classes.container} maxWidth="lg">
 			<Grid container spacing={5}>
 				<Grid item md={3} xs={12}>
+					<Button
+						variant="contained"
+						color="primary"
+						className={classes.button}
+						onClick={handleClearFilter}
+					>
+						clear filter
+					</Button>
 					<Grid item xs={12}>
 						<Typography variant="subtitle2" className={classes.title}>
 							PRICE
@@ -68,17 +76,10 @@ const ProductsContainer = props => {
 					<Products
 						products={products}
 						sorting={sorting}
-						productsFrom={productsFrom}
-						productsTo={productsTo}
 						quantity={quantity}
 						handleChangeSorting={handleChangeSorting}
 						handleSelectGrid={handleSelectGrid}
 						handleSelectList={handleSelectList}
-						handleChangePage={handleChangePage}
-						handleChangeFirstPage={handleChangeFirstPage}
-						handleChangePrevPage={handleChangePrevPage}
-						handleChangeNextPage={handleChangeNextPage}
-						handleChangeLastPage={handleChangeLastPage}
 					/>
 				</Grid>
 			</Grid>
@@ -89,17 +90,7 @@ const ProductsContainer = props => {
 ProductsContainer.propTypes = {
 	products: PropTypes.oneOfType([PropTypes.func, PropTypes.array]).isRequired,
 	sorting: PropTypes.string.isRequired,
-	productsFrom: PropTypes.number.isRequired,
-	productsTo: PropTypes.number.isRequired,
 	quantity: PropTypes.number.isRequired,
-	handleChangeSorting: PropTypes.func.isRequired,
-	handleSelectGrid: PropTypes.func.isRequired,
-	handleSelectList: PropTypes.func.isRequired,
-	handleChangePage: PropTypes.func.isRequired,
-	handleChangeFirstPage: PropTypes.func.isRequired,
-	handleChangePrevPage: PropTypes.func.isRequired,
-	handleChangeNextPage: PropTypes.func.isRequired,
-	handleChangeLastPage: PropTypes.func.isRequired,
 };
 
 export default ProductsContainer;

@@ -18,6 +18,8 @@
 		"no-console": "off",
 		"no-plusplus": "off",
 		"no-shadow": "off",
+		"consistent-return": "off",
+		"no-param-reassign": "off",
 		"no-restricted-syntax": [
 			"error",
 			{

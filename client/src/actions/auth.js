@@ -7,6 +7,9 @@ import {
 	LOGIN_SUCCESS,
 	LOGIN_FAIL,
 	LOGOUT,
+	EDIT_ADDRESS,
+	LOAD_USER_ORDERS,
+	ORDER_ERROR,
 } from './types';
 import setAuthToken from '../utills/setAuthToken';
 
@@ -89,7 +92,52 @@ export const login = (email, password) => async dispatch => {
 
 // Logout
 export const logout = () => dispatch => {
+	delete axios.defaults.headers.common['x-auth-token'];
 	dispatch({
 		type: LOGOUT,
 	});
+};
+
+// Edit user address
+export const saveAddress = form => async dispatch => {
+	const config = {
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	};
+
+	try {
+		const res = await axios.post('/api/users/update', form, config);
+		dispatch({
+			type: EDIT_ADDRESS,
+			payload: res.data,
+		});
+	} catch (err) {
+		const errors = err.response.data.errors;
+		console.error(errors);
+
+		dispatch({
+			type: LOGIN_FAIL,
+		});
+	}
+};
+
+// Load user orders
+
+export const loadUserOrders = () => async dispatch => {
+	try {
+		const orders = await axios.get('/api/order');
+
+		dispatch({
+			type: LOAD_USER_ORDERS,
+			payload: orders.data,
+		});
+	} catch (err) {
+		const errors = err.response.data.errors;
+		console.error(errors);
+
+		dispatch({
+			type: ORDER_ERROR,
+		});
+	}
 };

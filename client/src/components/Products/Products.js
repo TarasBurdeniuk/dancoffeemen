@@ -1,38 +1,46 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import InfiniteScroll from 'react-infinite-scroller';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import { GridOn, List } from '@material-ui/icons';
+import pink from '@material-ui/core/colors/pink';
 import PropTypes from 'prop-types';
+import { loadProducts, loadFilteredProducts } from '../../actions/products';
+import Spinner from '../Loading';
+import { addToBasket } from '../../actions/basket';
 
-import StarsRate from '../ProductDetails/StarsRate';
-import Pagination from './Pagination';
+const strongPink = pink[800];
 
 const useStyles = makeStyles({
 	grid: {
 		display: 'flex',
 		flexDirection: 'column',
+		position: 'relative',
+		overflow: 'hidden',
 		alignItems: 'center',
 		justifyContent: 'space-between',
-		width: '100%',
+		maxWidth: 350,
+		minWidth: 200,
 		height: 400,
-		marginTop: '1rem',
-		padding: 5,
+		margin: '1rem',
+		padding: '5px 10px',
 		boxSizing: 'border-box',
 		'&:hover button': {
-			display: 'block',
+			opacity: 1,
+			top: '85%',
 		},
 	},
 	buttonHover: {
-		display: 'none',
 		marginBottom: '1rem',
+		position: 'absolute',
+		top: '100%',
+		transition: 'all .5s',
+		opacity: 0,
 	},
 	paperBlock: {
 		display: 'inherit',
@@ -65,6 +73,7 @@ const useStyles = makeStyles({
 	},
 	showingInfo: {
 		marginTop: '1.1rem',
+		margin: '0 auto',
 	},
 	products: {
 		marginTop: '2rem',
@@ -72,11 +81,10 @@ const useStyles = makeStyles({
 	details: {
 		marginLeft: '2rem',
 	},
-	starsRate: {
-		margin: '1rem 0 0 -.3rem',
-	},
 	price: {
 		margin: '1rem 0 1.2rem',
+		color: strongPink,
+		fontSize: 18,
 	},
 	button: {
 		marginTop: '1rem',
@@ -87,74 +95,75 @@ const useStyles = makeStyles({
 		maxHeight: 200,
 		marginTop: '1rem',
 	},
-	pagination: {
-		marginTop: '3rem',
-		marginBottom: '3rem',
+	infinity: {
+		display: 'flex',
+		flexWrap: 'wrap',
+		justifyContent: 'space-around',
+		width: '100%',
+		marginBottom: 20,
 	},
 });
 
 const Products = props => {
 	const {
 		products,
-		sorting,
-		productsFrom,
-		productsTo,
 		quantity,
-		handleChangeSorting,
 		handleSelectGrid,
 		handleSelectList,
-		handleChangePage,
-		handleChangeFirstPage,
-		handleChangePrevPage,
-		handleChangeNextPage,
-		handleChangeLastPage,
+		loadProducts,
+		loading,
+		startPage,
+		quantityAllProducts,
+		quantityChosenFilter,
+		filteredProducts,
+		loadFilteredProducts,
+		chosenFilter,
+		addToBasket,
 	} = props;
 
 	const classes = useStyles();
 
-	const inputLabel = useRef(null);
-	const [labelWidth, setLabelWidth] = useState(0);
-	useEffect(() => {
-		setLabelWidth(inputLabel.current.offsetWidth);
-	}, []);
-
-	const list = products.map((product, i) => {
-		if (i + 1 <= productsTo && i + 1 >= productsFrom) {
-			if (quantity === 12) {
-				return (
-					<Grid key={product._id} item xs={12} sm={6} md={4}>
-						<Paper className={classes.grid} justify="center">
-							<div className={classes.paperBlock}>
+	const list = products.map(product => {
+		if (quantity === 12) {
+			return (
+				<Grid key={product._id} item xs={12} sm={6} md={4}>
+					<Paper className={classes.grid} justify="center">
+						<div className={classes.paperBlock}>
+							<Link to={`/${product._id}`}>
 								<img
 									src={product.image[0]}
 									alt={`${product.brand}_${product.model}`}
 									className={classes.image}
 								/>
-								<h3>{`${product.brand} ${product.model} ${product.specifications.size}`}</h3>
-								<h4>Price: ${product.price}</h4>
-							</div>
-							<Button
-								variant="contained"
-								size="large"
-								color="secondary"
-								className={classes.buttonHover}
-							>
-								Add To Cart
-							</Button>
-						</Paper>
-					</Grid>
-				);
-			}
-			if (quantity === 4) {
-				return (
-					<Grid
-						container
-						key={product._id}
-						className={classes.products}
-						justify="center"
-						spacing={5}
-					>
-						<Grid item xs={12} sm={12} md={4}>
+							</Link>
+							<h3>{`${product.brand} ${product.model}`}</h3>
+							<h3>{product.specifications.size}</h3>
+							<h4 className={classes.price}>Price: ${product.price}</h4>
+						</div>
+						<Button
+							variant="contained"
+							size="large"
+							color="secondary"
+							className={classes.buttonHover}
+							onClick={() => handleAddToBasket(product)}
+						>
+							Add To Basket
+						</Button>
+					</Paper>
+				</Grid>
+			);
+		}
+		if (quantity === 4) {
+			return (
+				<Grid
+					container
+					key={product._id}
+					className={classes.products}
+					justify="center"
+					spacing={5}
+				>
+					<Grid item xs={12} sm={12} md={4}>
+						<Link to={`/${product._id}`}>
 							<Paper className={classes.list}>
 								<img
 									src={product.image[0]}
@@ -162,61 +171,55 @@ const Products = props => {
 									className={classes.image}
 								/>
 							</Paper>
-						</Grid>
-						<Grid item className={classes.details} xs={12} sm={12} md={7}>
-							<Typography variant="h5" gutterBottom>
-								{`${product.brand} ${product.model} ${product.specifications.size}`}
-							</Typography>
-							<div className={classes.starsRate}>
-								<StarsRate />
-							</div>
-							<Typography className={classes.price} variant="h5" gutterBottom>
-								${product.price}
-							</Typography>
-							<Typography variant="subtitle2" gutterBottom>
-								{product.shortDescription}
-							</Typography>
-							<Button
-								variant="contained"
-								size="large"
-								color="secondary"
-								className={classes.button}
-							>
-								Add To Cart
-							</Button>
-						</Grid>
+						</Link>
 					</Grid>
-				);
-			}
+					<Grid item className={classes.details} xs={12} sm={12} md={7}>
+						<Typography variant="h5" gutterBottom>
+							{`${product.brand} ${product.model} ${product.specifications.size}`}
+						</Typography>
+						<h4 className={classes.price}>${product.price}</h4>
+						<Typography variant="subtitle2" gutterBottom>
+							{product.shortDescription}
+						</Typography>
+						<Button
+							variant="contained"
+							size="large"
+							color="secondary"
+							className={classes.button}
+							onClick={() => handleAddToBasket(product)}
+						>
+							Add To Basket
+						</Button>
+					</Grid>
+				</Grid>
+			);
 		}
 		return null;
 	});
 
+	const loadMore = () => {
+		if (
+			quantityAllProducts === products.length ||
+			quantityChosenFilter === products.length ||
+			loading
+		)
+			return;
+		filteredProducts.length
+			? loadFilteredProducts({ ...chosenFilter })
+			: loadProducts(startPage);
+	};
+
+	const handleAddToBasket = product => {
+		addToBasket({ ...product, addQuantity: 1 });
+	};
+
 	return (
 		<Grid container>
 			<Grid container justify="center" className={classes.sorting}>
-				<FormControl variant="outlined" className={classes.formControl}>
-					<InputLabel ref={inputLabel} htmlFor="outlined-age-simple">
-						Sort by
-					</InputLabel>
-					<Select
-						value={sorting}
-						onChange={handleChangeSorting}
-						input={
-							<OutlinedInput
-								labelWidth={labelWidth}
-								name="sorting"
-								id="outlined-age-simple"
-							/>
-						}
-					>
-						<MenuItem value="rating">Rating</MenuItem>
-						<MenuItem value="popularity">Popularity</MenuItem>
-						<MenuItem value="newness">Newness</MenuItem>
-					</Select>
-				</FormControl>
 				<Typography variant="subtitle2" className={classes.showingInfo}>
-					Showing {productsFrom}-{productsTo} of {products.length} products
+					Showing {products.length} items of{' '}
+					{quantityChosenFilter > 0 ? quantityChosenFilter : quantityAllProducts}{' '}
+					{filteredProducts.length > 0 ? 'filtered products' : 'products'}
 				</Typography>
 				<Grid>
 					<GridOn
@@ -231,21 +234,17 @@ const Products = props => {
 					/>
 				</Grid>
 			</Grid>
-			<Grid container justify="center" spacing={4}>
+			<InfiniteScroll
+				className={classes.infinity}
+				pageStart={0}
+				loadMore={loadMore}
+				hasMore={true}
+				threshold={100}
+				useWindow={true}
+			>
 				{list}
-			</Grid>
-			<Grid container className={classes.pagination} justify="center">
-				<Pagination
-					products={products}
-					productsTo={productsTo}
-					quantity={quantity}
-					handleChangePage={handleChangePage}
-					handleChangeFirstPage={handleChangeFirstPage}
-					handleChangePrevPage={handleChangePrevPage}
-					handleChangeNextPage={handleChangeNextPage}
-					handleChangeLastPage={handleChangeLastPage}
-				/>
-			</Grid>
+				{loading && <Spinner />}
+			</InfiniteScroll>
 		</Grid>
 	);
 };
@@ -253,17 +252,25 @@ const Products = props => {
 Products.propTypes = {
 	products: PropTypes.oneOfType([PropTypes.func, PropTypes.array]).isRequired,
 	sorting: PropTypes.string.isRequired,
-	productsFrom: PropTypes.number.isRequired,
-	productsTo: PropTypes.number.isRequired,
 	quantity: PropTypes.number.isRequired,
-	handleChangeSorting: PropTypes.func.isRequired,
-	handleSelectGrid: PropTypes.func.isRequired,
-	handleSelectList: PropTypes.func.isRequired,
-	handleChangePage: PropTypes.func.isRequired,
-	handleChangeFirstPage: PropTypes.func.isRequired,
-	handleChangePrevPage: PropTypes.func.isRequired,
-	handleChangeNextPage: PropTypes.func.isRequired,
-	handleChangeLastPage: PropTypes.func.isRequired,
 };
 
-export default Products;
+const mapStateToProps = state => ({
+	loading: state.product.loading,
+	startPage: state.product.startPage,
+	quantityAllProducts: state.product.quantityAllProducts,
+	quantityChosenFilter: state.product.quantityChosenFilter,
+	filteredProducts: state.product.filteredProducts,
+	chosenFilter: state.product.chosenFilter,
+});
+
+const mapDispatchToProps = {
+	loadProducts,
+	loadFilteredProducts,
+	addToBasket,
+};
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps,
+)(Products);

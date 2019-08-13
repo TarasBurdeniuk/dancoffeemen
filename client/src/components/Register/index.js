@@ -33,14 +33,14 @@ const useStyles = makeStyles(theme => ({
 		alignItems: 'center',
 	},
 	form: {
-		width: '100%', // Fix IE 11 issue.
+		width: '100%',
 		marginTop: theme.spacing(3),
 	},
 	submit: {
 		margin: theme.spacing(3, 0, 2),
 	},
 	container: {
-		minHeight: 'calc(100vh - 213px)',
+		minHeight: '100vh',
 		marginBottom: 50,
 	},
 	error: {
@@ -58,6 +58,7 @@ const SignUp = ({ register, isAuthenticated }) => {
 		errorPassword: '',
 		checkFields: '',
 	});
+	const { errorPassword } = errorData;
 
 	const [formData, setFormData] = useState({
 		name: '',
@@ -72,13 +73,34 @@ const SignUp = ({ register, isAuthenticated }) => {
 	const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
 	const checkPassword = (pas1, pas2) => {
-		return pas1 !== pas2 ? 'Check password' : '';
+		if (pas1 !== pas2 || pas2.length < 6 || pas1.length < 6) {
+			setErrorData({
+				...errorData,
+				errorPassword: 'Check password',
+			});
+		} else {
+			setErrorData({
+				...errorData,
+				errorPassword: '',
+			});
+		}
 	};
 
 	const onSubmit = e => {
 		e.preventDefault();
-		if (!password || !password2 || !name || !email || !phone) {
-			setErrorData({ checkFields: 'All fields must be filled in' });
+		if (
+			!password ||
+			!password2 ||
+			!name ||
+			!email ||
+			!phone ||
+			errorPassword ||
+			password !== password2
+		) {
+			setErrorData({
+				...errorData,
+				checkFields: 'All fields must be filled in or check fields',
+			});
 		} else {
 			register({ name, phone, email, password });
 		}
@@ -105,10 +127,13 @@ const SignUp = ({ register, isAuthenticated }) => {
 								label="Name"
 								name="name"
 								value={name}
-								onChange={e => onChange(e)}
-								onBlur={e =>
-									setErrorData({ errorName: validateName(e.target.value) })
-								}
+								onChange={e => {
+									onChange(e);
+									setErrorData({
+										...errorData,
+										errorName: validateName(e.target.value),
+									});
+								}}
 							/>
 							{errorData.errorName && (
 								<div className={classes.error}>{errorData.errorName}</div>
@@ -124,10 +149,13 @@ const SignUp = ({ register, isAuthenticated }) => {
 								label="Email Address"
 								name="email"
 								value={email}
-								onChange={e => onChange(e)}
-								onBlur={e =>
-									setErrorData({ errorEmail: validateEmail(e.target.value) })
-								}
+								onChange={e => {
+									onChange(e);
+									setErrorData({
+										...errorData,
+										errorEmail: validateEmail(e.target.value),
+									});
+								}}
 							/>
 							{errorData.errorEmail && (
 								<div className={classes.error}>{errorData.errorEmail}</div>
@@ -143,10 +171,13 @@ const SignUp = ({ register, isAuthenticated }) => {
 								name="phone"
 								placeholder="096 123 45 67"
 								value={phone}
-								onChange={e => onChange(e)}
-								onBlur={e =>
-									setErrorData({ errorPhone: validatePhone(e.target.value) })
-								}
+								onChange={e => {
+									onChange(e);
+									setErrorData({
+										...errorData,
+										errorPhone: validatePhone(e.target.value),
+									});
+								}}
 							/>
 							{errorData.errorPhone && (
 								<div className={classes.error}>{errorData.errorPhone}</div>
@@ -161,12 +192,17 @@ const SignUp = ({ register, isAuthenticated }) => {
 								label="Password"
 								type="password"
 								value={password}
-								onChange={e => onChange(e)}
-								onBlur={e =>
+								onChange={e => {
+									onChange(e);
 									setErrorData({
+										...errorData,
 										errorPassword: validatePassword(e.target.value),
-									})
-								}
+									});
+									checkPassword(password2, e.target.value);
+								}}
+								// onBlur={e =>
+								//
+								// }
 							/>
 							{errorData.errorPassword && (
 								<div className={classes.error}>{errorData.errorPassword}</div>
@@ -181,12 +217,14 @@ const SignUp = ({ register, isAuthenticated }) => {
 								label="Repeat password"
 								type="password"
 								value={password2}
-								onChange={e => onChange(e)}
-								onBlur={e =>
+								onChange={e => {
+									onChange(e);
 									setErrorData({
-										errorPassword: checkPassword(password, e.target.value),
-									})
-								}
+										...errorData,
+										errorPassword: validatePassword(e.target.value),
+									});
+									checkPassword(password, e.target.value);
+								}}
 							/>
 							{errorData.errorPassword && (
 								<div className={classes.error}>{errorData.errorPassword}</div>
