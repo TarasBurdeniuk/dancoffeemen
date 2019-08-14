@@ -24,6 +24,22 @@ router.get('/', async (req, res) => {
 	}
 });
 
+// Route    GET api/products/newarrivals
+// Desc     Load new arrivals products
+
+router.get('/newarrivals', async (req, res) => {
+	const quantityNewArrivals = 10;
+	try {
+		const products = await Product.find({})
+			.sort({ date: -1 })
+			.limit(quantityNewArrivals);
+		res.json(products);
+	} catch (err) {
+		console.error(err.message);
+		res.status(500).send('Server error');
+	}
+});
+
 // Route   GET api/products/:id
 // Desc    get product by id
 

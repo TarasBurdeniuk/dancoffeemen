@@ -9,6 +9,7 @@ import {
 	SIZES_LOADED,
 	CLEAR_FILTER,
 	GET_PRODUCT,
+	GET_NEW_ARRIVALS,
 } from '../actions/types';
 
 const initialState = {
@@ -22,9 +23,10 @@ const initialState = {
 	quantityAllProducts: 0,
 	quantityChosenFilter: 0,
 	filteredProducts: [],
+	newArrivals: null,
 	chosenFilter: {
 		brands: [],
-		price: [5, 25],
+		price: [5, 40],
 		size: [],
 		startPage: 0,
 	},
@@ -49,10 +51,12 @@ const product = (state = initialState, action) => {
 			return { ...state, brands: payload };
 		case SIZES_LOADED:
 			return { ...state, sizes: payload[0].size };
+		case GET_NEW_ARRIVALS:
+			return { ...state, newArrivals: payload };
 		case CLEAR_FILTER:
 			return {
 				...state,
-				chosenFilter: { brands: [], price: [5, 25], size: [], startPage: 0 },
+				chosenFilter: { brands: [], price: [5, 40], size: [], startPage: 0 },
 				filteredProducts: [],
 				quantityChosenFilter: 0,
 			};

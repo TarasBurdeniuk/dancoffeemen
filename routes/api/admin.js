@@ -64,7 +64,7 @@ router.post(
 		try {
 			const newProduct = {};
 			if (brand) {
-				newProduct.brand = brand;
+				newProduct.brand = brand.toUpperCase();
 			}
 			if (model) {
 				newProduct.model = model;

@@ -12,13 +12,14 @@ import Review from './Review';
 import ShoppingCart from './ShoppingCart';
 import { loadLocalStorageProducts, setShippingAddress, createOrder } from '../../actions/basket';
 import pink from '@material-ui/core/colors/pink';
+import Spinner from '../Loading';
 
 const moreStrongPink = pink[700];
 const strongPink = pink[500];
 
 const useStyles = makeStyles(theme => ({
 	layout: {
-		height: '100vh',
+		minHeight: '100vh',
 		maxWidth: 1160,
 		padding: '10px 5px 20px',
 		boxSizing: 'border-box',
@@ -95,6 +96,7 @@ const Checkout = ({
 	setShippingAddress,
 	shippingAddress,
 	createOrder,
+	order,
 }) => {
 	const classes = useStyles();
 	const [activeStep, setActiveStep] = useState(0);
@@ -184,10 +186,15 @@ const Checkout = ({
 							<Typography variant="h5" gutterBottom>
 								Thank you for your order.
 							</Typography>
-							<Typography variant="subtitle1">
-								Your order number is #. We have emailed your order confirmation, and
-								will send you an update when your order has shipped.
-							</Typography>
+							{order === null ? (
+								<Spinner />
+							) : (
+								<Typography variant="subtitle1">
+									Your order number is #{order.orderNumber}. We have emailed your
+									order confirmation, and will send you an update when your order
+									has shipped.
+								</Typography>
+							)}
 						</>
 					) : (
 						<>
@@ -233,6 +240,7 @@ const mapStateToProps = state => ({
 	products: state.basket.products,
 	shippingAddress: state.basket.shippingAddress,
 	user: state.auth.user,
+	order: state.basket.order,
 });
 
 const mapDispatchToProps = {

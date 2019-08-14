@@ -16,7 +16,7 @@ import setAuthToken from './utills/setAuthToken';
 import store from './store';
 import { loadUser } from './actions/auth';
 import { loadContacts } from './actions/contacts';
-import { loadBrands, loadSizes, loadProducts } from './actions/products';
+import { loadBrands, loadSizes, loadProducts, loadNewArrivals } from './actions/products';
 
 if (localStorage.token) {
 	setAuthToken(localStorage.token);
@@ -29,6 +29,7 @@ const App = () => {
 		store.dispatch(loadBrands());
 		store.dispatch(loadSizes());
 		store.dispatch(loadProducts());
+		store.dispatch(loadNewArrivals());
 	}, []);
 
 	return (

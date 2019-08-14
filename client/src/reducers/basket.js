@@ -41,8 +41,10 @@ const basket = (state = initialState, action) => {
 				shippingAddress: { ...state.shippingAddress, ...payload },
 			};
 		case ORDER_LOAD:
+			localStorage.setItem('shoppingCart', '[]');
 			return {
 				...state,
+				products: [],
 				order: payload,
 			};
 		case LOGOUT:
