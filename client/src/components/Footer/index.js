@@ -73,7 +73,6 @@ const useStyles = makeStyles({
 			transition: '0.5s',
 		},
 	},
-	copyright: {},
 	info: {
 		display: 'none',
 	},
@@ -82,11 +81,11 @@ const useStyles = makeStyles({
 			display: 'flex',
 		},
 		block: {
-			margin: '20px 0',
+			margin: '10px 0',
 			padding: 10,
 		},
 		container: {
-			padding: '30px 0',
+			padding: '20px 0',
 		},
 	},
 });
@@ -162,7 +161,7 @@ const Footer = ({ contact: { contacts, loading } }) => {
 						</div>
 					</div>
 				</div>
-				<div className={classes.copyright}>
+				<div>
 					<span>Copyright. All right reserved.</span>
 				</div>
 			</div>
