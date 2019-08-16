@@ -44,6 +44,54 @@ const tutorialSteps = [
 		id: 8,
 		imgPath: 'photo/mainPage/mainCarusel/coffee8.jpg',
 	},
+	{
+		id: 9,
+		imgPath: 'photo/mainPage/mainCarusel/coffee9.jpg',
+	},
+	{
+		id: 10,
+		imgPath: 'photo/mainPage/mainCarusel/coffee10.jpg',
+	},
+	{
+		id: 11,
+		imgPath: 'photo/mainPage/mainCarusel/coffee11.jpg',
+	},
+	{
+		id: 12,
+		imgPath: 'photo/mainPage/mainCarusel/coffee12.jpg',
+	},
+	{
+		id: 13,
+		imgPath: 'photo/mainPage/mainCarusel/coffee13.jpg',
+	},
+	{
+		id: 14,
+		imgPath: 'photo/mainPage/mainCarusel/coffee14.jpg',
+	},
+	{
+		id: 15,
+		imgPath: 'photo/mainPage/mainCarusel/coffee15.jpg',
+	},
+	{
+		id: 16,
+		imgPath: 'photo/mainPage/mainCarusel/coffee16.jpg',
+	},
+	{
+		id: 17,
+		imgPath: 'photo/mainPage/mainCarusel/coffee17.jpg',
+	},
+	{
+		id: 18,
+		imgPath: 'photo/mainPage/mainCarusel/coffee18.jpg',
+	},
+	{
+		id: 19,
+		imgPath: 'photo/mainPage/mainCarusel/coffee19.jpg',
+	},
+	{
+		id: 20,
+		imgPath: 'photo/mainPage/mainCarusel/coffee20.jpg',
+	},
 ];
 
 const useStyles = makeStyles(theme => ({
