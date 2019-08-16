@@ -23,7 +23,6 @@ const useStyles = makeStyles({
 	},
 	title: {
 		fontSize: 16,
-		fontWeight: 400,
 		textTransform: 'uppercase',
 		marginBottom: 15,
 	},
