@@ -11,6 +11,7 @@ import pink from '@material-ui/core/colors/pink';
 import grey from '@material-ui/core/colors/grey';
 import { setQuantity, removeProduct } from '../../actions/basket';
 import { Link } from 'react-router-dom';
+import { calc } from '../../utills/func';
 
 const lightPink = pink[300];
 const strongPink = pink[500];
@@ -131,10 +132,6 @@ const ShoppingCart = props => {
 
 	const handleRemove = prod => {
 		removeProduct(prod);
-	};
-
-	const calc = (price, quantity) => {
-		return (price * 1000 * quantity) / 1000;
 	};
 
 	const classes = useStyles();

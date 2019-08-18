@@ -10,6 +10,7 @@ import {
 	CLEAR_FILTER,
 	GET_PRODUCT,
 	GET_NEW_ARRIVALS,
+	CLEAR_PRODUCT,
 } from '../actions/types';
 
 const initialState = {
@@ -39,6 +40,8 @@ const product = (state = initialState, action) => {
 			return { ...state, loading: true };
 		case GET_PRODUCT:
 			return { ...state, product: payload };
+		case CLEAR_PRODUCT:
+			return { ...state, product: null };
 		case LOAD_PRODUCTS:
 			return {
 				...state,

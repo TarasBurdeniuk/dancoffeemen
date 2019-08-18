@@ -86,7 +86,7 @@ const DashboardActions = () => {
 					<RecentOrders />
 				</TabPanel>
 				<TabPanel value={value} index={1} dir={theme.direction}>
-					Wishlist
+					Wishlist in progress!!!
 				</TabPanel>
 				<TabPanel value={value} index={2} dir={theme.direction}>
 					<AddressBook />

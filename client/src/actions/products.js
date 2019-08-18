@@ -11,6 +11,7 @@ import {
 	CLEAR_FILTER,
 	GET_PRODUCT,
 	GET_NEW_ARRIVALS,
+	CLEAR_PRODUCT,
 } from './types';
 
 // Load products
@@ -115,6 +116,9 @@ export const clearFilter = () => dispatch => {
 // Get product by id
 
 export const getProduct = id => async dispatch => {
+	dispatch({
+		type: CLEAR_PRODUCT,
+	});
 	try {
 		const product = await axios.get(`/api/products/${id}`);
 		dispatch({

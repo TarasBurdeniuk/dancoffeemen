@@ -25,3 +25,6 @@ export const ORDER_LOAD = 'ORDER_LOAD';
 export const EDIT_ADDRESS = 'EDIT_ADDRESS';
 export const LOAD_USER_ORDERS = 'LOAD_USER_ORDERS';
 export const GET_NEW_ARRIVALS = 'GET_NEW_ARRIVALS';
+export const GET_ORDER_BY_ID = 'GET_ORDER_BY_ID';
+export const CLEAR_ORDER = 'CLEAR_ORDER';
+export const CLEAR_PRODUCT = 'CLEAR_PRODUCT';

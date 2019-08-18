@@ -8,6 +8,8 @@ import {
 	LOGOUT,
 	EDIT_ADDRESS,
 	LOAD_USER_ORDERS,
+	GET_ORDER_BY_ID,
+	CLEAR_ORDER,
 } from '../actions/types';
 
 const initialState = {
@@ -15,6 +17,7 @@ const initialState = {
 	isAuthenticated: null,
 	loading: true,
 	userOrders: [],
+	order: null,
 	user: null,
 };
 
@@ -48,6 +51,13 @@ const auth = (state = initialState, action) => {
 				...state,
 				userOrders: payload,
 			};
+		case GET_ORDER_BY_ID:
+			return {
+				...state,
+				order: payload,
+			};
+		case CLEAR_ORDER:
+			return { ...state, order: null };
 		case REGISTER_FAIL:
 		case AUTH_ERROR:
 		case LOGIN_FAIL:

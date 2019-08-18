@@ -13,8 +13,10 @@ import PropTypes from 'prop-types';
 import { loadProducts, loadFilteredProducts } from '../../actions/products';
 import Spinner from '../Loading';
 import { addToBasket } from '../../actions/basket';
+import grey from '@material-ui/core/colors/grey';
 
 const strongPink = pink[800];
+const strongGrey = grey[700];
 
 const useStyles = makeStyles({
 	grid: {
@@ -102,6 +104,12 @@ const useStyles = makeStyles({
 		width: '100%',
 		marginBottom: 20,
 	},
+	brand: {
+		color: strongGrey,
+		'&:hover': {
+			color: strongPink,
+		},
+	},
 });
 
 const Products = props => {
@@ -142,7 +150,11 @@ const Products = props => {
 									className={classes.image}
 								/>
 							</Link>
-							<h3>{`${product.brand} ${product.model}`}</h3>
+							<Link to={`/${product._id}`}>
+								<h3
+									className={classes.brand}
+								>{`${product.brand} ${product.model}`}</h3>
+							</Link>
 							<h3>{product.specifications.size}</h3>
 							<h4 className={classes.price}>Price: ${product.price}</h4>
 						</div>
@@ -180,9 +192,11 @@ const Products = props => {
 						</Link>
 					</Grid>
 					<Grid item className={classes.details} xs={12} sm={12} md={7}>
-						<Typography variant="h5" gutterBottom>
-							{`${product.brand} ${product.model} ${product.specifications.size}`}
-						</Typography>
+						<Link to={`/${product._id}`}>
+							<Typography variant="h5" gutterBottom className={classes.brand}>
+								{`${product.brand} ${product.model} ${product.specifications.size}`}
+							</Typography>
+						</Link>
 						<h4 className={classes.price}>${product.price}</h4>
 						<Typography variant="subtitle2" gutterBottom>
 							{product.shortDescription}
@@ -259,6 +273,10 @@ Products.propTypes = {
 	products: PropTypes.oneOfType([PropTypes.func, PropTypes.array]).isRequired,
 	sorting: PropTypes.string.isRequired,
 	quantity: PropTypes.number.isRequired,
+	addToBasket: PropTypes.func.isRequired,
+	loadFilteredProducts: PropTypes.func.isRequired,
+	loadProducts: PropTypes.func.isRequired,
+	loading: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
