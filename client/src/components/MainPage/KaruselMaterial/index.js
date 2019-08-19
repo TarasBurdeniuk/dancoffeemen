@@ -156,6 +156,12 @@ const SwipeableTextMobileStepper = () => {
 				index={activeStep}
 				onChangeIndex={handleStepChange}
 				enableMouseEvents
+				interval="4000"
+				springConfig={{
+					duration: '1s',
+					easeFunction: 'cubic-bezier(0.35, 0.7, 0.8, 1)',
+					delay: '0s',
+				}}
 			>
 				{tutorialSteps.map((step, index) => (
 					<div key={step.id} className={classes.customDiv}>
