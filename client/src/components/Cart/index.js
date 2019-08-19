@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
 	layout: {
 		minHeight: '100vh',
 		maxWidth: 1160,
-		padding: '10px 5px 20px',
+		padding: '10px 20px 20px',
 		boxSizing: 'border-box',
 		marginLeft: theme.spacing(2),
 		marginRight: theme.spacing(2),
@@ -190,7 +190,7 @@ const Checkout = ({
 								<Spinner />
 							) : (
 								<Typography variant="subtitle1">
-									Your order number is #{order.orderNumber}. We have emailed your
+									Your order number is {order.orderNumber}. We have emailed your
 									order confirmation, and will send you an update when your order
 									has shipped.
 								</Typography>

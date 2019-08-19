@@ -110,6 +110,9 @@ const useStyles = makeStyles({
 	image: {
 		height: 400,
 	},
+	brand: {
+		color: strongGrey,
+	},
 });
 
 const Details = props => {
@@ -152,7 +155,7 @@ const Details = props => {
 					</div>
 				</Grid>
 				<Grid item md={7} xs={12}>
-					<Typography variant="h4" component="h2" gutterBottom>
+					<Typography variant="h4" component="h2" gutterBottom className={classes.brand}>
 						<strong>{`${brand} ${model}`}</strong>
 					</Typography>
 					<Typography className={classes.price} variant="h5" gutterBottom>
@@ -247,6 +250,7 @@ Details.propTypes = {
 	quantity: PropTypes.number.isRequired,
 	handleIncrement: PropTypes.func.isRequired,
 	handleDecrement: PropTypes.func.isRequired,
+	product: PropTypes.object.isRequired,
 };
 
 export default Details;

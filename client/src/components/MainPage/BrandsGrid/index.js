@@ -1,10 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
 import grey from '@material-ui/core/colors/grey';
+import { loadFilteredProducts, clearFilter } from '../../../actions/products';
 
 const lightGrey = grey[100];
 
@@ -21,7 +23,6 @@ const useStyles = makeStyles({
 	},
 	title: {
 		fontSize: 16,
-		fontWeight: 400,
 		textTransform: 'uppercase',
 		marginBottom: 15,
 	},
@@ -57,8 +58,18 @@ const useStyles = makeStyles({
 	},
 });
 
-const ImgMediaCard = ({ brands }) => {
+const ImgMediaCard = ({ brands, loadFilteredProducts, clearFilter }) => {
 	const classes = useStyles();
+
+	const handleClick = brand => {
+		clearFilter();
+		loadFilteredProducts({
+			price: [5, 40],
+			size: [],
+			brands: [brand],
+			startPage: 0,
+		});
+	};
 
 	return (
 		brands && (
@@ -69,11 +80,7 @@ const ImgMediaCard = ({ brands }) => {
 						{brands.map(item => {
 							return (
 								<Card key={item.name} className={classes.card}>
-									<a
-										rel="noopener noreferrer"
-										target="_blank"
-										href={item.brandLink}
-									>
+									<Link to="/products">
 										<CardActionArea key={item.name}>
 											<CardMedia
 												key={item.name}
@@ -81,9 +88,10 @@ const ImgMediaCard = ({ brands }) => {
 												alt={item.name}
 												height="150"
 												image={item.src}
+												onClick={() => handleClick(item.name)}
 											/>
 										</CardActionArea>
-									</a>
+									</Link>
 								</Card>
 							);
 						})}
@@ -98,4 +106,12 @@ const mapStateToProps = state => ({
 	brands: state.product.brands,
 });
 
-export default connect(mapStateToProps)(ImgMediaCard);
+const mapDispatchToProps = {
+	loadFilteredProducts,
+	clearFilter,
+};
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps,
+)(ImgMediaCard);

@@ -51,10 +51,15 @@ const basket = (state = initialState, action) => {
 			return {
 				...state,
 				shippingAddress: {
-					...state.shippingAddress,
-					name: '',
-					email: '',
+					// ...state.shippingAddress,
+					country: '',
+					state: '',
+					city: '',
+					street: '',
+					houseNumber: '',
+					apartment: '',
 					contactPhone: '',
+					index: '',
 					cardName: '',
 					cardNumber: '',
 					expDate: '',
