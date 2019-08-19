@@ -10,6 +10,8 @@ import {
 	EDIT_ADDRESS,
 	LOAD_USER_ORDERS,
 	ORDER_ERROR,
+	GET_ORDER_BY_ID,
+	CLEAR_ORDER,
 } from './types';
 import setAuthToken from '../utills/setAuthToken';
 
@@ -123,7 +125,6 @@ export const saveAddress = form => async dispatch => {
 };
 
 // Load user orders
-
 export const loadUserOrders = () => async dispatch => {
 	try {
 		const orders = await axios.get('/api/order');
@@ -140,4 +141,28 @@ export const loadUserOrders = () => async dispatch => {
 			type: ORDER_ERROR,
 		});
 	}
+};
+
+// Get user order by id
+export const loadUserOrderById = orderId => async dispatch => {
+	try {
+		const order = await axios.get(`/api/order/${orderId}`);
+		dispatch({
+			type: GET_ORDER_BY_ID,
+			payload: order.data,
+		});
+	} catch (err) {
+		const errors = err.response.data.errors;
+		console.error(errors);
+		dispatch({
+			type: ORDER_ERROR,
+		});
+	}
+};
+
+// Clear user orderById
+export const clearOrder = () => dispatch => {
+	dispatch({
+		type: CLEAR_ORDER,
+	});
 };

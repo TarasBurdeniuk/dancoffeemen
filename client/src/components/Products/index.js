@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import Container from './Container';
-import { clearFilter } from '../../actions/products';
+import { clearFilter, loadProducts } from '../../actions/products';
 import PropTypes from 'prop-types';
 
-const ProductsGrid = ({ clearFilter }) => {
+const ProductsGrid = ({ clearFilter, loadProducts, products }) => {
 	const [sorting, setSorting] = useState('');
 	const [quantity, setQuantity] = useState(12);
 
@@ -23,6 +23,9 @@ const ProductsGrid = ({ clearFilter }) => {
 
 	const handleClearFilter = () => {
 		clearFilter();
+		if (!products.length) {
+			loadProducts();
+		}
 	};
 
 	return (
@@ -41,13 +44,19 @@ const ProductsGrid = ({ clearFilter }) => {
 
 ProductsGrid.propTypes = {
 	clearFilter: PropTypes.func.isRequired,
+	loadProducts: PropTypes.func.isRequired,
 };
+
+const mapStateToProps = state => ({
+	products: state.product.products,
+});
 
 const mapDispatchToProps = {
 	clearFilter,
+	loadProducts,
 };
 
 export default connect(
-	null,
+	mapStateToProps,
 	mapDispatchToProps,
 )(ProductsGrid);

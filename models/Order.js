@@ -15,6 +15,24 @@ const OrderSchema = new mongoose.Schema({
 				required: true,
 				min: 1,
 			},
+			image: [
+				{
+					type: String,
+					required: true,
+				},
+			],
+			price: {
+				type: String,
+				required: true,
+			},
+			brand: {
+				type: String,
+				required: true,
+			},
+			model: {
+				type: String,
+				required: true,
+			},
 		},
 	],
 	totalPrice: {

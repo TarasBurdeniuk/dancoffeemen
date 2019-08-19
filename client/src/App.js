@@ -17,6 +17,7 @@ import store from './store';
 import { loadUser } from './actions/auth';
 import { loadContacts } from './actions/contacts';
 import { loadBrands, loadSizes, loadProducts, loadNewArrivals } from './actions/products';
+import Order from './components/Dashboard/Order';
 
 if (localStorage.token) {
 	setAuthToken(localStorage.token);
@@ -44,6 +45,7 @@ const App = () => {
 					<Route exact path="/login" component={Login} />
 					<Route exact path="/register" component={Register} />
 					<PrivateRoute exact path="/dashboard" component={Dashboard} />
+					<PrivateRoute exact path="/dashboard/order/:id" component={Order} />
 					<Route exact path="/:id" component={ProductDetails} />
 				</Switch>
 				<Footer />
