@@ -58,13 +58,14 @@ const useStyles = makeStyles({
 	},
 });
 
-const ImgMediaCard = ({ brands, loadFilteredProducts, chosenFilter, clearFilter }) => {
+const ImgMediaCard = ({ brands, loadFilteredProducts, clearFilter }) => {
 	const classes = useStyles();
 
 	const handleClick = brand => {
 		clearFilter();
 		loadFilteredProducts({
-			...chosenFilter,
+			price: [5, 40],
+			size: [],
 			brands: [brand],
 			startPage: 0,
 		});
@@ -103,7 +104,6 @@ const ImgMediaCard = ({ brands, loadFilteredProducts, chosenFilter, clearFilter 
 
 const mapStateToProps = state => ({
 	brands: state.product.brands,
-	chosenFilter: state.product.chosenFilter,
 });
 
 const mapDispatchToProps = {

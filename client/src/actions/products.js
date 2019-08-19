@@ -12,6 +12,7 @@ import {
 	GET_PRODUCT,
 	GET_NEW_ARRIVALS,
 	CLEAR_PRODUCT,
+	CLEAR_INITIAL_PRODUCTS,
 } from './types';
 
 // Load products
@@ -63,6 +64,11 @@ export const loadFilteredProducts = filteredObject => async dispatch => {
 			'Content-Type': 'application/json',
 		},
 	};
+	if (filteredObject.startPage === 0) {
+		dispatch({
+			type: CLEAR_INITIAL_PRODUCTS,
+		});
+	}
 	dispatch({
 		type: LOADING,
 	});

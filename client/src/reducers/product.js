@@ -11,6 +11,7 @@ import {
 	GET_PRODUCT,
 	GET_NEW_ARRIVALS,
 	CLEAR_PRODUCT,
+	CLEAR_INITIAL_PRODUCTS,
 } from '../actions/types';
 
 const initialState = {
@@ -79,6 +80,13 @@ const product = (state = initialState, action) => {
 				},
 				quantityChosenFilter: payload.quantity,
 				loading: false,
+			};
+		case CLEAR_INITIAL_PRODUCTS:
+			return {
+				...state,
+				products: [],
+				startPage: 0,
+				filteredProducts: [],
 			};
 		case PRODUCT_ERROR:
 		case BRANDS_ERROR:

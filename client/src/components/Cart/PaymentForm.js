@@ -83,6 +83,7 @@ const PaymentForm = ({ setShippingAddress, shippingAddress }) => {
 						label="CVV"
 						helperText="Last three digits on signature strip"
 						fullWidth
+						type="password"
 						value={cvv}
 						onChange={e => onChange(e)}
 						onBlur={e => {
