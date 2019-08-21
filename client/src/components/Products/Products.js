@@ -138,6 +138,7 @@ const Products = props => {
 	}
 
 	const list = productsArray.map(product => {
+		const disabled = !product.quantity;
 		if (quantity === 12) {
 			return (
 				<Grid key={product._id} item xs={12} sm={6} md={4}>
@@ -159,13 +160,14 @@ const Products = props => {
 							<h4 className={classes.price}>Price: ${product.price}</h4>
 						</div>
 						<Button
+							disabled={disabled}
 							variant="contained"
 							size="large"
 							color="secondary"
 							className={classes.buttonHover}
 							onClick={() => handleAddToBasket(product)}
 						>
-							Add To Basket
+							{product.quantity === 0 ? 'Not available' : 'Add To Basket'}
 						</Button>
 					</Paper>
 				</Grid>
@@ -202,13 +204,14 @@ const Products = props => {
 							{product.shortDescription}
 						</Typography>
 						<Button
+							disabled={disabled}
 							variant="contained"
 							size="large"
 							color="secondary"
 							className={classes.button}
 							onClick={() => handleAddToBasket(product)}
 						>
-							Add To Basket
+							{product.quantity === 0 ? 'Not available' : 'Add To Basket'}
 						</Button>
 					</Grid>
 				</Grid>
