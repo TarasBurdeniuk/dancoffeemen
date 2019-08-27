@@ -69,7 +69,7 @@ const AddressForm = ({ setShippingAddress, shippingAddress }) => {
 				Shipping address
 			</Typography>
 			<Grid container spacing={3}>
-				<Container style={{ padding: '20px 0' }} component="main" maxWidth="xs">
+				<Container style={{ padding: '20px 0', maxWidth: 300 }} component="main">
 					<TextField
 						style={{ marginTop: 15 }}
 						required
@@ -128,8 +128,7 @@ const AddressForm = ({ setShippingAddress, shippingAddress }) => {
 						</div>
 					)}
 				</Container>
-
-				<Container style={{ padding: '20px 0' }} component="main" maxWidth="xs">
+				<Container style={{ padding: '20px 0', maxWidth: 300 }} component="main">
 					<TextField
 						style={{ marginTop: 15 }}
 						id="country"

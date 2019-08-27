@@ -43,7 +43,7 @@ const PaymentForm = ({ setShippingAddress, shippingAddress }) => {
 			<Typography variant="h6" gutterBottom>
 				Payment method
 			</Typography>
-			<Container component="main" maxWidth="xs">
+			<Container component="main" style={{ maxWidth: 300 }}>
 				<TextField
 					style={{ marginTop: 15 }}
 					required
