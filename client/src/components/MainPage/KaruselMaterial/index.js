@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
@@ -134,7 +134,7 @@ const useStyles = makeStyles(theme => ({
 const SwipeableTextMobileStepper = () => {
 	const classes = useStyles();
 	const theme = useTheme();
-	const [activeStep, setActiveStep] = React.useState(0);
+	const [activeStep, setActiveStep] = useState(0);
 	const maxSteps = tutorialSteps.length;
 
 	function handleNext() {
@@ -156,7 +156,7 @@ const SwipeableTextMobileStepper = () => {
 				index={activeStep}
 				onChangeIndex={handleStepChange}
 				enableMouseEvents
-				interval="4000"
+				interval={4000}
 				springConfig={{
 					duration: '1s',
 					easeFunction: 'cubic-bezier(0.35, 0.7, 0.8, 1)',

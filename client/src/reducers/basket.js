@@ -19,7 +19,6 @@ const initialState = {
 		apartment: '',
 		contactPhone: '',
 		index: '',
-		cardName: '',
 		cardNumber: '',
 		expDate: '',
 		cvv: '',
@@ -51,7 +50,6 @@ const basket = (state = initialState, action) => {
 			return {
 				...state,
 				shippingAddress: {
-					// ...state.shippingAddress,
 					country: '',
 					state: '',
 					city: '',
@@ -60,7 +58,6 @@ const basket = (state = initialState, action) => {
 					apartment: '',
 					contactPhone: '',
 					index: '',
-					cardName: '',
 					cardNumber: '',
 					expDate: '',
 					cvv: '',

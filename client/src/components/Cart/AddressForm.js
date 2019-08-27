@@ -6,6 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import { validateName, validateEmail, validatePhone } from '../../utills/validateFields';
 import pink from '@material-ui/core/colors/pink';
 import { setShippingAddress } from '../../actions/basket';
+import Container from '@material-ui/core/Container';
 
 const pinkStrong = pink[500];
 
@@ -68,8 +69,9 @@ const AddressForm = ({ setShippingAddress, shippingAddress }) => {
 				Shipping address
 			</Typography>
 			<Grid container spacing={3}>
-				<Grid item xs={12} sm={4}>
+				<Container style={{ padding: '20px 0' }} component="main" maxWidth="xs">
 					<TextField
+						style={{ marginTop: 15 }}
 						required
 						id="Name"
 						name="name"
@@ -84,11 +86,10 @@ const AddressForm = ({ setShippingAddress, shippingAddress }) => {
 						}}
 					/>
 					{errorData.errorName && (
-						<div style={{ color: pinkStrong }}>{errorData.errorName}</div>
+						<div style={{ color: pinkStrong, fontSize: 10 }}>{errorData.errorName}</div>
 					)}
-				</Grid>
-				<Grid item xs={12} sm={4}>
 					<TextField
+						style={{ marginTop: 15 }}
 						required
 						id="email"
 						name="email"
@@ -103,11 +104,12 @@ const AddressForm = ({ setShippingAddress, shippingAddress }) => {
 						}}
 					/>
 					{errorData.errorEmail && (
-						<div style={{ color: pinkStrong }}>{errorData.errorEmail}</div>
+						<div style={{ color: pinkStrong, fontSize: 10 }}>
+							{errorData.errorEmail}
+						</div>
 					)}
-				</Grid>
-				<Grid item xs={12} sm={4}>
 					<TextField
+						style={{ marginTop: 15 }}
 						required
 						id="contactPhone"
 						name="contactPhone"
@@ -121,11 +123,15 @@ const AddressForm = ({ setShippingAddress, shippingAddress }) => {
 						}}
 					/>
 					{errorData.errorPhone && (
-						<div style={{ color: pinkStrong }}>{errorData.errorPhone}</div>
+						<div style={{ color: pinkStrong, fontSize: 10 }}>
+							{errorData.errorPhone}
+						</div>
 					)}
-				</Grid>
-				<Grid item xs={12} sm={3}>
+				</Container>
+
+				<Container style={{ padding: '20px 0' }} component="main" maxWidth="xs">
 					<TextField
+						style={{ marginTop: 15 }}
 						id="country"
 						name="country"
 						label="Country"
@@ -135,9 +141,8 @@ const AddressForm = ({ setShippingAddress, shippingAddress }) => {
 						onChange={e => onChange(e)}
 						onBlur={() => onBlur(formData)}
 					/>
-				</Grid>
-				<Grid item xs={12} sm={3}>
 					<TextField
+						style={{ marginTop: 15 }}
 						id="state"
 						name="state"
 						label="State/Region"
@@ -146,9 +151,8 @@ const AddressForm = ({ setShippingAddress, shippingAddress }) => {
 						onChange={e => onChange(e)}
 						onBlur={() => onBlur(formData)}
 					/>
-				</Grid>
-				<Grid item xs={12} sm={3}>
 					<TextField
+						style={{ marginTop: 15 }}
 						required
 						id="city"
 						name="city"
@@ -159,9 +163,8 @@ const AddressForm = ({ setShippingAddress, shippingAddress }) => {
 						onChange={e => onChange(e)}
 						onBlur={() => onBlur(formData)}
 					/>
-				</Grid>
-				<Grid item xs={12} sm={3}>
 					<TextField
+						style={{ marginTop: 15 }}
 						required
 						id="street"
 						name="street"
@@ -172,9 +175,8 @@ const AddressForm = ({ setShippingAddress, shippingAddress }) => {
 						onChange={e => onChange(e)}
 						onBlur={() => onBlur(formData)}
 					/>
-				</Grid>
-				<Grid item xs={12} sm={3}>
 					<TextField
+						style={{ marginTop: 15 }}
 						required
 						id="houseNumber"
 						name="houseNumber"
@@ -185,9 +187,8 @@ const AddressForm = ({ setShippingAddress, shippingAddress }) => {
 						onChange={e => onChange(e)}
 						onBlur={() => onBlur(formData)}
 					/>
-				</Grid>
-				<Grid item xs={12} sm={3}>
 					<TextField
+						style={{ marginTop: 15 }}
 						id="apartment"
 						name="apartment"
 						label="Apartment"
@@ -196,9 +197,8 @@ const AddressForm = ({ setShippingAddress, shippingAddress }) => {
 						onChange={e => onChange(e)}
 						onBlur={() => onBlur(formData)}
 					/>
-				</Grid>
-				<Grid item xs={12} sm={3}>
 					<TextField
+						style={{ marginTop: 15 }}
 						id="index"
 						name="index"
 						label="Zip/Postal code"
@@ -208,7 +208,7 @@ const AddressForm = ({ setShippingAddress, shippingAddress }) => {
 						onChange={e => onChange(e)}
 						onBlur={() => onBlur(formData)}
 					/>
-				</Grid>
+				</Container>
 			</Grid>
 			<Typography style={{ padding: '15px' }}>
 				<small>* = required field</small>
