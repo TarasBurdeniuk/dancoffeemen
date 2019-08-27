@@ -23,6 +23,9 @@ const useStyles = makeStyles({
 		'& a': {
 			color: lightGrey,
 		},
+		'& address': {
+			fontStyle: 'normal',
+		},
 	},
 	container: {
 		width: '1160px',
