@@ -4,6 +4,7 @@ import {
 	SET_SHIPPING_ADDRESS,
 	LOGOUT,
 	ORDER_LOAD,
+	USER_LOADED,
 } from '../actions/types';
 
 const initialState = {
@@ -46,6 +47,15 @@ const basket = (state = initialState, action) => {
 				products: [],
 				order: payload,
 			};
+		case USER_LOADED:
+			return {
+				...state,
+				shippingAddress: {
+					cardNumber: '',
+					expDate: '',
+					cvv: '',
+				},
+			};
 		case LOGOUT:
 			return {
 				...state,
@@ -62,6 +72,7 @@ const basket = (state = initialState, action) => {
 					expDate: '',
 					cvv: '',
 				},
+				order: null,
 			};
 		default:
 			return state;

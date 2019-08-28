@@ -92,7 +92,7 @@ const Order = ({ match, loadUserOrderById, order }) => {
 						{order.products.map(product => (
 							<Grid container key={product._id} className={classes.item}>
 								<Grid item xs={12} md={3}>
-									<Link to={`/${product._id}`}>
+									<Link to={`/products/${product._id}`}>
 										<img
 											src={`../../${product.image[0]}`}
 											alt={product.model}
@@ -101,7 +101,7 @@ const Order = ({ match, loadUserOrderById, order }) => {
 									</Link>
 								</Grid>
 								<Grid item xs={12} md={5}>
-									<Link to={`/${product._id}`}>
+									<Link to={`/products/${product._id}`}>
 										<Typography
 											variant="h6"
 											component="h2"
