@@ -8,6 +8,7 @@ import pink from '@material-ui/core/colors/pink';
 import Typography from '@material-ui/core/Typography';
 import { validateEmail, validateName, validatePhone } from '../../utills/validateFields';
 import { saveAddress } from '../../actions/auth';
+import Container from '@material-ui/core/Container';
 
 const strongPink = pink[500];
 
@@ -21,6 +22,10 @@ const useStyles = makeStyles(theme => ({
 	},
 	error: {
 		color: strongPink,
+	},
+	block: {
+		padding: '20px 0',
+		maxWidth: 300,
 	},
 }));
 
@@ -53,7 +58,7 @@ const AddressBook = ({ user, saveAddress }) => {
 			street: user.street || '',
 			houseNumber: user.houseNumber || '',
 			apartment: user.apartment || '',
-			phone: user.phone,
+			phone: user.phone || '',
 			index: user.index || '',
 		});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -92,8 +97,9 @@ const AddressBook = ({ user, saveAddress }) => {
 		<>
 			<form onSubmit={e => checkForm(e)}>
 				<Grid container spacing={3}>
-					<Grid item xs={12} sm={4}>
+					<Container className={classes.block} component="main">
 						<TextField
+							style={{ marginTop: 15 }}
 							required
 							id="Name"
 							name="name"
@@ -112,9 +118,8 @@ const AddressBook = ({ user, saveAddress }) => {
 						{errorData.errorName && (
 							<small style={{ color: strongPink }}>{errorData.errorName}</small>
 						)}
-					</Grid>
-					<Grid item xs={12} sm={4}>
 						<TextField
+							style={{ marginTop: 15 }}
 							required
 							id="email"
 							name="email"
@@ -134,9 +139,8 @@ const AddressBook = ({ user, saveAddress }) => {
 						{errorData.errorEmail && (
 							<small style={{ color: strongPink }}>{errorData.errorEmail}</small>
 						)}
-					</Grid>
-					<Grid item xs={12} sm={4}>
 						<TextField
+							style={{ marginTop: 15 }}
 							required
 							id="phone"
 							name="phone"
@@ -154,9 +158,10 @@ const AddressBook = ({ user, saveAddress }) => {
 						{errorData.errorPhone && (
 							<small style={{ color: strongPink }}>{errorData.errorPhone}</small>
 						)}
-					</Grid>
-					<Grid item xs={12} sm={3}>
+					</Container>
+					<Container style={{ padding: '20px 0', maxWidth: 300 }} component="main">
 						<TextField
+							style={{ marginTop: 15 }}
 							id="country"
 							name="country"
 							label="Country"
@@ -164,9 +169,8 @@ const AddressBook = ({ user, saveAddress }) => {
 							value={country}
 							onChange={e => onChange(e)}
 						/>
-					</Grid>
-					<Grid item xs={12} sm={3}>
 						<TextField
+							style={{ marginTop: 15 }}
 							id="state"
 							name="state"
 							label="State/Region"
@@ -174,9 +178,8 @@ const AddressBook = ({ user, saveAddress }) => {
 							value={state}
 							onChange={e => onChange(e)}
 						/>
-					</Grid>
-					<Grid item xs={12} sm={3}>
 						<TextField
+							style={{ marginTop: 15 }}
 							id="city"
 							name="city"
 							label="City"
@@ -184,9 +187,8 @@ const AddressBook = ({ user, saveAddress }) => {
 							value={city}
 							onChange={e => onChange(e)}
 						/>
-					</Grid>
-					<Grid item xs={12} sm={3}>
 						<TextField
+							style={{ marginTop: 15 }}
 							id="street"
 							name="street"
 							label="Street"
@@ -194,9 +196,8 @@ const AddressBook = ({ user, saveAddress }) => {
 							value={street}
 							onChange={e => onChange(e)}
 						/>
-					</Grid>
-					<Grid item xs={12} sm={3}>
 						<TextField
+							style={{ marginTop: 15 }}
 							id="houseNumber"
 							name="houseNumber"
 							label="House number"
@@ -204,9 +205,8 @@ const AddressBook = ({ user, saveAddress }) => {
 							value={houseNumber}
 							onChange={e => onChange(e)}
 						/>
-					</Grid>
-					<Grid item xs={12} sm={3}>
 						<TextField
+							style={{ marginTop: 15 }}
 							id="apartment"
 							name="apartment"
 							label="Apartment"
@@ -214,9 +214,8 @@ const AddressBook = ({ user, saveAddress }) => {
 							value={apartment}
 							onChange={e => onChange(e)}
 						/>
-					</Grid>
-					<Grid item xs={12} sm={3}>
 						<TextField
+							style={{ marginTop: 15 }}
 							id="index"
 							name="index"
 							label="Zip/Postal code"
@@ -224,9 +223,8 @@ const AddressBook = ({ user, saveAddress }) => {
 							value={index}
 							onChange={e => onChange(e)}
 						/>
-					</Grid>
+					</Container>
 				</Grid>
-
 				<Typography style={{ padding: '15px' }}>
 					<small>* = required field</small>
 				</Typography>

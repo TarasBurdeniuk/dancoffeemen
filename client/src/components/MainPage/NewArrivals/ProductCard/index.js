@@ -44,7 +44,7 @@ const ImgMediaCard = ({ src, price, name, _id, handleClick }) => {
 	return (
 		<Card className={classes.card}>
 			<CardActionArea>
-				<Link to={`/${_id}`}>
+				<Link to={`/products/${_id}`}>
 					<CardMedia
 						component="img"
 						alt="Contemplative Reptile"

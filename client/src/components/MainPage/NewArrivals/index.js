@@ -134,7 +134,7 @@ const NewArrivals = ({ newArrivals, addToBasket }) => {
 					index={activeStep}
 					onChangeIndex={handleStepChange}
 					enableMouseEvents
-					interval="3000"
+					interval={3000}
 					springConfig={{
 						duration: '1s',
 						easeFunction: 'cubic-bezier(0.35, 0.7, 0.8, 1)',

@@ -23,6 +23,9 @@ const useStyles = makeStyles({
 		'& a': {
 			color: lightGrey,
 		},
+		'& address': {
+			fontStyle: 'normal',
+		},
 	},
 	container: {
 		width: '1160px',
@@ -76,6 +79,9 @@ const useStyles = makeStyles({
 	info: {
 		display: 'none',
 	},
+	contact: {
+		display: 'none',
+	},
 	'@media screen and (min-width:1160px)': {
 		info: {
 			display: 'flex',
@@ -86,6 +92,9 @@ const useStyles = makeStyles({
 		},
 		container: {
 			padding: '20px 0',
+		},
+		contact: {
+			display: 'block',
 		},
 	},
 });
@@ -134,20 +143,22 @@ const Footer = ({ contact: { contacts, loading } }) => {
 							</li>
 						</ul>
 					</div>
-					<div className={classes.block}>
-						<address>
-							<a href={`tel: ${contacts.phone}`}>{contacts.phone}</a>
-							<br />
-							<span>{contacts.workTime}</span>
-							<br />
-							Written by
-							<a href={`mailto:${contacts.email}`}> DanCoffeeMen</a>
-						</address>
-						<div>
-							<h4>{contacts.city}</h4>
-							<span>{contacts.address}</span>
-							<br />
-							<span>{contacts.country}</span>
+					<div className={classes.contact}>
+						<div className={classes.block}>
+							<address>
+								<a href={`tel: ${contacts.phone}`}>{contacts.phone}</a>
+								<br />
+								<span>{contacts.workTime}</span>
+								<br />
+								Written by
+								<a href={`mailto:${contacts.email}`}> DanCoffeeMen</a>
+							</address>
+							<div>
+								<h4>{contacts.city}</h4>
+								<span>{contacts.address}</span>
+								<br />
+								<span>{contacts.country}</span>
+							</div>
 						</div>
 					</div>
 					<div className={classes.info}>

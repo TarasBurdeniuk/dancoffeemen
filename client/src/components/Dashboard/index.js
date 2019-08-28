@@ -30,7 +30,7 @@ const Dashboard = ({ user, loading, loadUserOrders, clearOrder }) => {
 				<Spinner />
 			) : (
 				<>
-					<h1>Dashboard</h1>
+					<h2>Dashboard</h2>
 					<p className={classes.welcome}>Welcome {user && user.name}</p>
 					<DashboardActions />
 				</>
