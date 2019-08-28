@@ -143,12 +143,16 @@ const Details = props => {
 				<Grid item md={5} xs={12}>
 					<div className={classes.preContainer}>
 						<div className={classes.imageContainer}>
-							<img src={imageQ} alt="image1" className={classes.image} />
+							<img src={`../${imageQ}`} alt="image1" className={classes.image} />
 						</div>
 						<div className={classes.imageContainer}>
 							{image.map(item => (
 								<button key={item} type="button" onClick={() => setImageQ(item)}>
-									<img src={item} className={classes.smallImage} alt="coffee" />
+									<img
+										src={`../${item}`}
+										className={classes.smallImage}
+										alt="coffee"
+									/>
 								</button>
 							))}
 						</div>

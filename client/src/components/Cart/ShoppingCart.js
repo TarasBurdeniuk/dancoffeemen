@@ -141,10 +141,16 @@ const ShoppingCart = props => {
 			<Grid item xs={11}>
 				<Grid container className={classes.product}>
 					<Grid item xs={12} md={3}>
-						<img src={product.image[0]} alt={product.model} className={classes.image} />
+						<Link to={`/products/${product._id}`}>
+							<img
+								src={product.image[0]}
+								alt={product.model}
+								className={classes.image}
+							/>
+						</Link>
 					</Grid>
 					<Grid item xs={12} md={5}>
-						<Link to={`/${product._id}`}>
+						<Link to={`/products/${product._id}`}>
 							<Typography
 								variant="h6"
 								component="h2"

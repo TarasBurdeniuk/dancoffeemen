@@ -85,14 +85,14 @@ const Order = ({ match, loadUserOrderById, order }) => {
 			<Grid container justify="center" className={classes.container}>
 				<Container maxWidth="md">
 					<div className={classes.block}>
-						<h1>Order #{order.orderNumber}</h1>
+						<h2>Order #{order.orderNumber}</h2>
 						<h3>{prettyDate(order.date)}</h3>
 					</div>
 					<Paper className={classes.paper}>
 						{order.products.map(product => (
 							<Grid container key={product._id} className={classes.item}>
 								<Grid item xs={12} md={3}>
-									<Link to={`/${product._id}`}>
+									<Link to={`/products/${product._id}`}>
 										<img
 											src={`../../${product.image[0]}`}
 											alt={product.model}
@@ -101,7 +101,7 @@ const Order = ({ match, loadUserOrderById, order }) => {
 									</Link>
 								</Grid>
 								<Grid item xs={12} md={5}>
-									<Link to={`/${product._id}`}>
+									<Link to={`/products/${product._id}`}>
 										<Typography
 											variant="h6"
 											component="h2"

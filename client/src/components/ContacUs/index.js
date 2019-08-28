@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import MapContainer from './MapContainer';
-import ContactForm from './ContactForm';
 import Spinner from '../Loading';
 import grey from '@material-ui/core/colors/grey';
 
@@ -10,8 +9,6 @@ const strongGrey = grey[600];
 
 const useStyles = makeStyles({
 	root: {
-		display: 'flex',
-		flexDirection: 'column',
 		fontFamily: "'Lato', 'Roboto', sans serif",
 		fontSize: 15,
 		minHeight: '100vh',
@@ -22,7 +19,7 @@ const useStyles = makeStyles({
 	container: {
 		display: 'flex',
 		flexDirection: 'column',
-		justifyContent: 'space-between',
+		justifyContent: 'flex-start',
 		padding: '10px',
 		margin: '0 auto',
 		maxWidth: 1160,
@@ -31,6 +28,9 @@ const useStyles = makeStyles({
 		textAlign: 'left',
 		lineHeight: '20px',
 		fontSize: 16,
+		'& address': {
+			fontStyle: 'normal',
+		},
 	},
 	title: {
 		textTransform: 'uppercase',
@@ -38,17 +38,14 @@ const useStyles = makeStyles({
 		textDecoration: 'underline',
 		paddingBottom: '8px',
 	},
-	feedbackItem: {
-		textAlign: 'center',
-	},
 	mapContainer: {
-		display: 'block',
-		height: '500px',
+		height: '65vh',
+		position: 'relative',
 	},
 	'@media screen and (min-width:768px)': {
 		container: {
 			flexDirection: 'row',
-			padding: 30,
+			padding: '30px 200px',
 		},
 	},
 });
@@ -64,7 +61,7 @@ const ContactUs = ({ contact: { contacts, loading } }) => {
 				<div className={classes.contactItem}>
 					<address>
 						<p className={classes.title}>address</p>
-						<h4>DanCoffeeMen</h4>
+						<h4>Coffeemen</h4>
 						<h4>
 							{contacts.country}, {contacts.city}, {contacts.address}
 						</h4>
@@ -78,12 +75,6 @@ const ContactUs = ({ contact: { contacts, loading } }) => {
 							<a href={`mailto:${contacts.email}`}> DanCoffeeMen</a>
 						</h5>
 					</address>
-				</div>
-				<div className={classes.feedbackItem}>
-					<p className={classes.title}>send us an email</p>
-					<div>
-						<ContactForm />
-					</div>
 				</div>
 			</div>
 			<div className={classes.mapContainer}>

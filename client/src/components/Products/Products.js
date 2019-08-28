@@ -138,19 +138,20 @@ const Products = props => {
 	}
 
 	const list = productsArray.map(product => {
+		const disabled = !product.quantity;
 		if (quantity === 12) {
 			return (
 				<Grid key={product._id} item xs={12} sm={6} md={4}>
 					<Paper className={classes.grid} justify="center">
 						<div className={classes.paperBlock}>
-							<Link to={`/${product._id}`}>
+							<Link to={`/products/${product._id}`}>
 								<img
 									src={product.image[0]}
 									alt={`${product.brand}_${product.model}`}
 									className={classes.image}
 								/>
 							</Link>
-							<Link to={`/${product._id}`}>
+							<Link to={`/products/${product._id}`}>
 								<h3
 									className={classes.brand}
 								>{`${product.brand} ${product.model}`}</h3>
@@ -159,13 +160,14 @@ const Products = props => {
 							<h4 className={classes.price}>Price: ${product.price}</h4>
 						</div>
 						<Button
+							disabled={disabled}
 							variant="contained"
 							size="large"
 							color="secondary"
 							className={classes.buttonHover}
 							onClick={() => handleAddToBasket(product)}
 						>
-							Add To Basket
+							{product.quantity === 0 ? 'Not available' : 'Add To Basket'}
 						</Button>
 					</Paper>
 				</Grid>
@@ -181,7 +183,7 @@ const Products = props => {
 					spacing={5}
 				>
 					<Grid item xs={12} sm={12} md={4}>
-						<Link to={`/${product._id}`}>
+						<Link to={`/products/${product._id}`}>
 							<Paper className={classes.list}>
 								<img
 									src={product.image[0]}
@@ -192,7 +194,7 @@ const Products = props => {
 						</Link>
 					</Grid>
 					<Grid item className={classes.details} xs={12} sm={12} md={7}>
-						<Link to={`/${product._id}`}>
+						<Link to={`/products/${product._id}`}>
 							<Typography variant="h5" gutterBottom className={classes.brand}>
 								{`${product.brand} ${product.model} ${product.specifications.size}`}
 							</Typography>
@@ -202,13 +204,14 @@ const Products = props => {
 							{product.shortDescription}
 						</Typography>
 						<Button
+							disabled={disabled}
 							variant="contained"
 							size="large"
 							color="secondary"
 							className={classes.button}
 							onClick={() => handleAddToBasket(product)}
 						>
-							Add To Basket
+							{product.quantity === 0 ? 'Not available' : 'Add To Basket'}
 						</Button>
 					</Grid>
 				</Grid>

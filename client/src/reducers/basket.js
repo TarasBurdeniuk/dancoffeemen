@@ -4,6 +4,7 @@ import {
 	SET_SHIPPING_ADDRESS,
 	LOGOUT,
 	ORDER_LOAD,
+	USER_LOADED,
 } from '../actions/types';
 
 const initialState = {
@@ -19,7 +20,6 @@ const initialState = {
 		apartment: '',
 		contactPhone: '',
 		index: '',
-		cardName: '',
 		cardNumber: '',
 		expDate: '',
 		cvv: '',
@@ -47,11 +47,19 @@ const basket = (state = initialState, action) => {
 				products: [],
 				order: payload,
 			};
+		case USER_LOADED:
+			return {
+				...state,
+				shippingAddress: {
+					cardNumber: '',
+					expDate: '',
+					cvv: '',
+				},
+			};
 		case LOGOUT:
 			return {
 				...state,
 				shippingAddress: {
-					// ...state.shippingAddress,
 					country: '',
 					state: '',
 					city: '',
@@ -60,11 +68,11 @@ const basket = (state = initialState, action) => {
 					apartment: '',
 					contactPhone: '',
 					index: '',
-					cardName: '',
 					cardNumber: '',
 					expDate: '',
 					cvv: '',
 				},
+				order: null,
 			};
 		default:
 			return state;

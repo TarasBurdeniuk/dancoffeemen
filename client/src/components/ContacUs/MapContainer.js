@@ -1,9 +1,10 @@
 import React from 'react';
-import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
+import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
 
 const style = {
-	width: '100%',
-	height: '500px',
+	maxWidth: '1160px',
+	margin: '0 auto',
+	height: '65vh',
 };
 
 const MapContainer = ({ google }) => {
@@ -18,10 +19,6 @@ const MapContainer = ({ google }) => {
 			zoom={14}
 		>
 			<Marker name={'Current location'} />
-
-			<InfoWindow>
-				<div></div>
-			</InfoWindow>
 		</Map>
 	);
 };
