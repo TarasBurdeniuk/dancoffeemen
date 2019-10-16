@@ -6,7 +6,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { PropTypes } from 'prop-types';
 import { logout } from '../../actions/auth';
 
 const useStyles = makeStyles({
@@ -84,7 +84,7 @@ const Authorization = props => {
 };
 
 Authorization.propTypes = {
-	isAuthenticated: PropTypes.bool,
+	isAuthenticated: PropTypes.bool.isRequired,
 	loading: PropTypes.bool.isRequired,
 	logout: PropTypes.func.isRequired,
 	registration: PropTypes.arrayOf(PropTypes.object).isRequired,
