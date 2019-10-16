@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Container from './Container';
 import { clearFilter, loadProducts } from '../../actions/products';
-import PropTypes from 'prop-types';
 
 const ProductsGrid = ({ clearFilter, loadProducts, products }) => {
 	const [sorting, setSorting] = useState('');
@@ -45,6 +45,7 @@ const ProductsGrid = ({ clearFilter, loadProducts, products }) => {
 ProductsGrid.propTypes = {
 	clearFilter: PropTypes.func.isRequired,
 	loadProducts: PropTypes.func.isRequired,
+	products: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = state => ({

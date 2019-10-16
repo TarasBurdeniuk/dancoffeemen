@@ -149,6 +149,7 @@ const Container = props => {
 
 Container.propTypes = {
 	registration: PropTypes.arrayOf(PropTypes.object).isRequired,
+	products: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = state => ({

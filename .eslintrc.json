@@ -34,7 +34,7 @@
 			"error",
 			{
 				"forbid": [
-					"any"
+
 				],
 				"checkContextTypes": true,
 				"checkChildContextTypes": true

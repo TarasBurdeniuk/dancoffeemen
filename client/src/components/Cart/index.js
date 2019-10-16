@@ -239,12 +239,17 @@ const Checkout = ({
 
 Checkout.propTypes = {
 	loadLocalStorageProducts: PropTypes.func.isRequired,
-	products: PropTypes.object.isRequired,
-	user: PropTypes.object.isRequired,
+	products: PropTypes.array.isRequired,
+	user: PropTypes.object,
 	setShippingAddress: PropTypes.func.isRequired,
 	shippingAddress: PropTypes.object.isRequired,
 	createOrder: PropTypes.func.isRequired,
-	order: PropTypes.object.isRequired,
+	order: PropTypes.object,
+};
+
+Checkout.defaultProps = {
+	order: null,
+	user: null,
 };
 
 const mapStateToProps = state => ({

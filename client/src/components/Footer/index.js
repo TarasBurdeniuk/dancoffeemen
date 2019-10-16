@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import grey from '@material-ui/core/colors/grey';
 import pink from '@material-ui/core/colors/pink';
-import Spinner from '../Loading';
 import PropTypes from 'prop-types';
+import Spinner from '../Loading';
 
 const darkGrey = grey[900];
 const lightGrey = grey[50];
@@ -181,8 +181,7 @@ const Footer = ({ contact: { contacts, loading } }) => {
 };
 
 Footer.propTypes = {
-	contacts: PropTypes.object,
-	loading: PropTypes.bool,
+	contact: PropTypes.object.isRequired,
 };
 
 const mapDispatchToProps = ({ contact }) => ({

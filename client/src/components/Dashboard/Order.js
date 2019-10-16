@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { loadUserOrderById } from '../../actions/auth';
-import Spinner from '../Loading';
+import PropTypes from 'prop-types';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -11,6 +10,8 @@ import Grid from '@material-ui/core/Grid';
 import pink from '@material-ui/core/colors/pink';
 import grey from '@material-ui/core/colors/grey';
 import Paper from '@material-ui/core/Paper';
+import Spinner from '../Loading';
+import { loadUserOrderById } from '../../actions/auth';
 import { prettyDate, calc } from '../../utills/func';
 
 const strongPink = pink[500];
@@ -140,6 +141,16 @@ const Order = ({ match, loadUserOrderById, order }) => {
 			</Grid>
 		</>
 	);
+};
+
+Order.propTypes = {
+	match: PropTypes.object.isRequired,
+	loadUserOrderById: PropTypes.func.isRequired,
+	order: PropTypes.object,
+};
+
+Order.defaultProps = {
+	order: null,
 };
 
 const mapStateToProps = state => ({

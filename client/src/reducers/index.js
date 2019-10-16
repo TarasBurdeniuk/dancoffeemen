@@ -4,7 +4,7 @@ import product from './product';
 import contact from './contact';
 import basket from './basket';
 
-export const rootReducer = combineReducers({
+export default combineReducers({
 	auth,
 	product,
 	contact,

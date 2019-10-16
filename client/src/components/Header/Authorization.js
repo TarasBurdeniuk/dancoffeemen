@@ -84,10 +84,14 @@ const Authorization = props => {
 };
 
 Authorization.propTypes = {
-	isAuthenticated: PropTypes.bool.isRequired,
+	isAuthenticated: PropTypes.bool,
 	loading: PropTypes.bool.isRequired,
 	logout: PropTypes.func.isRequired,
 	registration: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
+
+Authorization.defaultProps = {
+	isAuthenticated: null,
 };
 
 const mapStateToProps = state => ({

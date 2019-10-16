@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import grey from '@material-ui/core/colors/grey';
 import pink from '@material-ui/core/colors/pink';
@@ -42,7 +43,7 @@ const styles = {
 
 const RecentOrders = ({ classes, userOrders }) => {
 	return !userOrders.length ? (
-		<p>You haven't placed any orders</p>
+		<p>You have not placed any orders</p>
 	) : (
 		<table className={classes.table}>
 			<thead>
@@ -67,6 +68,11 @@ const RecentOrders = ({ classes, userOrders }) => {
 			</tbody>
 		</table>
 	);
+};
+
+RecentOrders.propTypes = {
+	classes: PropTypes.object.isRequired,
+	userOrders: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = state => ({

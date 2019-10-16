@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import Spinner from '../Loading';
@@ -37,6 +38,17 @@ const Dashboard = ({ user, loading, loadUserOrders, clearOrder }) => {
 			)}
 		</Container>
 	);
+};
+
+Dashboard.propTypes = {
+	user: PropTypes.object,
+	loading: PropTypes.bool.isRequired,
+	loadUserOrders: PropTypes.func.isRequired,
+	clearOrder: PropTypes.func.isRequired,
+};
+
+Dashboard.defaultProps = {
+	user: null,
 };
 
 const mapStateToProps = state => ({

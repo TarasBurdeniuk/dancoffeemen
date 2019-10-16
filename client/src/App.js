@@ -15,7 +15,7 @@ import './styles/index.css';
 import setAuthToken from './utills/setAuthToken';
 import store from './store';
 import { loadUser } from './actions/auth';
-import { loadContacts } from './actions/contacts';
+import loadContacts from './actions/contacts';
 import { loadBrands, loadSizes, loadProducts, loadNewArrivals } from './actions/products';
 import Order from './components/Dashboard/Order';
 import My404Component from './components/My404Component';

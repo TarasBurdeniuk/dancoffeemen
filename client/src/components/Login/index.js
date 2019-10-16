@@ -9,9 +9,9 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import pink from '@material-ui/core/colors/pink';
 import { validateEmail, validatePassword } from '../../utills/validateFields';
 import { login } from '../../actions/auth';
-import pink from '@material-ui/core/colors/pink';
 
 const pinkStrong = pink[500];
 
@@ -142,7 +142,7 @@ const SignIn = ({ login, isAuthenticated }) => {
 					<Grid container justify="flex-end">
 						<Grid item>
 							<Link to="/register" variant="body2">
-								Don't have an account? Sign Up
+								Do not have an account? Sign Up
 							</Link>
 						</Grid>
 					</Grid>
@@ -155,6 +155,10 @@ const SignIn = ({ login, isAuthenticated }) => {
 SignIn.propTypes = {
 	login: PropTypes.func.isRequired,
 	isAuthenticated: PropTypes.bool,
+};
+
+SignIn.defaultProps = {
+	isAuthenticated: null,
 };
 
 const mapStateToProps = state => ({

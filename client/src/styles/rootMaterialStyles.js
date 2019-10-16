@@ -7,7 +7,7 @@ const pinkMoreStrong = pink[600];
 const greyStrong = grey[600];
 const greyLight = grey[500];
 
-export const theme = createMuiTheme({
+export default createMuiTheme({
 	typography: {
 		// Use the system font.
 		fontFamily: '-apple-system,system-ui,BlinkMacSystemFont, "Lato", "Roboto", sans-serif',
