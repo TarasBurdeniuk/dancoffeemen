@@ -56,9 +56,9 @@ const Review = ({ products, shippingAddress }) => {
 						<Typography gutterBottom>{shippingAddress.state}</Typography>
 						<Typography gutterBottom>{shippingAddress.city}</Typography>
 						{shippingAddress.street && shippingAddress.houseNumber && (
-							<Typography
-								gutterBottom
-							>{`${shippingAddress.street} ${shippingAddress.houseNumber}`}</Typography>
+							<Typography gutterBottom>
+								{`${shippingAddress.street} ${shippingAddress.houseNumber}`}
+							</Typography>
 						)}
 						{shippingAddress.apartment && (
 							<Typography

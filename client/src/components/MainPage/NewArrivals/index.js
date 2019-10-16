@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
@@ -105,11 +106,11 @@ const NewArrivals = ({ newArrivals, addToBasket }) => {
 				</div>
 		  ))
 		: [];
-
+	let count = 0;
 	const productList =
 		document.documentElement.clientWidth >= 1160
 			? cardProduct.map((item, i, arr) => (
-					<div key={i} className={classes.carusel}>
+					<div key={count++} className={classes.carusel}>
 						{arr[i]}
 						{arr[i + 1 > arr.length - 1 ? i - (arr.length - 1) : i + 1]}
 						{arr[i + 2 > arr.length - 1 ? i - (arr.length - 2) : i + 2]}
@@ -117,7 +118,7 @@ const NewArrivals = ({ newArrivals, addToBasket }) => {
 					</div>
 			  ))
 			: cardProduct.map((item, i, arr) => (
-					<div key={i} className={classes.carusel}>
+					<div key={count++} className={classes.carusel}>
 						{arr[i]}
 					</div>
 			  ));
@@ -149,6 +150,15 @@ const NewArrivals = ({ newArrivals, addToBasket }) => {
 			</div>
 		</div>
 	);
+};
+
+NewArrivals.propTypes = {
+	newArrivals: PropTypes.array,
+	addToBasket: PropTypes.func.isRequired,
+};
+
+NewArrivals.defaultProps = {
+	newArrivals: null,
 };
 
 const mapStateToProps = state => ({

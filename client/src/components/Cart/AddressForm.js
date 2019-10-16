@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-import { validateName, validateEmail, validatePhone } from '../../utills/validateFields';
 import pink from '@material-ui/core/colors/pink';
-import { setShippingAddress } from '../../actions/basket';
 import Container from '@material-ui/core/Container';
+import PropTypes from 'prop-types';
+import { validateName, validateEmail, validatePhone } from '../../utills/validateFields';
+import { setShippingAddress } from '../../actions/basket';
 
 const pinkStrong = pink[500];
 
@@ -214,6 +215,11 @@ const AddressForm = ({ setShippingAddress, shippingAddress }) => {
 			</Typography>
 		</>
 	);
+};
+
+AddressForm.propTypes = {
+	setShippingAddress: PropTypes.func.isRequired,
+	shippingAddress: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({

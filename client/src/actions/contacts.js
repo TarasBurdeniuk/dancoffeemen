@@ -2,7 +2,7 @@ import axios from 'axios';
 import { CONTACTS_LOADED, CONTACTS_ERROR } from './types';
 
 // Load contacts
-export const loadContacts = () => async dispatch => {
+export default () => async dispatch => {
 	try {
 		const contacts = await axios.get('/api/admin/contacts');
 		dispatch({

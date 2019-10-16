@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
+import grey from '@material-ui/core/colors/grey';
+import PropTypes from 'prop-types';
 import MapContainer from './MapContainer';
 import Spinner from '../Loading';
-import grey from '@material-ui/core/colors/grey';
 
 const strongGrey = grey[600];
 
@@ -82,6 +83,10 @@ const ContactUs = ({ contact: { contacts, loading } }) => {
 			</div>
 		</div>
 	);
+};
+
+ContactUs.propTypes = {
+	contact: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = ({ contact }) => ({

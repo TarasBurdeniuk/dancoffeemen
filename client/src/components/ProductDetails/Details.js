@@ -254,6 +254,7 @@ Details.propTypes = {
 	quantity: PropTypes.number.isRequired,
 	handleIncrement: PropTypes.func.isRequired,
 	handleDecrement: PropTypes.func.isRequired,
+	handleAddToBasket: PropTypes.func.isRequired,
 	product: PropTypes.object.isRequired,
 };
 

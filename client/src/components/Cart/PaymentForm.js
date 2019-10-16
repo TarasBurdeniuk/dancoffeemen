@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-import { setShippingAddress } from '../../actions/basket';
-import { validateCVV } from '../../utills/validateFields';
 import pink from '@material-ui/core/colors/pink';
 import Container from '@material-ui/core/Container';
+import PropTypes from 'prop-types';
+import { setShippingAddress } from '../../actions/basket';
+import { validateCVV } from '../../utills/validateFields';
 
 const pinkStrong = pink[500];
 
@@ -88,6 +89,11 @@ const PaymentForm = ({ setShippingAddress, shippingAddress }) => {
 			</Typography>
 		</>
 	);
+};
+
+PaymentForm.propTypes = {
+	setShippingAddress: PropTypes.func.isRequired,
+	shippingAddress: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({

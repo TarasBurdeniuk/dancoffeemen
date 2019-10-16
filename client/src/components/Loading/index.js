@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 
 const styles = {
@@ -71,6 +72,10 @@ const Loading = ({ classes }) => {
 			</div>
 		</div>
 	);
+};
+
+Loading.propTypes = {
+	classes: PropTypes.object.isRequired,
 };
 
 const Spinner = injectSheet(styles)(Loading);

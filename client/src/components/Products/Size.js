@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -70,6 +71,16 @@ const Size = ({ sizes, loadFilteredProducts, chosenFilter }) => {
 			})}
 		</List>
 	);
+};
+
+Size.propTypes = {
+	sizes: PropTypes.array,
+	loadFilteredProducts: PropTypes.func.isRequired,
+	chosenFilter: PropTypes.object.isRequired,
+};
+
+Size.defaultProps = {
+	sizes: null,
 };
 
 const mapStateToProps = state => ({

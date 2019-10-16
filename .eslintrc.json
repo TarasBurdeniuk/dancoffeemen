@@ -7,19 +7,39 @@
 	"extends": [
 		"airbnb",
 		"prettier",
-		"prettier/react"
+		"prettier/react",
+		"react-app"
 	],
 	"plugins": [
 		"react",
-		"prettier"
+		"prettier",
+		"react-hooks",
+		"import"
 	],
 	"rules": {
-		"no-underscore-dangle": ["error", { "allow": ["_id"] }],
+		"no-underscore-dangle": [
+			"error",
+			{
+				"allow": [
+					"_id"
+				]
+			}
+		],
 		"no-console": "off",
 		"no-plusplus": "off",
 		"no-shadow": "off",
 		"consistent-return": "off",
 		"no-param-reassign": "off",
+		"react/forbid-prop-types": [
+			"error",
+			{
+				"forbid": [
+
+				],
+				"checkContextTypes": true,
+				"checkChildContextTypes": true
+			}
+		],
 		"no-restricted-syntax": [
 			"error",
 			{

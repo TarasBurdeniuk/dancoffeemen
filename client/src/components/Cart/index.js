@@ -6,12 +6,13 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import pink from '@material-ui/core/colors/pink';
+import PropTypes from 'prop-types';
 import AddressForm from './AddressForm';
 import PaymentForm from './PaymentForm';
 import Review from './Review';
 import ShoppingCart from './ShoppingCart';
 import { loadLocalStorageProducts, setShippingAddress, createOrder } from '../../actions/basket';
-import pink from '@material-ui/core/colors/pink';
 import Spinner from '../Loading';
 
 const moreStrongPink = pink[700];
@@ -234,6 +235,21 @@ const Checkout = ({
 			</main>
 		</>
 	);
+};
+
+Checkout.propTypes = {
+	loadLocalStorageProducts: PropTypes.func.isRequired,
+	products: PropTypes.array.isRequired,
+	user: PropTypes.object,
+	setShippingAddress: PropTypes.func.isRequired,
+	shippingAddress: PropTypes.object.isRequired,
+	createOrder: PropTypes.func.isRequired,
+	order: PropTypes.object,
+};
+
+Checkout.defaultProps = {
+	order: null,
+	user: null,
 };
 
 const mapStateToProps = state => ({
