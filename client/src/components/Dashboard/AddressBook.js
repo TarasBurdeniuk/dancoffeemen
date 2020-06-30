@@ -10,6 +10,7 @@ import Container from '@material-ui/core/Container';
 import PropTypes from 'prop-types';
 import { validateEmail, validateName, validatePhone } from '../../utills/validateFields';
 import { saveAddress } from '../../actions/auth';
+import Container from '@material-ui/core/Container';
 
 const strongPink = pink[500];
 
