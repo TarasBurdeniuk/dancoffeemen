@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Details from './Details';
 import { getProduct } from '../../actions/products';
 import { addToBasket } from '../../actions/basket';
@@ -46,6 +47,17 @@ const ProductDetailsContainer = ({ match, getProduct, product, addToBasket }) =>
 			handleAddToBasket={handleAddToBasket}
 		/>
 	);
+};
+
+ProductDetailsContainer.propTypes = {
+	match: PropTypes.object.isRequired,
+	getProduct: PropTypes.func.isRequired,
+	product: PropTypes.object,
+	addToBasket: PropTypes.func.isRequired,
+};
+
+ProductDetailsContainer.defaultProps = {
+	product: null,
 };
 
 const mapStateToProps = state => ({

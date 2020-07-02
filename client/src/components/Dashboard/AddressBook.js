@@ -6,9 +6,10 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import pink from '@material-ui/core/colors/pink';
 import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
+import PropTypes from 'prop-types';
 import { validateEmail, validateName, validatePhone } from '../../utills/validateFields';
 import { saveAddress } from '../../actions/auth';
-import Container from '@material-ui/core/Container';
 
 const strongPink = pink[500];
 
@@ -240,6 +241,11 @@ const AddressBook = ({ user, saveAddress }) => {
 			</form>
 		</>
 	);
+};
+
+AddressBook.propTypes = {
+	user: PropTypes.object.isRequired,
+	saveAddress: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({

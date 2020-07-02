@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Slider from '@material-ui/lab/Slider';
 import Typography from '@material-ui/core/Typography';
@@ -28,7 +29,7 @@ const Price = ({ chosenFilter, loadFilteredProducts }) => {
 	const load = price => {
 		loadFilteredProducts({
 			brands: chosenFilter.brands,
-			price: price,
+			price,
 			size: chosenFilter.size,
 			startPage: 0,
 		});
@@ -50,6 +51,11 @@ const Price = ({ chosenFilter, loadFilteredProducts }) => {
 			</Typography>
 		</>
 	);
+};
+
+Price.propTypes = {
+	chosenFilter: PropTypes.object.isRequired,
+	loadFilteredProducts: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({

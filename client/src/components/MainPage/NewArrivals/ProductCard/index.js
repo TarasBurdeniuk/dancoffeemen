@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -71,6 +72,14 @@ const ImgMediaCard = ({ src, price, name, _id, handleClick }) => {
 			</Button>
 		</Card>
 	);
+};
+
+ImgMediaCard.propTypes = {
+	src: PropTypes.string.isRequired,
+	price: PropTypes.number.isRequired,
+	name: PropTypes.string.isRequired,
+	_id: PropTypes.string.isRequired,
+	handleClick: PropTypes.func.isRequired,
 };
 
 export default ImgMediaCard;

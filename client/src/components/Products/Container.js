@@ -88,6 +88,10 @@ const ProductsContainer = props => {
 ProductsContainer.propTypes = {
 	sorting: PropTypes.string.isRequired,
 	quantity: PropTypes.number.isRequired,
+	handleChangeSorting: PropTypes.func.isRequired,
+	handleSelectGrid: PropTypes.func.isRequired,
+	handleSelectList: PropTypes.func.isRequired,
+	handleClearFilter: PropTypes.func.isRequired,
 };
 
 export default ProductsContainer;

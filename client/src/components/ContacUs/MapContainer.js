@@ -1,5 +1,6 @@
 import React from 'react';
 import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
+import PropTypes from 'prop-types';
 
 const style = {
 	maxWidth: '1160px',
@@ -18,9 +19,13 @@ const MapContainer = ({ google }) => {
 			style={style}
 			zoom={14}
 		>
-			<Marker name={'Current location'} />
+			<Marker name="Current location" />
 		</Map>
 	);
+};
+
+MapContainer.propTypes = {
+	google: PropTypes.object.isRequired,
 };
 
 export default GoogleApiWrapper({

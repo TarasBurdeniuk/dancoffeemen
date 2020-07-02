@@ -36,6 +36,7 @@ const initialState = {
 
 const product = (state = initialState, action) => {
 	const { type, payload, filter } = action;
+	let prod = [];
 	switch (type) {
 		case LOADING:
 			return { ...state, loading: true };
@@ -65,7 +66,6 @@ const product = (state = initialState, action) => {
 				quantityChosenFilter: 0,
 			};
 		case LOAD_FILTERED_PRODUCTS:
-			let prod = [];
 			if (filter.startPage > 0) {
 				prod = [...state.filteredProducts.concat(...payload.products)];
 			} else {

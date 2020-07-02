@@ -119,7 +119,7 @@ export const createOrder = (form, products, totalPrice) => async dispatch => {
 	const orderProducts = products.filter(product => product.addQuantity > 0);
 	const orderForm = {
 		products: orderProducts,
-		totalPrice: totalPrice,
+		totalPrice,
 		shipping: 'some shipping',
 		deliveryAddress: { ...form },
 		orderStatus: 'in progress',

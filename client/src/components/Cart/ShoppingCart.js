@@ -9,8 +9,8 @@ import Clear from '@material-ui/icons/Clear';
 import { PropTypes } from 'prop-types';
 import pink from '@material-ui/core/colors/pink';
 import grey from '@material-ui/core/colors/grey';
-import { setQuantity, removeProduct } from '../../actions/basket';
 import { Link } from 'react-router-dom';
+import { setQuantity, removeProduct } from '../../actions/basket';
 import { calc } from '../../utills/func';
 
 const lightPink = pink[300];
@@ -117,7 +117,7 @@ const ShoppingCart = props => {
 	const { products, setQuantity, removeProduct } = props;
 
 	const handleIncrement = prod => {
-		let quantity = prod.addQuantity + 1;
+		const quantity = prod.addQuantity + 1;
 		if (prod.addQuantity < prod.quantity) {
 			setQuantity(prod, quantity);
 		}
@@ -226,6 +226,8 @@ const ShoppingCart = props => {
 
 ShoppingCart.propTypes = {
 	products: PropTypes.arrayOf(PropTypes.object).isRequired,
+	setQuantity: PropTypes.func.isRequired,
+	removeProduct: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({

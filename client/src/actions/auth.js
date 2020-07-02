@@ -54,7 +54,7 @@ export const register = ({ name, phone, email, password }) => async dispatch => 
 
 		dispatch(loadUser());
 	} catch (err) {
-		const errors = err.response.data.errors;
+		const { errors } = err.response.data;
 		console.error(errors);
 
 		dispatch({
@@ -83,7 +83,7 @@ export const login = (email, password) => async dispatch => {
 
 		dispatch(loadUser());
 	} catch (err) {
-		const errors = err.response.data.errors;
+		const { errors } = err.response.data.errors;
 		console.error(errors);
 
 		dispatch({
@@ -115,7 +115,7 @@ export const saveAddress = form => async dispatch => {
 			payload: res.data,
 		});
 	} catch (err) {
-		const errors = err.response.data.errors;
+		const { errors } = err.response.data.errors;
 		console.error(errors);
 
 		dispatch({
@@ -134,7 +134,7 @@ export const loadUserOrders = () => async dispatch => {
 			payload: orders.data,
 		});
 	} catch (err) {
-		const errors = err.response.data.errors;
+		const { errors } = err.response.data.errors;
 		console.error(errors);
 
 		dispatch({
@@ -152,7 +152,7 @@ export const loadUserOrderById = orderId => async dispatch => {
 			payload: order.data,
 		});
 	} catch (err) {
-		const errors = err.response.data.errors;
+		const { errors } = err.response.data.errors;
 		console.error(errors);
 		dispatch({
 			type: ORDER_ERROR,

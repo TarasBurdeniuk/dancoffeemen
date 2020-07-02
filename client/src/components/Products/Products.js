@@ -10,10 +10,10 @@ import Button from '@material-ui/core/Button';
 import { GridOn, List } from '@material-ui/icons';
 import pink from '@material-ui/core/colors/pink';
 import PropTypes from 'prop-types';
+import grey from '@material-ui/core/colors/grey';
 import { loadProducts, loadFilteredProducts } from '../../actions/products';
 import Spinner from '../Loading';
 import { addToBasket } from '../../actions/basket';
-import grey from '@material-ui/core/colors/grey';
 
 const strongPink = pink[800];
 const strongGrey = grey[700];
@@ -261,9 +261,9 @@ const Products = props => {
 				className={classes.infinity}
 				pageStart={0}
 				loadMore={loadMore}
-				hasMore={true}
+				hasMore
 				threshold={100}
-				useWindow={true}
+				useWindow
 			>
 				{list}
 			</InfiniteScroll>
@@ -274,12 +274,18 @@ const Products = props => {
 
 Products.propTypes = {
 	products: PropTypes.oneOfType([PropTypes.func, PropTypes.array]).isRequired,
-	sorting: PropTypes.string.isRequired,
 	quantity: PropTypes.number.isRequired,
 	addToBasket: PropTypes.func.isRequired,
 	loadFilteredProducts: PropTypes.func.isRequired,
 	loadProducts: PropTypes.func.isRequired,
 	loading: PropTypes.bool.isRequired,
+	handleSelectGrid: PropTypes.func.isRequired,
+	handleSelectList: PropTypes.func.isRequired,
+	startPage: PropTypes.number.isRequired,
+	quantityAllProducts: PropTypes.number.isRequired,
+	quantityChosenFilter: PropTypes.number.isRequired,
+	filteredProducts: PropTypes.array.isRequired,
+	chosenFilter: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({

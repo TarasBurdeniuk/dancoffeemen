@@ -9,6 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import pink from '@material-ui/core/colors/pink';
 import {
 	validateName,
 	validateEmail,
@@ -16,7 +17,6 @@ import {
 	validatePassword,
 } from '../../utills/validateFields';
 import { register } from '../../actions/auth';
-import pink from '@material-ui/core/colors/pink';
 
 const pinkStrong = pink[500];
 
@@ -259,6 +259,10 @@ const SignUp = ({ register, isAuthenticated }) => {
 SignUp.propTypes = {
 	register: PropTypes.func.isRequired,
 	isAuthenticated: PropTypes.bool,
+};
+
+SignUp.defaultProps = {
+	isAuthenticated: null,
 };
 
 const mapStateToProps = state => ({
