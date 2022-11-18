@@ -16,7 +16,7 @@
         "react-jss": "^8.6.1",
         "react-redux": "^7.1.0",
         "react-router-dom": "^5.0.1",
-        "react-scripts": "3.0.1",
+        "react-scripts": "5.0.1",
         "react-swipeable-views": "^0.13.3",
         "react-swipeable-views-utils": "^0.13.3",
         "redux": "^4.0.1",
